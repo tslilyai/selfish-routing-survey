@@ -2427,9 +2427,9 @@ Computing Machinery]
     \fancyheadoffset[RO,LE]{0.6\@folio@wd}%
   \or % acmlarge
     \if@ACM@nonacm\else%
-      \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
-      \@acmNumber, Article \@acmArticle.  Publication date:
-      \@acmPubDate.}%
+      %\fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
+      %\@acmNumber, Article \@acmArticle.  Publication date:
+      %\@acmPubDate.}%
     \fi%
     \fancyhead[RO]{\@folioblob}%
     \fancyhead[LE]{\ACM@linecountL\@folioblob}%
