@@ -87,9 +87,29 @@ Finding the best strategy for network and traffic routing has historically been 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background}
+This section presents a brief history of traffic routing algorithms, defining the terminology
+and the problem that these algorithms address.
+
+\subsection{The Routing Problem}
+Traffic routing problems naturally arise in communication or transportation networks, where
+links in the network often becomes \emph{congested} if too many users decide to route their data 
+or cars through that link. In these networks, the path each user chooses can affect the travel times of other
+users.
+We can formalize this problem as follows, as done by Roughgarden and Tardos in their seminal work on selfish routing~\cite{tardos}\cite{roughgarden}. We are given the following components:
+\begin{itemize}
+    \item A network $G = (V, E)$ comprised of $|V|$ nodes (e.g., locations or servers) and $|E|$ edges between each node acting as links
+    \item A set of $k$ source-destination $\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
+    \item A rate $r_e$ for each $e\in E$ representing how fast traffic can flow through each edge 
+\end{itemize}
+
+arises when 
+communication networks, transportation, 
+
+\subsection{The Problem Statement}
+
 \section{The Selfish Human Model}
 
-\subsection{Background}
 Game theory stuff?
 
 \subsection{Model}
@@ -130,7 +150,7 @@ Clearly the models we present are a miniscule subset of all potential models for
 furthermore, they are coarse-grained and oversimplistic in comparison with the complexity of the human
 brain. As understanding of the human neurophysiological organism improves, we hope to see a matching evolution in the precision and accuracy of these models for traffic routing as well.
 
-\bibliographystyle{acm}
 \bibliography{paper}
+\bibliographystyle{acm}
 
 \end{document}
