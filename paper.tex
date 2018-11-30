@@ -97,17 +97,28 @@ links in the network often becomes \emph{congested} if too many users decide to 
 or cars through that link. In these networks, the path each user chooses can affect the travel times of other
 users.
 
-More formally, the input to a traffic routing problem consists of the following, as is defined by Roughgarden and Tardos in their seminal work on selfish routing~\cite{tardos}\cite{roughgarden}:
+\medskip\noindent
+\textbf{The input} to a traffic routing problem consists of the following, as is defined by Roughgarden and Tardos in their seminal work on selfish routing~\cite{tardos,roughgarden}:
 \begin{itemize}
     \item A network $G = (V, E)$ of $|V|$ nodes (e.g., locations or servers) and $|E|$ links 
-    \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
     \item A {rate} $r_i$ of traffic for each $(s_i,t_i)\in S$ representing the demanded amount of traffic from $s_i$ to $t_i$
-    \item A {latency} cost function per edge $e\in E$ that describes how adding traffic (i.e.,congesting) $e$ affects how long it takes to travel time across $e$.
+    \item A {latency} cost function $c_e$ per edge $e\in E$ that describes how adding traffic (i.e., congestion) to $e$ affects how long it takes to travel time across $e$.
+    \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
 \end{itemize}
 
-A \emph{feasible} solution given such an input is TODO.
+\medskip\noindent
+\textbf{Solutions} correspond to flow assignments to the set of simple paths $P_i$ between $s_i$ and $t_i$ for all $i$.
+\begin{itemize}
+    \item Let $f_p$ be the flow on a single path $p \in P_i$. This adds $f_p$ flow to all edges in $p$. Correspondingly, we let $f_e = \sum_p \sum_{e\in p} f_p$ be the edge flow on edge $e$. This is the sum of flow on all paths that use $e$. 
+    \item A \emph{feasible} solution given such an input is an assignment of path flows such that the demand from $s_i$ to $t_i$ is met:
+$$\forall i,~\sum_{p\in P_i} f_p = r_i$$
+    \item An \emph{optimal} (feasible) solution given such an input is the feasible assignment of path flows that minimizes the total cost:
+$$\min_{f} \sum_p \sum_{e\in p} c_e(f_e)$$
+\end{itemize}
 
-An \emph{optimal} solution given such an input is TODO.
+\medskip\noindent
+\textbf{Analysis} of a particular solution evaluates how inefficient the solution is compared to the optimum, i.e., how much larger 
+the latency exceeds the minimum possible latency.
 
 \subsection{Equilibria}
 
