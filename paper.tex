@@ -91,12 +91,13 @@ Finding the best strategy for network and traffic routing has historically been 
 This section presents a brief history of traffic routing algorithms, defining the terminology
 and the problem that these algorithms address.
 
-\subsection{The Routing Problem}
+\subsection{Multicommodity Flow Networks}
 Traffic routing problems naturally arise in communication or transportation networks, where
 links in the network often becomes \emph{congested} if too many users decide to route their data 
 or cars through that link. In these networks, the path each user chooses can affect the travel times of other
 users.
-We can formalize this problem as follows, as done by Roughgarden and Tardos in their seminal work on selfish routing~\cite{tardos}\cite{roughgarden}. We are given the following components:
+
+More formally, the input to a traffic routing problem consists of the following, as is defined by Roughgarden and Tardos in their seminal work on selfish routing~\cite{tardos}\cite{roughgarden}:
 \begin{itemize}
     \item A network $G = (V, E)$ of $|V|$ nodes (e.g., locations or servers) and $|E|$ links 
     \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
@@ -104,7 +105,11 @@ We can formalize this problem as follows, as done by Roughgarden and Tardos in t
     \item A {latency} cost function per edge $e\in E$ that describes how adding traffic (i.e.,congesting) $e$ affects how long it takes to travel time across $e$.
 \end{itemize}
 
-\subsection{Game theory}
+A \emph{feasible} solution given such an input is TODO.
+
+An \emph{optimal} solution given such an input is TODO.
+
+\subsection{Equilibria}
 
 \subsection{The Selfish Human Model}
 
