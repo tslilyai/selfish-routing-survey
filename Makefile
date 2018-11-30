@@ -50,6 +50,7 @@ clean:
 	*.ilg *.ind *.out *.lof \
 	*.lot *.bbl *.blg *.gls *.cut *.hd \
 	*.dvi *.ps *.thm *.tgz *.zip *.rpi \
+	*.pdf
 
 distclean: clean
 	$(RM) $(PDF) 

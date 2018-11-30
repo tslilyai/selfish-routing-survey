@@ -98,21 +98,15 @@ or cars through that link. In these networks, the path each user chooses can aff
 users.
 We can formalize this problem as follows, as done by Roughgarden and Tardos in their seminal work on selfish routing~\cite{tardos}\cite{roughgarden}. We are given the following components:
 \begin{itemize}
-    \item A network $G = (V, E)$ comprised of $|V|$ nodes (e.g., locations or servers) and $|E|$ edges between each node acting as links
-    \item A set of $k$ source-destination $\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
-    \item A rate $r_e$ for each $e\in E$ representing how fast traffic can flow through each edge 
+    \item A network $G = (V, E)$ of $|V|$ nodes (e.g., locations or servers) and $|E|$ links 
+    \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
+    \item A {rate} $r_i$ of traffic for each $(s_i,t_i)\in S$ representing the demanded amount of traffic from $s_i$ to $t_i$
+    \item A {latency} cost function per edge $e\in E$ that describes how adding traffic (i.e.,congesting) $e$ affects how long it takes to travel time across $e$.
 \end{itemize}
 
-arises when 
-communication networks, transportation, 
+\subsection{Game theory}
 
-\subsection{The Problem Statement}
-
-\section{The Selfish Human Model}
-
-Game theory stuff?
-
-\subsection{Model}
+\subsection{The Selfish Human Model}
 
 \subsection{Results}
 
@@ -148,7 +142,7 @@ Game theory stuff?
 \subsection{Future Work}
 Clearly the models we present are a miniscule subset of all potential models for human behavior; 
 furthermore, they are coarse-grained and oversimplistic in comparison with the complexity of the human
-brain. As understanding of the human neurophysiological organism improves, we hope to see a matching evolution in the precision and accuracy of these models for traffic routing as well.
+brain. As understanding of the neurophysiological aspects of human behavior improves, we hope to see a matching evolution in the precision and accuracy of these models for traffic routing as well.
 
 \bibliography{paper}
 \bibliographystyle{acm}
