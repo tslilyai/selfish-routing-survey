@@ -1,6 +1,7 @@
 \documentclass[acmlarge]{acmart}
 
 \usepackage{booktabs} % For formal tables
+\usepackage{xxxnotes} 
 
 % Metadata Information
 %\acmJournal{PACMHCI}
@@ -113,7 +114,7 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem as
 
    A \emph{feasible} solution given such an input is an assignment of path flows such that the demand from $s_i$ to $t_i$ is met:
 $$\forall i,~\sum_{p\in P_i} f_p = r_i$$
-   An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the total cost $C(f)$, where
+   An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the \textbf{total cost} $C(f)$, where
 $$C(f) = \sum_i\sum_{p\in P_i}c_p(f)f_p = \sum_{e\in E} c_e(f_e)\cdot f_e$$
 Intuitively, we are calculating the cost of each path of a given flow assignment, weighing 
 each path's cost proportional to the amount of flow through the path.
@@ -125,17 +126,14 @@ There are two clear extremes: (1) centralized control, in which some entity (e.g
 (2) decentralization, i.e., a complete \emph{lack} of coordination between
 entities in the network.
 
-In the setting with centralized control, there is one clear optimal solution, which has been shown
-solvable with a (non-integral) linear program (given a linear latency cost function).
+In the setting with centralized control, there is a clear optimal solution as described before.
+However, in a decentralized and uncoordinated model, the lack of coordination can result in
+inefficiencies. One such example of an uncoordinated model is the \emph{selfish routing} model, i.e. 
+a model in which all entities in the network are selfish and choose a route minimizing their individual latency without caring (or knowing) about the effects on other users~\cite{tardos}.
+In this selfish routing model, we can measure the ratio between the optimal and selfish outcomes, just as we had measured the distance from optimal of an approximation algorithm in a limited computational power model, and of online algorithms in an incomplete information model. 
 
-Similar to how approximation algorithms work in a limited computational power model and how 
-online algorithms work under a model of incomplete information, 
-traffic routing algorithms typically assume a model in which there is a \emph{lack} of coordination
-between entities in the network. 
-
-\subsection{The Selfish Human Model}
-
-\subsection{Results}
+\subsection{The Selfish Routing Model: The Price of Anarchy}
+\XXX{TODO put results here}
 
 \textbf{Analysis} 
 TODO: talk about optimum and maybe price of anarchy? Need to move models first
