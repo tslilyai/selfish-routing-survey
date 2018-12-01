@@ -89,42 +89,57 @@ Finding the best strategy for network and traffic routing has historically been 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background}
 This section presents a brief history of traffic routing algorithms, defining the terminology
-and the problem that these algorithms address.
+and the traffic routing problem.
 
-\subsection{Multicommodity Flow Networks}
+\subsection{The Traffic Routing Problem}
 Traffic routing problems naturally arise in communication or transportation networks, where
 links in the network often becomes \emph{congested} if too many users decide to route their data 
 or cars through that link. In these networks, the path each user chooses can affect the travel times of other
-users.
+users. Here, we describe Roughgarden and Tardos' formalization of the problem as multicommodity flow networks~\cite{tardos,roughgarden}.
 
 \medskip\noindent
-\textbf{The input} to a traffic routing problem consists of the following, as is defined by Roughgarden and Tardos in their seminal work on selfish routing~\cite{tardos,roughgarden}:
+\textbf{The input} to a traffic routing problem consists of:
 \begin{itemize}
     \item A network $G = (V, E)$ of $|V|$ nodes (e.g., locations or servers) and $|E|$ links 
     \item A {rate} $r_i$ of traffic for each $(s_i,t_i)\in S$ representing the demanded amount of traffic from $s_i$ to $t_i$
-    \item A {latency} cost function $c_e$ per edge $e\in E$ that describes how adding traffic (i.e., congestion) to $e$ affects how long it takes to travel time across $e$.
+    \item A {latency} cost function $c$ that assigns a per-edge function $c_e$ to each edge $e$ describing how adding traffic (i.e., congestion) to $e$ affects how long it takes to travel time across $e$. We can also think of $c$ as assigning per-path costs: for any path $p$ in the graph
+        $$c_p(f) = \sum_{e\in P}c_e(f_e)$$ 
+        We assume that $c$ is continuous, nonnegative, and nondecreasing.
     \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
 \end{itemize}
 
 \medskip\noindent
-\textbf{Solutions} correspond to flow assignments to the set of simple paths $P_i$ between $s_i$ and $t_i$ for all $i$.
-\begin{itemize}
-    \item Let $f_p$ be the flow on a single path $p \in P_i$. This adds $f_p$ flow to all edges in $p$. Correspondingly, we let $f_e = \sum_p \sum_{e\in p} f_p$ be the edge flow on edge $e$. This is the sum of flow on all paths that use $e$. 
-    \item A \emph{feasible} solution given such an input is an assignment of path flows such that the demand from $s_i$ to $t_i$ is met:
+\textbf{Solutions} correspond to flow assignments to the set of simple paths $P_i$ between $s_i$ and $t_i$ for all $i$. To describe a flow assignment $f$, we can consider $f_p$, the flow on a single path $p \in P_i$ (this adds an equal amount of flow $f_p$ to all edges in $p$), as well as $f_e = \sum_p \sum_{e\in p} f_p$, the edge flow on edge $e$ (the sum of flow on all paths that use $e$).
+
+   A \emph{feasible} solution given such an input is an assignment of path flows such that the demand from $s_i$ to $t_i$ is met:
 $$\forall i,~\sum_{p\in P_i} f_p = r_i$$
-    \item An \emph{optimal} (feasible) solution given such an input is the feasible assignment of path flows that minimizes the total cost:
-$$\min_{f} \sum_p \sum_{e\in p} c_e(f_e)$$
-\end{itemize}
+   An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the total cost $C(f)$, where
+$$C(f) = \sum_i\sum_{p\in P_i}c_p(f)f_p = \sum_{e\in E} c_e(f_e)\cdot f_e$$
+Intuitively, we are calculating the cost of each path of a given flow assignment, weighing 
+each path's cost proportional to the amount of flow through the path.
+There exists an optimal flow $f^*$ minimizing $C(f)$ because we assume $c$ is continuous and the set of feasible flows is compact.
 
-\medskip\noindent
-\textbf{Analysis} of a particular solution evaluates how inefficient the solution is compared to the optimum, i.e., how much larger 
-the latency exceeds the minimum possible latency.
+\subsection{Coordination Models}
+Before we can create algorithms to solve the traffic routing problem, we must first assume a \emph{coordination model} for our traffic network.
+There are two clear extremes: (1) centralized control, in which some entity (e.g., an air traffic controller) knows all traffic demands and routes accordingly, and
+(2) decentralization, i.e., a complete \emph{lack} of coordination between
+entities in the network.
 
-\subsection{Equilibria}
+In the setting with centralized control, there is one clear optimal solution, which has been shown
+solvable with a (non-integral) linear program (given a linear latency cost function).
+
+Similar to how approximation algorithms work in a limited computational power model and how 
+online algorithms work under a model of incomplete information, 
+traffic routing algorithms typically assume a model in which there is a \emph{lack} of coordination
+between entities in the network. 
 
 \subsection{The Selfish Human Model}
 
 \subsection{Results}
+
+\textbf{Analysis} 
+TODO: talk about optimum and maybe price of anarchy? Need to move models first
+%of a particular solution evaluates how inefficient the solution is compared to the optimum, i.e., by how much the latency exceeds the minimum possible latency.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
