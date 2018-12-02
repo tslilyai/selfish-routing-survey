@@ -138,7 +138,10 @@ at equilibrium.
 \subsection{The Selfish Routing Model}
 One example of an uncoordinated model is the \emph{selfish routing} model, in which all entities in the network are selfish and choose a route minimizing their individual latency without caring (or knowing) about the effects on other users~\cite{tardos}.
 
-\XXX{TODO equilibrium}
+The selfish routing model corresponds to flows at a \emph{Wardrop, or Nash equilibrium}~\cite{wardrop,haurie}.
+The set of flows in a Wardrop equilibrium are defined such that for all $i$ source-destination pairs, all the paths from $s_i \to t_i$ have the minimum-possible cost. In other words, the (nonzero) 
+flow paths at Wardrop equilibrium have equal path costs: 
+$$\forall i,~\forall p_1, p_2\in P_i,~f_p > 0 \implies c_{p_1}(f) = c_{p_2}(f)$$
 
 We next describe and present the main results regarding the PoA in this (decentralized) selfish routing model, which will act as a basis to which we will compare traffic routing results in more recently formulated models.
 
