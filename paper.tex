@@ -37,7 +37,7 @@
 % Document starts
 \begin{document}
 % Title portion
-\title{The Price of Human Behaviors}
+\title{The Price of Human Nature}
 
 \author{Lillian Tsai}
 \orcid{1234-5678-9012-3456}
@@ -80,9 +80,8 @@ Finding the best strategy for network and traffic routing has historically been 
     \item Introduce noncooperative games / Nash equilibrium (in network setting)
     \item Briefly introduce selfish routing paper / price of anarchy
     \item Discuss how it is a limited view of human behavior
-    \item Briefly discuss alternatives (papers including taxes, etc.)
-    \item There are newer papers with more interesting versions of human behavior
-    \item We present a survey of these newer papers to show how human behaviors affect price of anarchy
+    \item Briefly discuss alternatives (papers including taxes, different objectives, atomic games, studies on network structure)
+    \item Us: There are newer papers with more interesting versions of human behavior, and we present a survey of these newer papers to show how human behaviors affect price of anarchy
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -100,7 +99,7 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem as
 
 \begin{figure}[ht!]
 \begin{center}
-\begin{tikzpicture}[scale=0.2]
+\begin{tikzpicture}[scale=0.1]
 \tikzstyle{every node}+=[inner sep=0pt]
 \draw [black] (18,-17.9) circle (3);
 \draw (18,-17.9) node {$s$};
@@ -138,14 +137,14 @@ of entities in the network, which allows us to reason about continuous, rather t
 To describe a flow assignment $f$, we can consider $f_p$, the flow on a single path $p \in P_i$ (this adds an equal amount of flow $f_p$ to all edges in $p$), as well as $f_e = \sum_p \sum_{e\in p} f_p$, the edge flow on edge $e$ (the sum of flow on all paths that use $e$).
 
 A \emph{feasible} solution given such an input is an assignment of path flows such that the demand from $s_i$ to $t_i$ is met:
-$$\forall i,~\sum_{p\in P_i} f_p = r_i$$
+$$\forall 1 \le i \le k,~\sum_{p\in P_i} f_p = r_i$$
 %
 An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the \textbf{total weighted cost} $C(f)$, where
 $$C(f) = \sum_i\sum_{p\in P_i}c_p(f)f_p = \sum_{e\in E} c_e(f_e)\cdot f_e$$
 Intuitively, we are calculating the cost of each path of a given flow assignment, weighing 
 each path's cost proportional to the amount of flow through the path. More concretely,
 if we were to let flow represent the routes chosen by (infinitely many) users, $C(f)$ calculates the average cost over all users. Thus, when minimizing $C(f)$, some users may incur 
-more latency so that other users can go faster.
+more latency so that other users can go faster: the optimal flow is the \emph{socially optimal} solution.
 Note that there exists an optimal flow $f^*$ minimizing $C(f)$ because we assume $c$ is continuous and the set of feasible flows is compact.
 
 In our running example (Figure~\ref{fig:Pigou}), a feasible flow is any flow that sends one unit from $s$ to $t$ (divided in any fashion between the top and bottom edges).
@@ -172,24 +171,31 @@ One example of an uncoordinated model is the \emph{selfish routing} model, in wh
 The selfish routing model corresponds to flows at a \emph{Wardrop, or Nash equilibrium}~\cite{wardrop,haurie}.
 The set of flows in a Wardrop equilibrium are defined such that for all $i$ source-destination pairs, all the paths from $s_i \to t_i$ have the minimum-possible cost. In other words, the (nonzero) 
 flow paths at Wardrop equilibrium have equal path costs: 
-$$\forall i,~\forall p_1, p_2\in P_i,~f_{p_1} > 0 \implies c_{p_1}(f) = c_{p_2}(f)$$
+$$\forall 0\le i \le k,~\forall p_1, p_2\in P_i~s.t.~f_{p_1} > 0~\text{and} f_{p_2} > 0,~ c_{p_1}(f) = c_{p_2}(f)$$
 
 If we revisit our running example in Figure~\ref{fig:Pigou}, we note that the flow at Wardrop equilibrium corresponds to a flow that sends the entire unit of traffic through the bottom edge (the 0 flow through the top path has a cost of 1, and the unit flow through the bottom path will have cost 1).
 Intuitively, each user routing from $s$ to $t$ will selfishly choose to take the bottom route because she will reason that the bottom route can have cost no worse than the top route. However, by doing so, the bottom route becomes more congested and leads to a total average cost $C(f) = 1$.
 Thus, in Figure~\ref{fig:Pigou}, the price of anarchy is $\frac{1}{3/4} = \frac{4}{3}$.
 
-\XXX{TODO should put more results about flows at Wardrop equilibrium? Not sure if important}
+\XXX{TODO should put more results about flows at Wardrop equilibrium? Not sure if important... the altruism paper has a good short description about how to compute Nash equilibria in polynomial time to 
+find the selfish routing solution}
 
 We next describe and present the main results regarding the PoA in this (decentralized) selfish routing model, which will act as a basis to which we will compare traffic routing results in more recently formulated models.
 
 \XXX{TODO put results here}
+\XXX{Result about unbounded PoA (use Pigou's example, maybe add figure)}
+\XXX{Result about 4/3 PoA if functions linear}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Alternative Models}
+In this section, we present and compare a subset of recent coordination models for the traffic routing problem against the selfish routing model. These models propose a more nuanced (and perhaps more accurate) description of human behavior.
+\XXX{TODO more summary once we have more insights?}
 
 \subsection{Altruistic}
+The first alternative model we consider is that proposed by Chen and Kempe in 2008~\cite{chen}, which assumes that users are ``not entirely selfish.''
+
 \subsubsection{Model}
 \subsubsection{Results}
 
