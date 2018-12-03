@@ -57,6 +57,7 @@ each path's cost proportional to the amount of flow through the path. More concr
 if we were to let flow represent the routes chosen by (infinitely many) users, $C(f)$ calculates the average cost over all users. Thus, when minimizing $C(f)$, some users may incur 
 more latency so that other users can go faster: the optimal flow is the \emph{socially optimal} solution.
 Note that there exists an optimal flow $f^*$ minimizing $C(f)$ because we assume $c$ is continuous and the set of feasible flows is compact.
+We will also refer to the total weighted cost as the \textbf{social welfare} cost.
 
 In our running example (Figure~\ref{fig:Pigou}), a feasible flow is any flow that sends one unit from $s$ to $t$ (divided in any fashion between the top and bottom edges).
 The optimal flow is the flow that sends half the traffic through the lower edge and half through the upper edge: the users on the lower edge only experience a cost of $1/2$, while the users on the upper edge experience a cost of $1$, making the total weighted cost $3/4$.

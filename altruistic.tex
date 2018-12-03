@@ -1,5 +1,19 @@
 \subsection{Altruistic}
 The first alternative model we consider is that proposed by Chen and Kempe in 2008~\cite{chen}, which assumes that users are ``not entirely selfish.''
+Chen and Kempe note that social experiments from both economic and psychology have shown humans do not behave rationally in a selfish manner; instead, our behavior is better modeled as either altruistic or malicious (spiteful).
+Their model proposes a simple way to capture how people make decisions based upon how much cost (latency) a particular decision will cost other users; if someone is spiteful, she will want to increase their cost, and if she are altruistic, she will want to decrease their cost.
 
-\subsubsection{Model}
+\paragraph{Formalization}
+More formally, the Chen and Kempe model introduces an \emph{altruism} coefficient $\beta$ and a new cost function
+$c^\beta_p$ for all paths $p$: 
+$$c^\beta_p(f) = \sum_{e \in p} c_e(f_e) + \beta\sum_{e\in P} f_ec'_e(f_e)$$
+where $c_e(\cdot)$ is the cost function from the selfish routing setting, and $c'_e(\cdot)$ is the derivative with respect to $f_e$.
+
+Note that the first term is exactly the cost used in the selfish routing model (and thus is equivalent to an altruism coefficient of $\beta = 0$).
+The second term corresponds to the derivative of the social welfare cost on $p$ and is weighted by $\beta$; intuitively, since we are dealing with an infinite number of users each controlling an infinitisimally small amount of the flow, we model the effect one user has on another 
+via the rate (derivative) at which that user's choice of path affects other users.
+
+If $\beta$ is negative, a user is spiteful: we know that adding a little more flow to $p$ will increase the social welfare cost of taking $p$ (the derivative $c'_e$ is positive), and since we negate this value, this lowers the user's perceived cost of taking $p$.
+Conversely, if $\beta$ is positive, a user is altruistic: increasing flow increases the social welfare cost on $p$ and also the user's perceived cost of taking $p$.
+
 \subsubsection{Results}
