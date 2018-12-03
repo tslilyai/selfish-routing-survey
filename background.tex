@@ -102,9 +102,15 @@ We next describe and present the main results regarding the PoA in this (decentr
 \begin{proof-sketch}
     In other words, this result suggests that the latency when all users of a network route with only their own interests in mind is utmost the optimal (minimum) latency for the same graph and latency functions
     with twice as much demand per path. 
+    
+    \includegraphics[width=1\textwidth]{graph}
 
-    - walk through the example
-    - give some intuition for why the proof is what it is
+    For any Nash Equilibrium solution $f$ for $(G, r, \ell)$ and any feasible solution $f^*$, we can draw the figures so that:
+    
+    The area under the black line from $0$ to $2f_e$ in subgraph (a) represents the cost of any feasible solution for $(G, 2r, \ell)$, and the area under the black line from $0$ to $2f_e$ in subgraph (b) represents the cost of any feasible solution for $(G, 2r, \ell)$. The area under the black line on the left side of $f_e$ in subgraph (a) represents the cost $C(f)$ of any Nash equilibrium solution for $(G, r, \ell)$. Note that since the area of t he area under the black line on the left side of $f_e$ in subgraph (a) is at least half of the dashed line, we know that the cost of any feasible solution for $(G, 2r, \ell)$, and the area under the black line from $0$ to $2f_e$ in subgraph (b) is at most $C(f)$ more than the cost of any feasible solution for $(G, 2r, \ell)$, and the area under the black line from $0$ to $2f_e$ in subgraph (a). So the area of the generalized trapezoid under the black line from $0$ to $2f_e$ is more than two times the area under the black line on the left side of $f_e$ in subgraph (b).
+    
+    The main idea of the proof for Theorem 1 lies in that the area under the black line between $f_e$ and $2f_e$ is at least as big as the area under the black line on the left side of $f_e$ in subgraph (b). This is always true because the latency $\bar{\ell}_e$ is a nondecreasing function and thus the graph of latency function gives a shape that looks like a generalized trapezoid (in particular, a right generalized trapezoid lying on the horizontal axis). Then we can obtain the result based on the property of a trapezoid shape. Therefore, the cost of any feasible solution for $(G, 2r, \ell)$ is at least twice the cost $C(f)$ of any Nash equilibrium solution for $(G, r, \ell)$. Then the area under the black line from $0$ to $2f_e$ in subgraph (a) is at least $2C(f)-C(f)$ and thus larger than $C(f)$. Therefore we have the result that the cost of any Nash equilibrium flow for $(G, r, \ell)$ is no bigger than represents the cost of any feasible solution for $(G, 2r, \ell)$.
+    
 \end{proof-sketch}
 
 \begin{theorem}
