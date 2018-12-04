@@ -3,8 +3,8 @@ The first alternative model we consider is that proposed by Chen and Kempe in 20
 Chen and Kempe note that social experiments from both economic and psychology have shown humans do not behave rationally in a selfish manner; instead, our behavior is better modeled as either altruistic or malicious (spiteful).
 Their model proposes a simple way to capture how people make decisions based upon how much cost (latency) a particular decision will cost other users; if someone is spiteful, she will want to increase their cost, and if she are altruistic, she will want to decrease their cost.
 
-\subsubsection{Formalization}
-More formally, the Chen and Kempe model introduces an \emph{altruism} coefficient $\beta$ and a new cost function
+\paragraph{Formalization}
+The formal Chen and Kempe model introduces a per-user \emph{altruism} coefficient $\beta$ and a new cost function
 $c^\beta_p$ for all paths $p$: 
 $$c^\beta_p(f) = \sum_{e \in p} c_e(f_e) + \beta\sum_{e\in P} f_ec'_e(f_e)$$
 where $c_e(\cdot)$ is the cost function from the selfish routing setting, and $c'_e(\cdot)$ is the derivative with respect to $f_e$.
@@ -18,40 +18,51 @@ If $\beta$ is negative, a user is spiteful: we know that adding a little more fl
 Conversely, if $\beta$ is positive, a user is altruistic: increasing flow increases the social welfare cost on $p$ and also the user's perceived cost of taking $p$.
 We assume that $\beta$ ranges from -1 (extremely spiteful) to 1 (extremely altruistic), where $\beta=0$ corresponds to selfishness.
 
-All analysis of the model assumes a particular distribution of $\beta$ for all users. We next present Chen and Kempe's core results for a uniform distribution (where all users have the same $\beta$ value) in arbitrary networks, and for a non-uniform distributions $\psi$ in parallel-link networks.
+All analysis of the model assumes a particular distribution $\psi$ of $\beta$ for all users. We next present Chen and Kempe's core results when $\psi$ is uniform (all users have the same $\beta$ value) in arbitrary networks, and when $\psi$ is non-uniform in parallel-link networks.
 
-\subsubsection{Results}
-We first consider the case where $\beta$ is uniformly distributed, such that $c^\beta_p$ is the same for each user.
+\XXX{TODO: Prove that each instance has nash equilibrium?}
 
+\paragraph{Uniformly Distributed Altruism}
+We first consider the case where $\psi$ is uniformly distributed, such that $\beta$ and therefore $c^\beta_p$ is the same for each user. We additionally assume that users tend to be altruistic, i.e., $\beta > 0$.
 \begin{theorem}
 For any input network $G$, demand rates $r$, and 
-uniformly distributed $\beta \in (0, 1]$,
+a uniform distribution $\psi$ with $\beta \in (0, 1]$,
 if $c_e$ is nondecreasing and semi-convex for all $e$,
     then the price of anarchy is bounded by 
-    $$\rho(G,r,c,\beta) \le \frac{1}{\beta}$$
+    $$\rho(G,r,c,\psi) \le \frac{1}{\beta}$$
 \end{theorem}
 
 \begin{proof-sketch}
 This proof is short. Will add... just follows from definition.
 \end{proof-sketch}
 
-\XXX{Maybe something about anarchy value and given class of cost functions? Could just mention (don't really need to give proof) since Tardos paper assumes same restrictions on cost function}
+Chen and Kempe then address the problem of spite: how (uniformly) spiteful can users be before the PoA becomes infinite?
+\begin{itemize}
+\item\XXX{Maybe something about anarchy value and given class of cost functions? Could just mention (don't really need to give proof) since Tardos paper assumes same restrictions on cost function.}
+\item\XXX{Not sure if we need this?}
+\item\XXX{Could also just do the case for linear cost functions? Say it expands for any class}
+\end{itemize}
 
-\XXX{Could also just do the case for linear cost functions? Say it expands for any class}
-
-Things become more interesting when users have a distribution $\psi$ of altruism.
+\paragraph{Arbitrarily Distributed Altruism}
+We now consider the more realistic scenario: when users have an arbitrary distribution $\psi$ of altruism.
+Chen and Kempe analyze bounds on the PoA in \emph{parallel link networks}, which have 
+only one demand source-sink pair $(s,t)$ and (parallel) edges only between $s$ and $t$.
+%Stackleberg routing shown to have unlimited PoA in single-commodity networks
 
 \begin{theorem}
 Convex + nondecreasing -> 1/(average altruism)
-Only in parallel link networks!
 \end{theorem}
 
 \begin{proof-sketch}
 \XXX{TODO a bit complicated...}
 \end{proof-sketch}
 
-\XXX{Maybe something about anarchy value and given class of cost functions? Could just mention (don't really need to give proof) since Tardos paper assumes same restrictions on cost function}
+\begin{itemize}
+\item \XXX{Result about centralized control?}
+\item \XXX{Address spite (not possible to include negative support)}
 
-\XXX{Could also just do the case for linear cost functions? Say it expands for any class}
+%Almost all of the latency is incurred by a small fraction of spiteful users who together
+%congest a link with very steep increase. At the same time, all altruistic users use links with very small constant latency.
+%Then, the PoA is much larger than 1, while the bounds of both theorems would require it to be close to 1
 
-\XXX{They do 0 analysis on the cost of spite (I guess this could just get arbitrarily bad?)}
+\end{itemize}
