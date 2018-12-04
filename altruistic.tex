@@ -1,19 +1,57 @@
-\subsection{Altruistic}
+\subsection{Altruism and Spite}
 The first alternative model we consider is that proposed by Chen and Kempe in 2008~\cite{chen}, which assumes that users are ``not entirely selfish.''
 Chen and Kempe note that social experiments from both economic and psychology have shown humans do not behave rationally in a selfish manner; instead, our behavior is better modeled as either altruistic or malicious (spiteful).
 Their model proposes a simple way to capture how people make decisions based upon how much cost (latency) a particular decision will cost other users; if someone is spiteful, she will want to increase their cost, and if she are altruistic, she will want to decrease their cost.
 
-\paragraph{Formalization}
+\subsubsection{Formalization}
 More formally, the Chen and Kempe model introduces an \emph{altruism} coefficient $\beta$ and a new cost function
 $c^\beta_p$ for all paths $p$: 
 $$c^\beta_p(f) = \sum_{e \in p} c_e(f_e) + \beta\sum_{e\in P} f_ec'_e(f_e)$$
 where $c_e(\cdot)$ is the cost function from the selfish routing setting, and $c'_e(\cdot)$ is the derivative with respect to $f_e$.
 
 Note that the first term is exactly the cost used in the selfish routing model (and thus is equivalent to an altruism coefficient of $\beta = 0$).
-The second term corresponds to the derivative of the social welfare cost on $p$ and is weighted by $\beta$; intuitively, since we are dealing with an infinite number of users each controlling an infinitisimally small amount of the flow, we model the effect one user has on another 
-via the rate (derivative) at which that user's choice of path affects other users.
+The second term corresponds to the derivative of the social welfare cost on $p$ and is weighed by $\beta$; we use the derivative, rather than the value, of the social welfare cost on $p$ because each user only controls an infinitesimally small amount of the flow. Thus, if we were to use the value, 
+a single user's choice would have no effect on the social welfare cost! 
+Instead, a user can account for how she will affect the social welfare cost via the rate at which her  choice of path affects other users.
 
 If $\beta$ is negative, a user is spiteful: we know that adding a little more flow to $p$ will increase the social welfare cost of taking $p$ (the derivative $c'_e$ is positive), and since we negate this value, this lowers the user's perceived cost of taking $p$.
 Conversely, if $\beta$ is positive, a user is altruistic: increasing flow increases the social welfare cost on $p$ and also the user's perceived cost of taking $p$.
+We assume that $\beta$ ranges from -1 (extremely spiteful) to 1 (extremely altruistic), where $\beta=0$ corresponds to selfishness.
+
+All analysis of the model assumes a particular distribution of $\beta$ for all users. We next present Chen and Kempe's core results for a uniform distribution (where all users have the same $\beta$ value) in arbitrary networks, and for a non-uniform distributions $\psi$ in parallel-link networks.
 
 \subsubsection{Results}
+We first consider the case where $\beta$ is uniformly distributed, such that $c^\beta_p$ is the same for each user.
+
+\begin{theorem}
+For any input network $G$, demand rates $r$, and 
+uniformly distributed $\beta \in (0, 1]$,
+if $c_e$ is nondecreasing and semi-convex for all $e$,
+    then the price of anarchy is bounded by 
+    $$\rho(G,r,c,\beta) \le \frac{1}{\beta}$$
+\end{theorem}
+
+\begin{proof-sketch}
+This proof is short. Will add... just follows from definition.
+\end{proof-sketch}
+
+\XXX{Maybe something about anarchy value and given class of cost functions? Could just mention (don't really need to give proof) since Tardos paper assumes same restrictions on cost function}
+
+\XXX{Could also just do the case for linear cost functions? Say it expands for any class}
+
+Things become more interesting when users have a distribution $\psi$ of altruism.
+
+\begin{theorem}
+Convex + nondecreasing -> 1/(average altruism)
+Only in parallel link networks!
+\end{theorem}
+
+\begin{proof-sketch}
+\XXX{TODO a bit complicated...}
+\end{proof-sketch}
+
+\XXX{Maybe something about anarchy value and given class of cost functions? Could just mention (don't really need to give proof) since Tardos paper assumes same restrictions on cost function}
+
+\XXX{Could also just do the case for linear cost functions? Say it expands for any class}
+
+\XXX{They do 0 analysis on the cost of spite (I guess this could just get arbitrarily bad?)}
