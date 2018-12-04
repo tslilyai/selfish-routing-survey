@@ -3,7 +3,7 @@ The first alternative model we consider is that proposed by Chen and Kempe in 20
 Chen and Kempe note that social experiments from both economic and psychology have shown humans do not behave rationally in a selfish manner; instead, our behavior is better modeled as either altruistic or malicious (spiteful).
 Their model proposes a simple way to capture how people make decisions based upon how much cost (latency) a particular decision will cost other users; if someone is spiteful, she will want to increase their cost, and if she are altruistic, she will want to decrease their cost.
 
-\paragraph{Formalization}
+\subsubsection{Formalization}
 The formal Chen and Kempe model introduces a per-user \emph{altruism} coefficient $\beta$ and a new cost function
 $c^\beta_p$ for all paths $p$: 
 $$c^\beta_p(f) = \sum_{e \in p} c_e(f_e) + \beta\sum_{e\in P} f_ec'_e(f_e)$$
@@ -22,7 +22,7 @@ All analysis of the model assumes a particular distribution $\psi$ of $\beta$ fo
 
 \XXX{TODO: Prove that each instance has nash equilibrium?}
 
-\paragraph{Uniformly Distributed Altruism}
+\subsubsection{Uniformly Distributed Altruism}
 We first consider the case where $\psi$ is uniformly distributed, such that $\beta$ and therefore $c^\beta_p$ is the same for each user. We additionally assume that users tend to be altruistic, i.e., $\beta > 0$.
 \begin{theorem}
 For any input network $G$, demand rates $r$, and 
@@ -43,7 +43,7 @@ Chen and Kempe then address the problem of spite: how (uniformly) spiteful can u
 \item\XXX{Could also just do the case for linear cost functions? Say it expands for any class}
 \end{itemize}
 
-\paragraph{Arbitrarily Distributed Altruism}
+\subsubsection{Arbitrarily Distributed Altruism}
 We now consider the more realistic scenario: when users have an arbitrary distribution $\psi$ of altruism.
 Chen and Kempe analyze bounds on the PoA in \emph{parallel link networks}, which have 
 only one demand source-sink pair $(s,t)$ and (parallel) edges only between $s$ and $t$.
