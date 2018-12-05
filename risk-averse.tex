@@ -9,10 +9,38 @@ Nash equilibrium.
 %% is effectively the price of anarchy times the price of risk-aversion which intuitiveluy makes sense.
 
 \subsubsection{Formalization}
-- define risk aversion coefficient - the higher the more risk averse because you're minimizing objective
-- Mean-variance objective - additive factor allowing you to reason about optimal
-- K definition - mean to variance objective
-- note about results depending on the graph topology
+\begin{itemize}
+\item Problem instance
+    \begin{itemize}
+        \item define risk aversion coefficient $\gamma$ - the higher the more risk averse because you're minimizing objective
+        \item edge latencies no longer modelled as a determininistic function but rather with a deterministic part $l_e(f_e)$ and
+            a random variable $\xi_e(f_e)$ that represents the noise on the delay. This part is assumed to be independent across edges and has expectation
+            $0$ and variance $\sigma^2_e(f_e)$.
+        \item Now the expected latency on a path and the variance of the path ($\upsilon_p$) is just the sum of the expected delays and variances across all edges
+            on the path.
+        \item Problem is now $(G,r,l,\upsilon,\gamma)$ and we focus on $r = 1$ for a simpler scenario
+
+    \end{itemize}
+\item Mean-variance objective 
+    \begin{itemize}
+        \item additive factor allowing you to reason about optimal
+        \item assumed to be non-decreasing for the same reasons as the original model
+        \item the mean is similar to the old function we were minimizing or the latency alone 
+        \item but now we have an additional term that we are trying to minimize the variance depending on our risk-aversion coefficient
+        \item Players try to optimize for this mean-variance objective which takes both the above aspects into account which is collectively called path-cost
+    \end{itemize}
+
+\item Social Cost of a flow - sum of the expected latencies of all players $C(f) = \displaystyle \sum_{p \in P} f_pl_p(f) = 
+    \sum_{e \in E}f_el_e(f_e)$. This reoves the dependency on per user risk aversion coefficients and rather takes a look at the system as a whole.
+
+\item Define PRA 
+    \begin{itemize} 
+        \item $\upkappa$ definition -  variance to mean ratio and maximum bound on it
+        \item Maximum cost across some set of nash equlibria flows $x$ for the given problem instance that belongs 
+            to a certain class of instances and $\upsilon(x) \leq \upkappa l(x)$
+        \item note about results depending on the graph topology
+    \end{itemize}
+\end{itemize}
 
 
 \subsubsection{Main Results}
