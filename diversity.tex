@@ -1,5 +1,51 @@
 \subsection{Diverse in Interests}\label{sec:diversity}
+
+The third class of alternative models we consider are ones with diverse selfish behavior. Each agent pursues their own different selfish goal, resulting in a routing solution of the whole network. 
+
+Diverse selfish routing models are useful because they help us understand how we can leverage policies and natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. For example, tolls can help increase the social welfare. For example, Beckmann et. al. showed that tolls can help implement the social optimum as an equilibrium, when agents all have the same goal towards a linear combination of time and money \ref{????}.
+
+However, there is some ambiguity in measuring the optimality of any outcome of the whole network with diverse selfish behavior, because by definition, the objective function has changed from the objective of selfish routing with no agent heterogeneity and thus only one criterion. There are thus multiple reasonable ways to characterize the social welfare of a diverse routing network. We will discuss the model adopted by Cole, Lianeas and Nikolova and their newly published results in 2018.
+
 \subsubsection{Model}
+
+We have the same routing network with multiple source-destination pairs and continue with all our previous notations, except that we have included two criteria the players consider in the objective function.
+
+Each agent wants to minimize their own cost, which is a sum of two terms associated with two criteria. Let $\ell_P$ denote the cost of the first criterion (e.g., the latency) over some path $P=(s_i, t_i)$, and $\sigma_P$ be the cost of the second criterion, referred to as the {\it deviation function}. Then given a routing $f$ of the network, the cost of that path is given by $\ell_P+\gamma\cdot \sigma_P=\sum_{e\in P} \ell_e(f_e)+ \sum_{e\in P}\sigma_e(f_e)$, where $\gamma$ is the {\it diversity parameter}.
+
+Note that the latency function has all the properties as we assumed in previous sections, while the deviation function $\sigma_e(x)$ is assumed to be continuous by not necessarily non-decreasing. However, the function $\ell_e+\gamma\cdot \sigma_e$ must be non-decreasing. These assumptions are consistent with our previous risk averse model in Section 3.2, because if $\sigma_e$ models the variance, then $\sigma_e$ could be decreasing in the flow.
+
+Cole et. al. measures the effect of diversity agains the resulting flow of a homogeneous agent population of the same size. The homogeneous agent population has the single diversity parameter $\bar{r}=\int rf(r)d r$.
+
+
+ the cost of an outcome as the sum of the costs over all paths. 
+
+Players Heterogeneity
+
 \subsubsection{Results}
+Let $g$ denote an equilibrium flow for the heterogeneous agent population and $f$ an equilibrium flow for the corresponding homogeneous agent population. Let $C^{ht}(g)$ denote the cost of flow $g$ and $C^{hm}(f)$ the cost of flow $f$. 
+
+A {\it multi-commodity network} is consistent with all our previous models. We also introduce the definition of a {\it single-commodity network} as a network whose edges all belong to some single source-destination path as only these edges are going to be used by the equilibria and thus all other edges can be discarded. We present the following main results.
 
 
+\begin{theorem}
+For any $s-t$ series-parallel network $G$ with a single commodity, we have $C^{ht}(g)\le C^{hm}(f)$.
+\label{diverse1}
+\end{theorem}
+
+\begin{proof-sketch}
+
+
+
+This theorem essentially states that for single-commodity networks, diversity is always helpful in a single-commondity series parallel network.
+\end{proof-sketch}
+
+
+
+\begin{theorem}
+For any $s-t$ non-series-parallel network $G$ with a single commodity, there exists cost functions $C$ for which $C^{ht}(g)\le C^{hm}(f)$.
+\end{theorem}
+
+\begin{proof-sketch}
+
+This theorem essentially states that for single-commodity networks, diversity is always helpful only in a series-parallel network. Together with Theorem \ref{diverse1}, we know that the series-parallel structure is a sufficient and necessary condition for diversity to always be helpful.
+\end{proof-sketch}
