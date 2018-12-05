@@ -1,9 +1,16 @@
 \section{Introduction}
 Finding the best strategy for network and traffic routing has historically been a problem of great importance combining the theoretical aspects of both game theory and computer science. 
-\begin{itemize}
-    \item Introduce noncooperative games / Nash equilibrium (in network setting)
-    \item Briefly introduce selfish routing paper / price of anarchy
-    \item Discuss how it is a limited view of human behavior
-    \item Briefly discuss alternatives (papers including taxes, different objectives, atomic games, studies on network structure)
-    \item Us: There are newer papers with more interesting versions of human behavior, and we present a survey of these newer papers to show how human behaviors affect price of anarchy
-\end{itemize}
+Seminal work by Roughgarden and Tardos framed the routing problem as a non-cooperative game,
+in which players' selfish routing decisions increase the social welfare cost, i.e., the overall latency of all users in the network.
+Our paper begins with this selfish model, presenting a brief overview of the original selfish routing problem and model and the limits on the optimality of these algorithms (termed as the ``price of anarchy"). 
+
+Since the advent of the selfish routing model, more complex (and perhaps more realistic) models have emerged, many of which emphasize the need to take into account the complexity of human behaviors.
+This paper focuses on three of these recent alternative models, namely models that account for altruistic, risk-averse, and diverse behaviors. We present and clarify the findings of these papers in the context of the original selfish routing paper, and demonstrate how these papers' results can be synthesized into a more general framework addressing optimality of routing with various human behaviors or motivations.
+
+%\begin{itemize}
+%    \item Introduce noncooperative games / Nash equilibrium (in network setting)
+%    \item Briefly introduce selfish routing paper / price of anarchy
+%    \item Discuss how it is a limited view of human behavior
+%    \item Briefly discuss alternatives (papers including taxes, different objectives, atomic games, studies on network structure)
+%    \item Us: There are newer papers with more interesting versions of human behavior, and we present a survey of these newer papers to show how human behaviors affect price of anarchy
+%\end{itemize}

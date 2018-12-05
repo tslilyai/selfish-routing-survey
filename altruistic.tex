@@ -50,19 +50,23 @@ only one demand source-sink pair $(s,t)$ and (parallel) edges only between $s$ a
 %Stackleberg routing shown to have unlimited PoA in single-commodity networks
 
 \begin{theorem}
-Convex + nondecreasing -> 1/(average altruism)
+Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $c_e$,
+   $$\rho(G,r,c,\psi) \le \frac{1}{\bar{\beta}}$$
 \end{theorem}
 
 \begin{proof-sketch}
 \XXX{TODO a bit complicated...}
 \end{proof-sketch}
 
-\begin{itemize}
-\item \XXX{Result about centralized control?}
-\item \XXX{Address spite (not possible to include negative support)}
+This theorem leads to the following corrollary. Note that the theorem applies for a distribution in which a rate of $\bar{\beta}$ of users are completely altruistic and 1-$\bar{\beta}$ users are completely selfish. Chen and Kempe observe that this is equivalent to $\bar{\beta}$ of the population being under centralized (coordinated) control:
+\begin{corollary}
+Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $c_e$,
+if $\bar{\beta}$ fraction of traffic is controlled by a central authority, then
+   $$\rho(G,r,c,\psi) \le \frac{1}{\bar{\beta}}$$
+\end{corollary}
+This is exactly the result proven by Roughgarden in 2004~\cite{roughgarden04}, and provides an interesting connection between models that include altruism and models of centralized/coordinated traffic control.
 
+\XXX{Address spite (not possible to include negative support)}
 %Almost all of the latency is incurred by a small fraction of spiteful users who together
 %congest a link with very steep increase. At the same time, all altruistic users use links with very small constant latency.
 %Then, the PoA is much larger than 1, while the bounds of both theorems would require it to be close to 1
-
-\end{itemize}
