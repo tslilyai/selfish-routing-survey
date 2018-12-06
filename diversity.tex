@@ -26,6 +26,8 @@ Let $g$ denote an equilibrium flow for the heterogeneous agent population and $f
 
 A {\it multi-commodity network} is consistent with all our previous models. We also introduce the definition of a {\it single-commodity network} as a network whose edges all belong to some single source-destination path as only these edges are going to be used by the equilibria and thus all other edges can be discarded. We present the following main results.
 
+\begin{definition}A directed $s-t$ network $G$ is series-parallel if it consists of a single edge $(s, t)$, or it is formed by the series or parallel composition of two series-parallel networks with terminals $(s_1, t_1)$ and $(s_2, t_2)$, respectively.
+\end{definition}
 
 \begin{theorem}
 For any $s-t$ series-parallel network $G$ with a single commodity, we have $C^{ht}(g)\le C^{hm}(f)$.
@@ -36,7 +38,10 @@ For any $s-t$ series-parallel network $G$ with a single commodity, we have $C^{h
 
 
 
-This theorem essentially states that for single-commodity networks, diversity is always helpful in a single-commondity series parallel network.
+This theorem essentially states that for single-commodity networks, diversity is always helpful in a single-commodity series parallel network.
+
+The key observation is that since $f$ and $g$ route the same amount of flow from the unique source to the unique sink, there must be a path $P$ where $f$ sends no less flow along than $g$ does. Since the network is series-parallel, for every edge $e$ in $P$, $f_e \ge g_e$, because a path in a series-parallel network can be broken up into some parts in series and some parts in parallel, which eventually breaks down to a simple path . and hence for any $r\in [0, r_{\max}]$, $c_p^r(f)\ge c_p^r(g)$.
+
 \end{proof-sketch}
 
 
@@ -48,6 +53,8 @@ For any $s-t$ non-series-parallel network $G$ with a single commodity, there exi
 \begin{proof-sketch}
 
 This theorem essentially states that for single-commodity networks, diversity is always helpful only in a series-parallel network. Together with Theorem \ref{diverse1}, we know that the series-parallel structure is a sufficient and necessary condition for diversity to always be helpful.
+
+The key reason is that for a series-parallel network, if two flows $|f|\ge |g|$, then there must be a parallel part $P_1$ of the network where $f$ sends more flow than $g$ on. This must be true because we can trivially think of the whole network as $P_1$. Since in a series-parallel network, we can decompose $P_1$ into some
 \end{proof-sketch}
 
 
