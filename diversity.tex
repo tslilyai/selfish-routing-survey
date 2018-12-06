@@ -1,6 +1,6 @@
 \subsection{Diverse in Interests}\label{sec:diversity}
 
-The third class of alternative models we consider are ones with diverse selfish behavior. Each agent pursues their own different selfish goal, resulting in a routing solution of the whole network. 
+The third class of alternative models we consider is a generalization of the altruistic model and the risk-averse model that we have discussed in previous sections. This class is characterized by the diverse selfish behavior by its heterogeneous agents. Each agent pursues their own different selfish goal, resulting in a routing solution of the whole network. 
 
 Diverse selfish routing models are useful because they help us understand how we can leverage policies and natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. For example, tolls can help increase the social welfare. For example, Beckmann et. al. showed that tolls can help implement the social optimum as an equilibrium, when agents all have the same goal towards a linear combination of time and money \ref{????}.
 
@@ -14,9 +14,11 @@ Each agent wants to minimize their own cost, which is a sum of two terms associa
 
 Note that the latency function has all the properties as we assumed in previous sections, while the deviation function $\sigma_e(x)$ is assumed to be continuous by not necessarily non-decreasing. However, the function $\ell_e+\gamma\cdot \sigma_e$ must be non-decreasing. These assumptions are consistent with our previous risk averse model in Section 3.2, because if $\sigma_e$ models the variance, then $\sigma_e$ could be decreasing in the flow.
 
-Cole et. al. measures the effect of diversity agains the resulting flow of a homogeneous agent population of the same size. The homogeneous agent population has the single diversity parameter $\bar{r}=\int rf(r)d r$. For a heterogeneous equilibrium flow vector $g$, the {\it heterogeneous total cost} of Commodity $k$ is denoted by $C^{k,ht}(g)=\sum_{j=1,\dots, n} d_j^k c^{k, r_j^k}(g)$, where $C^{k, r_j^k}(g)$ denotes the common cost at equilibrium $g$ for players of diversity parameter $r_j^k$ in Commodity $k$. The heterogeneous total cost of $g$ is then $C^{ht}(g)=\sum_{k\in K} C^{k,ht}(g)$. For the corresponding homogeneous equilibrium flow $f$, i.e. the instance with diversity parameter $\bar{r}^k$, where $\bar{r}^k$ denotes the average diversity parameter for Commodity $k$, players of Commodity $k$ share the same cost $c^{\bar{r}^k}(f)$. Then, the homogeneous total cost of Commodity $k$ under $f$ is $C^{k,hm}(f)=d_kc^{\bar{r}^k}(f)$, and the homogeneous total cost of $f$ is $C^{hm}(f)=\sum_{k\in K} C^{k,hm}(f)$. 
+Cole et. al. measures the effect of diversity agains the resulting flow of a homogeneous agent population of the same size. The homogeneous agent population has the single diversity parameter $\bar{r}=\int rf(r)d r$. 
 
-The {\it average-respecting demand} means that $\forall i,j: \bar{r}^i=\bar{r}^j$. 
+For a discrete distribution of $n$ discrete values $r_1^k, \dots, r_n^k$, the demand $d_k$ is a vector $d_k=(d_1^k, \dots, d_n^k)$ where each $d_i^k$ denotes the total demand of commodity $k$ with diversity parameter $r_i^k$ and $d^k$ denote commodity $k$'s total demand $d^k=\sum_{i=1}^n d_i^k$. For a heterogeneous equilibrium flow vector $g$, the {\it heterogeneous total cost} of commodity $k$ is denoted by $C^{k,ht}(g)=\sum_{j=1,\dots, n} d_j^k c^{k, r_j^k}(g)$, where $c^{k, r_j^k}(g)$ denotes the common cost at equilibrium $g$ for players of diversity parameter $r_j^k$ in commodity $k$. The heterogeneous total cost of $g$ is then $C^{ht}(g)=\sum_{k\in K} C^{k,ht}(g)$. 
+
+For the corresponding homogeneous equilibrium flow $f$, i.e. the instance with diversity parameter $\bar{r}^k$, where $\bar{r}^k$ denotes the average diversity parameter for commodity $k$, players of commodity $k$ share the same cost $c^{\bar{r}^k}(f)$. Then, the homogeneous total cost of commodity $k$ under $f$ is $C^{k,hm}(f)=d_kc^{\bar{r}^k}(f)$, and the homogeneous total cost of $f$ is $C^{hm}(f)=\sum_{k\in K} C^{k,hm}(f)$. 
 
 
 \subsubsection{Results}
@@ -24,8 +26,11 @@ Let $g$ denote an equilibrium flow for the heterogeneous agent population and $f
 
 A {\it multi-commodity network} is consistent with all our previous models. We also introduce the definition of a {\it single-commodity network} as a network whose edges all belong to some single source-destination path as only these edges are going to be used by the equilibria and thus all other edges can be discarded. We present the following main results.
 
-\begin{definition}A directed $s-t$ network $G$ is series-parallel if it consists of a single edge $(s, t)$, or it is formed by the series or parallel composition of two series-parallel networks with terminals $(s_1, t_1)$ and $(s_2, t_2)$, respectively.
+\begin{definition}
+A directed $s-t$ network $G$ is {\it series-parallel} if it consists of a single edge $(s, t)$, or it is formed by the series or parallel composition of two series-parallel networks with terminals $(s_1, t_1)$ and $(s_2, t_2)$, respectively.
 \end{definition}
+
+The theorem below essentially states that for single-commodity networks, diversity is always helpful in a single-commodity series parallel network.
 
 \begin{theorem}
 For any $s-t$ series-parallel network $G$ with a single commodity, we have $C^{ht}(g)\le C^{hm}(f)$.
@@ -34,25 +39,32 @@ For any $s-t$ series-parallel network $G$ with a single commodity, we have $C^{h
 
 \begin{proof-sketch}
 
-This theorem essentially states that for single-commodity networks, diversity is always helpful in a single-commodity series parallel network.
-
-The key observation is that since $f$ and $g$ route the same amount of flow from the unique source to the unique sink, there must be a path $P$ where $f$ sends no less flow along than $g$ does. Since the network is series-parallel, for every edge $e$ in $P$, $f_e \ge g_e$. This is true because a path in a series-parallel network can be broken up into some series-parallel parts in series and some series-parallel parts in parallel, which recursively breaks down to a simple series of edge(s). Hence for any $r\in [0, r_{\max}]$, we have $c_P^r(f)\ge c_P^r(g)$.
-
+The key observation is that since $f$ and $g$ route the same amount of flow from the unique source to the unique sink, there must be a path $P$ where $f$ sends no less flow along than $g$ does. Since the network is series-parallel, for every edge $e$ in $P$, $f_e \ge g_e$. This is true because a path in a series-parallel network can be broken up into some series-parallel parts in series and some series-parallel parts in parallel, which recursively breaks down to a simple series of edge(s). Hence for any $r\in [0, r_{\max}]$, we have $c_P^r(f)\ge c_P^r(g)$. This simultaneously also means that $g$ could route more flow on $P$ but it doesn't, implying that there is no incentive for $g$ to switch the flow it sends on other paths to path $P$ under the same diversity parameter. Therefore $c^r(g)\le \sum_{e\in P} \ell_e(g_e)+r\sum_{e\in P}\sigma_e(g_e)$. Then $C^{ht}(g)\le \sum_{i=1}^k d_i(\sum_{e\in P} \ell_e(g_e)+r_i\sum_{e\in P}\sigma_e(g_e))=\ell_p(g)+\bar{r}\sigma_P(g)$ which is exactly the cost of the homogeneous equilibrium flow $f$.
 \end{proof-sketch}
-
 
 
 \begin{theorem}
 For any $s-t$ non-series-parallel network $G$ with a single commodity, there exists cost functions $C$ for which $C^{ht}(g)> C^{hm}(f)$.
+\label{diversethm2}
 \end{theorem}
 
 \begin{proof-sketch}
+If $G$ is not series-parallel then the Braess graph can be embedded in it, and there are edge functions such that heterogeneous equilibrium flow has a larger cost than homogeneous equilibrium flow. Detailed example can be found in \cite{??}.
+
+%The key reason is that for a series-parallel network, if two flows $|f|\ge |g|$, then there must be a parallel part $P_1$ of the network where $f$ sends more flow than $g$ on. This must be true because we can trivially think of the whole network as $P_1$. Since in a series-parallel network, we can decompose $P_1$ into some
+\end{proof-sketch}
 
 This theorem essentially states that for single-commodity networks, diversity is always helpful only in a series-parallel network. Together with Theorem \ref{diverse1}, we know that the series-parallel structure is a sufficient and necessary condition for diversity to always be helpful.
 
-The key reason is that for a series-parallel network, if two flows $|f|\ge |g|$, then there must be a parallel part $P_1$ of the network where $f$ sends more flow than $g$ on. This must be true because we can trivially think of the whole network as $P_1$. Since in a series-parallel network, we can decompose $P_1$ into some
-\end{proof-sketch}
+Now we discuss our main results for multiple commodity network. We use {\it average-respecting demand} to refer to the property that for any commodity $i,j: \bar{r}^i=\bar{r}^j$. 
 
+A multi-commodity network $G$ can be decomposed in subnetworks $G_i$'s that each contains all the vertices and edges of $G$ that belong to a simple $s_i-t_i$ path for commodity $i$. WLOG, we assume these $G_i$ are acyclic.
+
+\begin{definition}
+A multi-commodity network $G$ is {\it block-matching} if for every $i$, $G_i$ is series-parallel, and for every $i, j$, $G_i$ and $G_j$ are block-matching, respectively.
+\end{definition}
+
+The next theorem states that for multi-commodity networks, diversity is always helpful on any block-matching network with average-respecting demand. 
 
 \begin{theorem}
 For any $k$-commodity block-matching network with average-respecting demand, $C^{ht}(g)\le C^{hm}(f)$.
@@ -61,7 +73,7 @@ For any $k$-commodity block-matching network with average-respecting demand, $C^
 
 \begin{proof-sketch}
 
-This theorem essentially states that for multi-commodity networks, diversity is always helpful on any block-matching network with average-respecting demand. 
+The key idea is that for any block representation of a subnetwork $G_i=s_i B_1 v_1\dots v_{b_i-1} B _{b_i}t_i$ for some commodity $i$, because $G$ is block-matching, for any block $B_j$ connecting $v_{j-1}$ and $v_j$ , any other commodity $j$ either contains block $B_j$ as a block in its block representation or contains none of the edges of $B_j$. This implies that under any routing of the demand, either all of $j$'s demand goes through $B_j$ or none of it does. So the total traffic routed by $f$ and $g$ are the same from $v_{j-1}$ to $v_j$. So if restricted to the block, the cost of the heterogeneous equilibrium is less than or equal to that of the homogeneous equilibrium; then the theorem is a result of summing over every block of all commodities.
 \end{proof-sketch}
 
 
@@ -71,7 +83,8 @@ For any $k$-commodity network, if diversity helps for every instance on $G$ with
 \end{theorem}
 
 \begin{proof-sketch}
+The proof is by contradiction. First, by our Theorem \ref{diversethm2} for single-commodity network, each subnetwork $G_i$ in our multi-commodity network must be a series-parallel network, otherwise we can use the same counterexample as for Theorem \ref{diversethm2}. Then since we can prove that any two commodities $i$ and $j$, any block of $G_i$ and any block of $G_j$ either have the same terminals and direction or their terminals has no intersection, we know that $G$ is block-matching. The detailed proof assumes the conditions does not hold and constructs demand and edge functions where diversity hurts to contradict the assumption. See \cite{??}.
 
-This theorem essentially states that for multi-commodity networks, diversity is always helpful only on any block-matching network with average-respecting demand. Together with Theorem \ref{diverse2}, we know that the block-matching structure is a sufficient and necessary condition for diversity to always be helpful in a multi-commodity network.
 \end{proof-sketch}
 
+This theorem essentially states that for multi-commodity networks, diversity is always helpful only on any block-matching network with average-respecting demand. Together with Theorem \ref{diverse2}, we know that the block-matching structure is a sufficient and necessary condition for diversity to always be helpful in a multi-commodity network.
