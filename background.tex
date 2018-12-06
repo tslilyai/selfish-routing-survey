@@ -127,16 +127,16 @@ We next describe and present the main results regarding the PoA in this (decentr
     across all source-destination pairs. It turns out that $f/2$ is optimal for $(G, r/2,\ell)$ when the edge latency functions are linear. This can be derived from the fact that paths with
     non-zero flow at a Nash Equlibrium have the same path latency while paths with non-zero flows at the global optimum have the same marginal cost of increasing the flow. Now, if we look at the cost
     $C(f/2)$ of routing this in terms of the cost of routing the flow $f$ at Nash Equlibrium, we notice that $C(f/2) = \displaystyle \sum_e \frac{1}{4}a_ef^2_e + \frac{1}{2}b_ef_e \geq \frac{1}{4}C(f)$
-    from the above cost expression. Thus, in other words, routing the first $r/2$ optimally has a latency that is atleast one-fourth of the latency of the Nash Equlibrium flow.
+    from the above cost expression. Thus, in other words, routing the first $r/2$ optimally has a latency that is at least one-fourth of the latency of the Nash Equlibrium flow.
     %% Do we need the actual proof of the fact that $f/2$ is optimal for the half rate case - we could also just reference Lemmas 4.1 and 4.3?
 
     This leaves the remaining $r/2$ that needs to be routed optimally to route $f^*$ fully. To reason about this, let's look at a small $\delta r_i$ increase in flow from $s_i$ to $t_i$ that already carries $x$ units 
-    of flow. For a convex cost function, we expect the increase in latency to be atleast $\delta r_il'(x)$ where $l'$ if the minimum marginal increase in $C$. If we consider starting at the 
+    of flow. For a convex cost function, we expect the increase in latency to be at least $\delta r_il'(x)$ where $l'$ if the minimum marginal increase in $C$. If we consider starting at the 
     optimal flow $f/2$ for the $r/2$ demand and increasing the flow on each path by a small $\delta r_i$, the subsequent increase in 
     latency across be all paths can be summed as  $\displaystyle \sum_{i = 1}^kl'(f/2)\delta r_i$. But, for linear edge latency functions, the marginal increase in latency on every edge at $f/2$ is exactly
-    the latency of that edge at $f$. Thus, $l_e'(f/2) = l_e(f)$. Thus, setting $\delta = 1$ and increasing the rate by $r_i/2$ on every $s_i$, the overall increase in latency is  atleast $\displaystyle \frac{1}{2}\sum_{i= 1}^kl(f)r_i
+    the latency of that edge at $f$. Thus, $l_e'(f/2) = l_e(f)$. Thus, setting $\delta = 1$ and increasing the rate by $r_i/2$ on every $s_i$, the overall increase in latency is  at least $\displaystyle \frac{1}{2}\sum_{i= 1}^kl(f)r_i
     = \frac{1}{2}C(f)$. The last part is by definition of $C(f)$. 
     
-    In essence, routing the first $r/2$ demand optimally costs atleast $C(f)/4$ and the next $r/2$ when augmented, costs atleast another $C(f)/2$. In total, the optimal costs atleast $\frac{3}{4}C(f)$. In other words,
+    In essence, routing the first $r/2$ demand optimally costs at least $C(f)/4$ and the next $r/2$ when augmented, costs at least another $C(f)/2$. In total, the optimal costs at least $\frac{3}{4}C(f)$. In other words,
     the flow at Nash Equilibrium has cost utmost $\frac{4}{3}C(f^*)$ where $f^*$ is the flow achieving optimal latency.
 \end{proof-sketch}
