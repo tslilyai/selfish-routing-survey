@@ -1,46 +1,98 @@
 \subsection{Risk Aversion}
-The second model we consider is one investigated by Lianeas et.al \cite{risk-averse} which accounts for the
+The second model we consider accounts for the
 tendency of users to pick routes with less variation in latency even if it comes at the cost of some added
-latency on the path as a whole. This increase in latency can be quantified as the {\em{price of risk-aversion}}
-which is the worst-case ratio of the latency or cost at a risk-averse Nash equlibrium to that at a risk-neutral
-Nash equilibrium. 
+latency on the paths chosen. This increase in latency can be quantified as the {\em{price of risk-aversion}}
+which is the worst-case ratio of the latency or cost at a risk-averse Nash Equlibrium to that at a risk-neutral
+Nash equilibrium or one where users are indifferent to variations in the latency itself.
 
 %% The key result that we will be focussing on here is one where we show that the latency bounds in this context
 %% is effectively the price of anarchy times the price of risk-aversion which intuitiveluy makes sense.
 
-\subsubsection{Formalization}
-\begin{itemize}
-\item Problem instance
-    \begin{itemize}
-        \item define risk aversion coefficient $\gamma$ - the higher the more risk averse because you're minimizing objective
-        \item edge latencies no longer modelled as a determininistic function but rather with a deterministic part $l_e(f_e)$ and
-            a random variable $\xi_e(f_e)$ that represents the noise on the delay. This part is assumed to be independent across edges and has expectation
-            $0$ and variance $\sigma^2_e(f_e)$.
-        \item Now the expected latency on a path and the variance of the path ($\upsilon_p$) is just the sum of the expected delays and variances across all edges
-            on the path.
-        \item Problem is now $(G,r,l,\upsilon,\gamma)$ and we focus on $r = 1$ for a simpler scenario
+\subsubsection{Formalization} The {\textbf{formal model}} introduced in Lianeas et.al \cite{risk-averse} defines 
+a risk aversion coefficient $\gamma$ that quantifies the users' tendency to prefer paths with less variability. 
+A higher $\gamma$ means that one is more risk averse. The edge costs $c_e(x_e)$ now have a deterministic part 
+or $l_e(x_e)$ and a noise modelled by a random variable $\xi_e(x_e)$. The latter is assumed to be independent across edges 
+and has expectation $0$ and variance $\upsilon_e(x_e)$ for $x_e$ flow allowing us to sum them up over a path. To simplify 
+the analysis, the model also defines $\upkappa$ to bound the variance-to-mean latency ratio. In other words, 
+$\upsilon_e(x_e) \leq \upkappa l_e(x_e)$.
+%Now,
+%the expected latency and variance ($\upsilon_p$) on a path can be summed across all the edges. Consequently, our problem
+%instance is $(G,r,l,\upsilon,\gamma)$ and we focus on $r = 1$ to simplify our analysis.
 
-    \end{itemize}
-\item Mean-variance objective 
-    \begin{itemize}
-        \item additive factor allowing you to reason about optimal
-        \item assumed to be non-decreasing for the same reasons as the original model
-        \item the mean is similar to the old function we were minimizing or the latency alone 
-        \item but now we have an additional term that we are trying to minimize the variance depending on our risk-aversion coefficient
-        \item Players try to optimize for this mean-variance objective which takes both the above aspects into account which is collectively called path-cost
-    \end{itemize}
+The cost function or the {\textbf{objective}} that every user is now optimizing for is of the form
+$$c_p(f) = \sum_{e \in p}l_e(f_e) + \gamma \sum_{e \in p}\upsilon_e(f_e)$$
+This function is assumed to be non-decreasing. Intuitively, the mean is identical to the original price of anarchy formulation
+while the second term accounts for variance. Minimizing this implies that we want to minimize the variance depending on the
+value of the risk coefficient itself.
 
-\item Social Cost of a flow - sum of the expected latencies of all players $C(f) = \displaystyle \sum_{p \in P} f_pl_p(f) = 
-    \sum_{e \in E}f_el_e(f_e)$. This reoves the dependency on per user risk aversion coefficients and rather takes a look at the system as a whole.
+If the maximum cost $C(x)$  across some set of nash equlibria flows $x$ for the given problem instance 
+that is restricted to some family of inputs and a fixed $\upkappa$, the {\textbf{price of risk-aversion}} is now defined as the
+ratio $C(x)/C(z)$. Here $C(z)$ is the cost associated with some risk-neutral nash equlibrium $z$. 
+In the following section, we look at bounding this price of risk-aversion. Note that this can be viewed as contributing a 
+multiplicative factor to the price of anarchy in the overall change to the latency or cost of the system. We first prove a 
+more basic result from an older paper on this topic \cite{risk-averse-background} and then proceed to the main result on the price
+of risk-aversion for 
+a special family of latency functions that are $(\lambda, \mu)$ smooth. Note that additional results can be proved for special classes
+of graph topologies which can be found in the original paper \cite{risk-averse}.
 
-\item Define PRA 
-    \begin{itemize} 
-        \item $\upkappa$ definition -  variance to mean ratio and maximum bound on it
-        \item Maximum cost across some set of nash equlibria flows $x$ for the given problem instance that belongs 
-            to a certain class of instances and $\upsilon(x) \leq \upkappa l(x)$
-        \item note about results depending on the graph topology
-    \end{itemize}
-\end{itemize}
+
+%%\begin{itemize}
+%%
+%%\item Mean-variance objective 
+%%\begin{itemize}
+%%    \item additive factor allowing you to reason about optimal
+%%    \item assumed to be non-decreasing for the same reasons as the original model
+%%    \item the mean is similar to the old function we were minimizing or the latency alone 
+%%    \item but now we have an additional term that we are trying to minimize the variance depending on our risk-aversion coefficient
+%%    \item Players try to optimize for this mean-variance objective which takes both the above aspects into account which is collectively called path-cost
+%%\end{itemize}
+%%
+%%\item Social Cost of a flow - sum of the expected latencies of all players $C(f) = \displaystyle \sum_{p \in P} f_pl_p(f) = 
+%%\sum_{e \in E}f_el_e(f_e)$. This reoves the dependency on per user risk aversion coefficients and rather takes a look at the system as a whole.
+%%
+%%\item Define PRA 
+%%\begin{itemize} 
+%%    \item $\upkappa$ definition -  variance to mean ratio and maximum bound on it
+%%    \item Maximum cost across some set of nash equlibria flows $x$ for the given problem instance that belongs 
+%%	to a certain class of instances and $\upsilon(x) \leq \upkappa l(x)$
+%%    \item note about results depending on the graph topology
+%%\end{itemize}
+%%\end{itemize}
+%%
 
 
 \subsubsection{Main Results}
+\begin{theorem}
+    If a flow $f$ is at a risk averse nash equlibrium and $f^*$ is any other flow, then $fC(f)\leq f^*C(f)$. 
+\end{theorem}
+
+\begin{proof}
+    By definition, any flow at Nash Equlibrium routes on paths with minimum cost or only sends flow on a given path if its cost is less than
+    the cost of sending the same flow on some other path. Thus, for a fixed demand and fixed path costs determined by $C(f)$, $f^*$ differs from $f$ in 
+    atleast moving some $\epsilon$ flow from one lower cost path to another higher cost one which increases the total overall cost. 
+    Consequently, let's say we have a flow $x$ that is a risk averse Nash Equlibrium 
+    for the cost function $c_e = l_e(x_e) +\gamma \upsilon_e(x_e)$. If $z$ is a risk neutral Nash Equlibirium, it is still feasible for the risk averse
+    mean-variance cost function, but is not the equlibrium in that scenario. By the above description and costs written as the sum across edges, we have
+    $$\sum_{e \in E}x_e(l_e(x_e) + \gamma \upsilon(x_e)) \leq \sum_{e \in E} z_e(l_e(x_e) + \gamma \upsilon_e(x_e))$$
+\end{proof}
+
+\begin{definition}
+    A function $l :\mathbb{R}_{\geq 0} \rightarrow \mathbb{R}_{\geq 0}$ is $(\lambda, \mu)$-smooth around $x \in \mathbb{R}_{\geq 0}$ if $yl(x) \leq \lambda yl(y) _ \mu x l(x)$ for all
+    $y \in \mathbb{R}_{x \geq 0}$
+
+    Intuitively, what this means is \XXX{add some intuition} 
+\end{definition}
+
+\begin{theorem}
+    The set of instances with latency functions ${l_e}_{e \in E}$ that are $(1,\mu)$-smooth around any risk-averse nash equlibrium $x_e$ for all $e \in E$ have price of risk-aversion
+    $\leq \displaystyle \frac{(1 + \gamma \upkappa)}{(1 - \mu)}$
+\end{theorem}
+
+\begin{proof-sketch}
+    seaprate into edges with flow less than $z_e$
+
+    edges with flow greater than $x_e$
+    - inequality to be subtracted
+\end{proof-sketch}
+
+
