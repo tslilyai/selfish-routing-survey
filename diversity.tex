@@ -2,9 +2,9 @@
 
 The third class of alternative models we consider is a generalization of the altruistic model and the risk-averse model that we have discussed in previous sections. This class is characterized by the diverse selfish behavior by its heterogeneous agents. Each agent pursues their own different selfish goal, resulting in a routing solution of the whole network. 
 
-Diverse selfish routing models are useful because they help us understand how we can leverage policies and natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. For example, tolls can help increase the social welfare. For example, Beckmann et. al. showed that tolls can help implement the social optimum as an equilibrium, when agents all have the same goal towards a linear combination of time and money \ref{????}.
+Diverse selfish routing models are useful because they help us understand how we can leverage policies and natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. For example, tolls can help increase the social welfare. For example, Beckmann et. al. showed that tolls can help implement the social optimum as an equilibrium, when agents all have the same goal towards a linear combination of time and money \cite{beckmann1956studies}.
 
-However, there is some ambiguity in measuring the optimality of any outcome of the whole network with diverse selfish behavior, because by definition, the objective function has changed from the objective of selfish routing with no agent heterogeneity and thus only one criterion. There are thus multiple reasonable ways to characterize the social welfare of a diverse routing network. We will discuss the model adopted by Cole, Lianeas and Nikolova and their newly published results in 2018.
+However, there is some ambiguity in measuring the optimality of any outcome of the whole network with diverse selfish behavior, because by definition, the objective function has changed from the objective of selfish routing with no agent heterogeneity and thus only one criterion. There are thus multiple reasonable ways to characterize the social welfare of a diverse routing network. We will discuss the model adopted by Cole, Lianeas and Nikolova and their newly published results in 2018 \cite{ijcai2018-24}.
 
 \subsubsection{Model}
 
@@ -49,8 +49,7 @@ For any $s-t$ non-series-parallel network $G$ with a single commodity, there exi
 \end{theorem}
 
 \begin{proof-sketch}
-If $G$ is not series-parallel then the Braess graph can be embedded in it, and there are edge functions such that heterogeneous equilibrium flow has a larger cost than homogeneous equilibrium flow. Detailed example can be found in \cite{??}.
-
+If $G$ is not series-parallel then the Braess graph can be embedded in it \cite{Valdes:1979:RSP:800135.804393}, and there are edge functions such that heterogeneous equilibrium flow has a larger cost than homogeneous equilibrium flow. Detailed example can be found in \cite{ijcai2018-24}.
 %The key reason is that for a series-parallel network, if two flows $|f|\ge |g|$, then there must be a parallel part $P_1$ of the network where $f$ sends more flow than $g$ on. This must be true because we can trivially think of the whole network as $P_1$. Since in a series-parallel network, we can decompose $P_1$ into some
 \end{proof-sketch}
 
@@ -83,8 +82,7 @@ For any $k$-commodity network, if diversity helps for every instance on $G$ with
 \end{theorem}
 
 \begin{proof-sketch}
-The proof is by contradiction. First, by our Theorem \ref{diversethm2} for single-commodity network, each subnetwork $G_i$ in our multi-commodity network must be a series-parallel network, otherwise we can use the same counterexample as for Theorem \ref{diversethm2}. Then since we can prove that any two commodities $i$ and $j$, any block of $G_i$ and any block of $G_j$ either have the same terminals and direction or their terminals has no intersection, we know that $G$ is block-matching. The detailed proof assumes the conditions does not hold and constructs demand and edge functions where diversity hurts to contradict the assumption. See \cite{??}.
-
+The proof is by contradiction. First, by our Theorem \ref{diversethm2} for single-commodity network, each subnetwork $G_i$ in our multi-commodity network must be a series-parallel network, otherwise we can use the same counterexample as for Theorem \ref{diversethm2}. Then since we can prove that any two commodities $i$ and $j$, any block of $G_i$ and any block of $G_j$ either have the same terminals and direction or their terminals has no intersection, we know that $G$ is block-matching. The detailed proof assumes the conditions does not hold and constructs demand and edge functions where diversity hurts to contradict the assumption. See \cite{ijcai2018-24}.
 \end{proof-sketch}
 
 This theorem essentially states that for multi-commodity networks, diversity is always helpful only on any block-matching network with average-respecting demand. Together with Theorem \ref{diverse2}, we know that the block-matching structure is a sufficient and necessary condition for diversity to always be helpful in a multi-commodity network.
