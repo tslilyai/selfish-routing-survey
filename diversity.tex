@@ -14,12 +14,10 @@ Each agent wants to minimize their own cost, which is a sum of two terms associa
 
 Note that the latency function has all the properties as we assumed in previous sections, while the deviation function $\sigma_e(x)$ is assumed to be continuous by not necessarily non-decreasing. However, the function $\ell_e+\gamma\cdot \sigma_e$ must be non-decreasing. These assumptions are consistent with our previous risk averse model in Section 3.2, because if $\sigma_e$ models the variance, then $\sigma_e$ could be decreasing in the flow.
 
-Cole et. al. measures the effect of diversity agains the resulting flow of a homogeneous agent population of the same size. The homogeneous agent population has the single diversity parameter $\bar{r}=\int rf(r)d r$.
+Cole et. al. measures the effect of diversity agains the resulting flow of a homogeneous agent population of the same size. The homogeneous agent population has the single diversity parameter $\bar{r}=\int rf(r)d r$. For a heterogeneous equilibrium flow vector $g$, the {\it heterogeneous total cost} of Commodity $k$ is denoted by $C^{k,ht}(g)=\sum_{j=1,\dots, n} d_j^k c^{k, r_j^k}(g)$, where $C^{k, r_j^k}(g)$ denotes the common cost at equilibrium $g$ for players of diversity parameter $r_j^k$ in Commodity $k$. The heterogeneous total cost of $g$ is then $C^{ht}(g)=\sum_{k\in K} C^{k,ht}(g)$. For the corresponding homogeneous equilibrium flow $f$, i.e. the instance with diversity parameter $\bar{r}^k$, where $\bar{r}^k$ denotes the average diversity parameter for Commodity $k$, players of Commodity $k$ share the same cost $c^{\bar{r}^k}(f)$. Then, the homogeneous total cost of Commodity $k$ under $f$ is $C^{k,hm}(f)=d_kc^{\bar{r}^k}(f)$, and the homogeneous total cost of $f$ is $C^{hm}(f)=\sum_{k\in K} C^{k,hm}(f)$. 
 
+The {\it average-respecting demand} means that $\forall i,j: \bar{r}^i=\bar{r}^j$. 
 
- the cost of an outcome as the sum of the costs over all paths. 
-
-Players Heterogeneity
 
 \subsubsection{Results}
 Let $g$ denote an equilibrium flow for the heterogeneous agent population and $f$ an equilibrium flow for the corresponding homogeneous agent population. Let $C^{ht}(g)$ denote the cost of flow $g$ and $C^{hm}(f)$ the cost of flow $f$. 
@@ -36,11 +34,9 @@ For any $s-t$ series-parallel network $G$ with a single commodity, we have $C^{h
 
 \begin{proof-sketch}
 
-
-
 This theorem essentially states that for single-commodity networks, diversity is always helpful in a single-commodity series parallel network.
 
-The key observation is that since $f$ and $g$ route the same amount of flow from the unique source to the unique sink, there must be a path $P$ where $f$ sends no less flow along than $g$ does. Since the network is series-parallel, for every edge $e$ in $P$, $f_e \ge g_e$, because a path in a series-parallel network can be broken up into some parts in series and some parts in parallel, which eventually breaks down to a simple path . and hence for any $r\in [0, r_{\max}]$, $c_p^r(f)\ge c_p^r(g)$.
+The key observation is that since $f$ and $g$ route the same amount of flow from the unique source to the unique sink, there must be a path $P$ where $f$ sends no less flow along than $g$ does. Since the network is series-parallel, for every edge $e$ in $P$, $f_e \ge g_e$. This is true because a path in a series-parallel network can be broken up into some series-parallel parts in series and some series-parallel parts in parallel, which recursively breaks down to a simple series of edge(s). Hence for any $r\in [0, r_{\max}]$, we have $c_P^r(f)\ge c_P^r(g)$.
 
 \end{proof-sketch}
 
