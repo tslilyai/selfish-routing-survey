@@ -18,10 +18,10 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
 \draw (50.2,-17.9) node {$t$};
 \draw [black] (19.94,-15.615) arc (135.3471:44.6529:19.905);
 \fill [black] (48.26,-15.62) -- (48.05,-14.69) -- (47.34,-15.4);
-\draw (34.1,-9.2) node [above] {$c(x)\mbox{ }=\mbox{ }1$};
+\draw (34.1,-9.2) node [above] {$l(x)\mbox{ }=\mbox{ }1$};
 \draw [black] (48.072,-20.011) arc (-49.23907:-130.76093:21.4);
 \fill [black] (48.07,-20.01) -- (47.14,-20.15) -- (47.79,-20.91);
-\draw (34.1,-25.7) node [below] {$c(x)\mbox{ }=\mbox{ }x$};
+\draw (34.1,-25.7) node [below] {$l(x)\mbox{ }=\mbox{ }x$};
 \end{tikzpicture}
 \end{center}
     \caption{Pigou's example traffic routing problem, with a demand of $r_{(s,t)} = 1$}
@@ -34,9 +34,9 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
     \item A network $G = (V, E)$ of $|V|$ destinations (e.g., locations or servers) and $|E|$ links 
      \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
     \item A {rate} $r_i$ of traffic for each $(s_i,t_i)\in S$ representing the demanded amount of traffic from $s_i$ to $t_i$
-    \item A {latency} cost function $c$ that assigns a per-edge function $c_e$ to each edge $e$ describing how adding traffic (i.e., congestion) to $e$ affects the time taken to travel across $e$. We can also think of $c$ as assigning per-path costs: for any path $p$ in the graph
-        $$c_p(f) = \sum_{e\in P}c_e(f_e)$$ 
-        We assume that $c$ is continuous, nonnegative, and nondecreasing.
+    \item A {latency} function $l$ that assigns a per-edge function $l_e$ to each edge $e$ describing how adding traffic (i.e., congestion) to $e$ affects the time taken to travel across $e$. We can also think of $l$ as assigning per-path costs: for any path $p$ in the graph
+        $$l_p(f) = \sum_{e\in P}c_e(f_e)$$ 
+        We assume that $l$ is continuous, nonnegative, and nondecreasing.
 \end{itemize}
 In Figure~\ref{fig:Pigou}, we see a single source-destination input network with an example (linear) cost function with $r_{(s,t)} = 1$.
 
@@ -50,18 +50,17 @@ To describe a flow assignment $f$, we can consider $f_p$, the flow on a single p
 A \emph{feasible} solution given such an input is an assignment of path flows such that the demand from $s_i$ to $t_i$ is met:
 $$\forall 1 \le i \le k,~\sum_{p\in P_i} f_p = r_i$$
 %
-An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the \textbf{total weighted cost} $C(f)$, where
+An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the \textbf{total weighted latency cost}, or \textbf{social welfare latency cost} $C(f)$, where
 $$C(f) = \sum_i\sum_{p\in P_i}c_p(f)f_p = \sum_{e\in E} f_ec_e(f_e)$$
 
-Intuitively, we are calculating the cost of each path of a given flow assignment, weighing 
-each path's cost proportional to the amount of flow through the path. More concretely,
-if we were to let flow represent the routes chosen by (infinitely many) users, $C(f)$ calculates the average cost over all users. Thus, when minimizing $C(f)$, some users may incur 
+Intuitively, we are calculating the latency of each path of a given flow assignment, weighing 
+each path's latency proportional to the amount of flow through the path. More concretely,
+if we were to let flow represent the routes chosen by (infinitely many) users, $C(f)$ calculates the average latency over all users. Thus, when minimizing $C(f)$, some users may incur 
 more latency so that other users can go faster: the optimal flow is the \emph{socially optimal} solution.
-Note that there exists an optimal flow $f^*$ minimizing $C(f)$ because we assume $c$ is continuous and the set of feasible flows is compact.
-We will also refer to the total weighted cost as the \textbf{social welfare} cost.
+Note that there exists an optimal flow $f^*$ minimizing $C(f)$ because we assume $l$ is continuous and the set of feasible flows is compact.
 
 In our running example (Figure~\ref{fig:Pigou}), a feasible flow is any flow that sends one unit from $s$ to $t$ (divided in any fashion between the top and bottom edges).
-The optimal flow is the flow that sends half the traffic through the lower edge and half through the upper edge: the users on the lower edge only experience a cost of $1/2$, while the users on the upper edge experience a cost of $1$, making the total weighted cost $3/4$.
+The optimal flow is the flow that sends half the traffic through the lower edge and half through the upper edge: the users on the lower edge only experience a latency of $1/2$, while the users on the upper edge experience a latency of $1$, making the total weighted latency cost $3/4$.
 
 \subsection{Coordination Models and the Price of Anarchy}
 Before we can create algorithms to solve the traffic routing problem, we must first assume a \emph{coordination model} for our traffic network.
@@ -69,29 +68,31 @@ There are two clear extremes: (1) centralized control, in which some entity (e.g
 (2) decentralization, i.e., a complete \emph{lack} of coordination between
 entities in the network.
 In a centralized setting, there is a clear optimal solution, as shown in the previous section.
-However, in a decentralized and uncoordinated model, the lack of coordination and the exercise of freewill can result in
+However, in a decentralized and uncoordinated model, the lack of coordination and the exercise of free will can result in
 inefficiencies. 
 
 \medskip
-\textbf{The Price of Anarchy} (PoA) allows us to measure the inefficiencies of a decentralized model given some notion of equilibrium (how the flow assignment is determined in the model), and was first introduced by Koutsoupias and Papadimitriou in 1999~\cite{poa}. 
-The PoA is defined as the ratio between the optimal flow and the flow achieved
-at equilibrium.
+\textbf{The Price of Anarchy} (PoA) allows us to measure the inefficiencies of a decentralized model, and was first introduced by Koutsoupias and Papadimitriou in 1999~\cite{poa}. 
+We treat the decentralized model as a game in which each individual optimizes for her own individual cost function, allowing us to compute the achieved flow at the resulting Nash equilibrium (proven to exist if the cost functions are continuous)~\cite{wardrop,haurie,winsten}.
+The PoA is defined as the ratio between the social welfare latency cost at the optimal flow, and the social welfare latency coast at the flow achieved at equilibrium.
 (This is similar to how we measured the distance from optimal of an approximation algorithm in a limited computational power model, and of online algorithms in an incomplete information model.)
+
+The set of flows at Nash equilibrium are defined such that for all $i$ source-destination pairs, all the paths from $s_i \to t_i$ have the minimum-possible cost with respect to $c$. In other words, in the selfish routing model, the (nonzero) flow paths at Nash equilibrium have equal path costs, and no user decreases her cost by choosing a different path:
+$$\forall 0\le i \le k,~\forall p_1, p_2\in P_i~s.t.~f_{p_1} > 0~\text{and} f_{p_2} > 0,~ c_{p_1}(f) = c_{p_2}(f)$$
+Note that this corresponds exactly to the solutions to the following (convex) program solvable in polynomial time:
+$$NE = \min_f\Big(\sum_e \int_0^{f_e} c_e(t)dt\Big) \text{ subject to feasibility constraints}$$
+whereas the flow optimizing the social welfare latency cost corresponds exactly to the (polynomial-time) solutions to the following (convex) program: 
+$$SW = \min_f\Big(\sum_e f_el_e(f_e)\Big) \text{ subject to feasibility constraints}$$
 
 \subsection{The Selfish Routing Model}
 One example of an uncoordinated model is the \emph{selfish routing} model, in which all entities in the network are selfish and choose a route minimizing their individual latency without caring (or knowing) about the effects on other users~\cite{tardos}.
+The selfish routing model corresponds to flows at a Nash equilibrium where each user optimizes her individual cost function
+$c(f) = l(f)$.
+Thus, the program optimized at Nash Equilibruim is
+$$NE_{s} = \min_f\Big(\sum_e \int_0^{f_e} l_e(t)dt\Big) \text{ subject to feasibility constraints}$$
 
-The selfish routing model corresponds to flows at a \emph{Wardrop, or Nash equilibrium}~\cite{wardrop,haurie}.
-The set of flows in a Nash equilibrium are defined such that for all $i$ source-destination pairs, all the paths from $s_i \to t_i$ have the minimum-possible cost. In other words, the (nonzero) 
-flow paths at Nash equilibrium have equal path costs, and no user decreases her cost by choosing a different path:
-$$\forall 0\le i \le k,~\forall p_1, p_2\in P_i~s.t.~f_{p_1} > 0~\text{and} f_{p_2} > 0,~ c_{p_1}(f) = c_{p_2}(f)$$
-Note that this corresponds exactly to the (polynomial-time) solutions to the following (convex) program:
-$$\min_f\Big(\sum_e \int_0^{f_e} c_e(t)dt\Big) \text{ subject to feasibility constraints}$$
-whereas the flow optimizing the social welfare or total cost corresponds exactly to the (polynomial-time) solutions to the following (convex) program: 
-$$\min_f\Big(\sum_e f_ec_e(f_e)\Big) \text{ subject to feasibility constraints}$$
-
-If we revisit our running example in Figure~\ref{fig:Pigou}, we note that the flow at Nash equilibrium corresponds to a flow that sends the entire unit of traffic through the bottom edge (the 0 flow through the top path has a cost of 1, and the unit flow through the bottom path will have cost 1).
-Intuitively, each user routing from $s$ to $t$ will selfishly choose to take the bottom route because she will reason that the bottom route can have cost no worse than the top route. However, by doing so, the bottom route becomes more congested and leads to a total average cost $C(f) = 1$.
+If we revisit our running example in Figure~\ref{fig:Pigou}, we note that the flow at Nash equilibrium corresponds to a flow that sends the entire unit of traffic through the bottom edge (the 0 flow through the top path has latency 1, and the unit flow through the bottom path will have latency 1).
+Intuitively, each user routing from $s$ to $t$ will selfishly choose to take the bottom route because she will reason that the bottom route can have latency no worse than the top route. However, by doing so, the bottom route becomes more congested and leads to a total average latency $C(f) = 1$.
 Thus, in Figure~\ref{fig:Pigou}, the price of anarchy $\rho$ is $\frac{1}{3/4} = \frac{4}{3}$.
 
 We next describe and present the main results regarding the PoA in this (decentralized) selfish routing model, which will act as a basis to which we will compare traffic routing results in more recently formulated models.
@@ -109,7 +110,8 @@ We next describe and present the main results regarding the PoA in this (decentr
 
     For any Nash Equilibrium solution $f$ for $(G, r, \ell)$ and any feasible solution $f^*$, we can draw the figures so that for each edge $e$ in $G$:
     
-    The area $A+B$ represents the cost $C(f)$ of the Nash Equilibrium solution $f$ for $(G, r, \ell)$. The area $B+C$ represents the cost $C(f^*)$ of the feasible solution $f^*$ for $(G, 2r, \ell)$. Since the area $D+E$ is at most area $D$ more than area $B+C$, and area $D$ is less than area $A+B$, we know that $D+E-(B+C)\le D \le A+B $. This means that $B+C\ge D+E -(A+B)$. On the other hand $D+E\ge 2(A+B)$. Therefore, we have that $C(f^*)=(B+C)\ge 2(A+B)-(A+B)= A+B= C(f)$. Therefore we have the result that the cost of any Nash equilibrium flow for $(G, r, \ell)$ is no bigger than represents the cost of any feasible solution for $(G, 2r, \ell)$.
+    The area $A+B$ represents the latency cost $C(f)$ of the Nash Equilibrium solution $f$ for $(G, r, \ell)$. The area $B+C$ represents the cost $C(f^*)$ of the feasible solution $f^*$ for $(G, 2r, \ell)$. Since the area $D+E$ is at most area $D$ more than area $B+C$, and area $D$ is less than area $A+B$, we know that $D+E-(B+C)\le D \le A+B $. This means that $B+C\ge D+E -(A+B)$. On the other hand $D+E\ge 2(A+B)$. Therefore, we have that $C(f^*)=(B+C)\ge 2(A+B)-(A+B)= A+B= C(f)$. Therefore we
+    have the result that the latency of any Nash equilibrium flow for $(G, r, \ell)$ is no bigger than represents the latency of any feasible solution for $(G, 2r, \ell)$.
     The main idea of the proof for this theorem lies in that the subset if the area $C$ is at least as big as the area $A+B$. This is always true because the latency $\bar{\ell}_e$ is a nondecreasing function and thus the graph of latency function gives a shape that looks like a generalized trapezoid (in particular, a right generalized trapezoid lying on the horizontal axis). 
     %Then we can obtain the result based on the property of a trapezoid shape. Therefore, the cost of any feasible solution for $(G, 2r, \ell)$ is at least twice the cost $C(f)$ of any Nash equilibrium solution for $(G, r, \ell)$. Then the area under the black line from $0$ to $2f_e$ in subgraph (a) is at least $2C(f)-C(f)$ and thus larger than $C(f)$. 
    %The cost of any feasible solution for $(G, 2r, \ell)$, and the area under the black line from $0$ to $2f_e$ in subgraph (b) is at most $C(f)$ more than the cost of any feasible solution for $(G, 2r, \ell)$, and the area under the black line from $0$ to $2f_e$ in subgraph (a). So the area of the generalized trapezoid under the black line from $0$ to $2f_e$ is more than two times the area under the black line on the left side of $f_e$ in subgraph (b). 
@@ -119,21 +121,21 @@ We next describe and present the main results regarding the PoA in this (decentr
 \end{proof-sketch}
 
 \begin{theorem}
-    If the edge latency functions are linear in that $c_e = a_ef_e + b_e$ for every edge $e \in E$, then the price of anarchy or $\rho(G, R,l) \leq 4/3$.
+    If the edge latency functions are linear in that $l_e = a_ef_e + b_e$ for every edge $e \in E$, then the price of anarchy or $\rho(G, R,l) \leq 4/3$.
 \end{theorem}
 
 \begin{proof-sketch}
-    The cost of any flow $f$ under these edge latency functions is $C(f) = \displaystyle \sum_e a_ef^2_e + b_ef_e$.
+    The latency of any flow $f$ under these edge latency functions is $C(f) = \displaystyle \sum_e a_ef^2_e + b_ef_e$.
 
     Let's consider two flows $f$ and $f^*$ such that $f$ is at Nash Equlibrium in $(G, r, \ell)$ and $f^*$ is globally optimal for the same. We first consider optimally routing the first $r/2$ demand 
     across all source-destination pairs. It turns out that $f/2$ is optimal for $(G, r/2,\ell)$ when the edge latency functions are linear. This can be derived from the fact that paths with
     non-zero flow at a Nash Equlibrium have the same path latency while paths with non-zero flows at the global optimum have the same marginal cost of increasing the flow. Now, if we look at the cost
-    $C(f/2)$ of routing this in terms of the cost of routing the flow $f$ at Nash Equlibrium, we notice that $C(f/2) = \displaystyle \sum_e \frac{1}{4}a_ef^2_e + \frac{1}{2}b_ef_e \geq \frac{1}{4}C(f)$
+    $C(f/2)$ of routing this in terms of the latency of routing the flow $f$ at Nash Equlibrium, we notice that $C(f/2) = \displaystyle \sum_e \frac{1}{4}a_ef^2_e + \frac{1}{2}b_ef_e \geq \frac{1}{4}C(f)$
     from the above cost expression. Thus, in other words, routing the first $r/2$ optimally has a latency that is at least one-fourth of the latency of the Nash Equlibrium flow.
     %% Do we need the actual proof of the fact that $f/2$ is optimal for the half rate case - we could also just reference Lemmas 4.1 and 4.3?
 
     This leaves the remaining $r/2$ that needs to be routed optimally to route $f^*$ fully. To reason about this, let's look at a small $\delta r_i$ increase in flow from $s_i$ to $t_i$ that already carries $x$ units 
-    of flow. For a convex cost function, we expect the increase in latency to be at least $\delta r_il'(x)$ where $l'$ if the minimum marginal increase in $C$. If we consider starting at the 
+    of flow. For a convex latency function, we expect the increase in latency to be at least $\delta r_il'(x)$ where $l'$ if the minimum marginal increase in $C$. If we consider starting at the 
     optimal flow $f/2$ for the $r/2$ demand and increasing the flow on each path by a small $\delta r_i$, the subsequent increase in 
     latency across be all paths can be summed as  $\displaystyle \sum_{i = 1}^kl'(f/2)\delta r_i$. But, for linear edge latency functions, the marginal increase in latency on every edge at $f/2$ is exactly
     the latency of that edge at $f$. Thus, $l_e'(f/2) = l_e(f)$. Thus, setting $\delta = 1$ and increasing the rate by $r_i/2$ on every $s_i$, the overall increase in latency is  at least $\displaystyle \frac{1}{2}\sum_{i= 1}^kl(f)r_i
