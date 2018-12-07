@@ -77,6 +77,7 @@ link network with cost functions $c_1(x) = c(x)$ and $c_2(x) = c^\beta{r}$ on th
 Thus, we only need to consider how bad the PoA in this two-node network can get for any $c\in L_d$!
 
 WLOG, we can consider cost functions $c(x) = ax^i$ for some $i \le d$. 
+With this simplification,
 If we route $r\Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ flow across the first link with cost $c_1(x)$ and the rest on the second link with cost $c_2(x)$, 
     then we get (after several manipulation steps) that 
 $$\max_{c\in{L_d}} \max_{x,r\ge 0} \frac{rc(r)}{xc(x) + (r-x)(c^\beta(r))} = \Big(\Big(\frac{1+\beta i}{1+i}\Big)^{1/i}\Big(\frac{1+\beta i}{1+i} + 1 + \beta i\Big)+ 1 + \beta i\Big)^{-1}$$
