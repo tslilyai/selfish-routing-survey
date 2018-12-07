@@ -35,7 +35,7 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
      \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
     \item A {rate} $r_i$ of traffic for each $(s_i,t_i)\in S$ representing the demanded amount of traffic from $s_i$ to $t_i$
     \item A {latency} function $l$ that assigns a per-edge function $l_e$ to each edge $e$ describing how adding traffic (i.e., congestion) to $e$ affects the time taken to travel across $e$. We can also think of $l$ as assigning per-path costs: for any path $p$ in the graph
-        $$l_p(f) = \sum_{e\in P}c_e(f_e)$$ 
+        $$l_p(f) = \sum_{e\in P}l_e(f_e)$$ 
         We assume that $l$ is continuous, nonnegative, and nondecreasing.
 \end{itemize}
 In Figure~\ref{fig:Pigou}, we see a single source-destination input network with an example (linear) cost function with $r_{(s,t)} = 1$.
@@ -51,7 +51,7 @@ A \emph{feasible} solution given such an input is an assignment of path flows su
 $$\forall 1 \le i \le k,~\sum_{p\in P_i} f_p = r_i$$
 %
 An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the \textbf{total weighted latency cost}, or \textbf{social welfare latency cost} $C(f)$, where
-$$C(f) = \sum_i\sum_{p\in P_i}c_p(f)f_p = \sum_{e\in E} f_ec_e(f_e)$$
+$$C(f) = \sum_i\sum_{p\in P_i}l_p(f)f_p = \sum_{e\in E} f_el_e(f_e)$$
 
 Intuitively, we are calculating the latency of each path of a given flow assignment, weighing 
 each path's latency proportional to the amount of flow through the path. More concretely,
@@ -73,7 +73,7 @@ inefficiencies.
 
 \medskip
 \textbf{The Price of Anarchy} (PoA) allows us to measure the inefficiencies of a decentralized model, and was first introduced by Koutsoupias and Papadimitriou in 1999~\cite{poa}. 
-We treat the decentralized model as a game in which each individual optimizes for her own individual cost function, allowing us to compute the achieved flow at the resulting Nash equilibrium (proven to exist if the cost functions are continuous)~\cite{wardrop,haurie,winsten}.
+We treat the decentralized model as a game in which each individual optimizes for her own individual cost function $c$, allowing us to compute the achieved flow at the resulting Nash equilibrium (proven to exist if the cost functions are continuous)~\cite{wardrop,haurie,winsten}.
 The PoA is defined as the ratio between the social welfare latency cost at the optimal flow, and the social welfare latency coast at the flow achieved at equilibrium.
 (This is similar to how we measured the distance from optimal of an approximation algorithm in a limited computational power model, and of online algorithms in an incomplete information model.)
 
@@ -87,7 +87,7 @@ $$SW = \min_f\Big(\sum_e f_el_e(f_e)\Big) \text{ subject to feasibility constrai
 \subsection{The Selfish Routing Model}
 One example of an uncoordinated model is the \emph{selfish routing} model, in which all entities in the network are selfish and choose a route minimizing their individual latency without caring (or knowing) about the effects on other users~\cite{tardos}.
 The selfish routing model corresponds to flows at a Nash equilibrium where each user optimizes her individual cost function
-$c(f) = l(f)$.
+$c^s(f) = l(f)$.
 Thus, the program optimized at Nash Equilibruim is
 $$NE_{s} = \min_f\Big(\sum_e \int_0^{f_e} l_e(t)dt\Big) \text{ subject to feasibility constraints}$$
 
@@ -99,7 +99,7 @@ We next describe and present the main results regarding the PoA in this (decentr
 
 \subsection{Main Results}
 \begin{theorem}
-    If $f$ is a flow at Nash Equlibrium for a given input set $(G, r, c)$ and $f^*$ is a feasible flow for $(G, 2r, c)$, then $C(f) \leq C(f^*)$
+    If $f$ is a flow at Nash Equlibrium for a given input set $(G, r, l)$ and $f^*$ is a feasible flow for $(G, 2r, l)$, then $C(f) \leq C(f^*)$
 \end{theorem}
 
 \begin{proof-sketch}
