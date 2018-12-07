@@ -36,7 +36,7 @@ if $c_e$ is nondecreasing and convex for all $e$,
 \end{theorem}
 
 \begin{proof-sketch}
-    Consider the two (convex) objectives $NE(f)$ and $C(f)$ where $NE$ is the objective of a flow at Nash equilibrium, and $C$ represents the social welfare cost:
+    Consider the two (convex) objectives $NE(f)$ and $C(f)$ where $NE$ is the objective of a flow at Nash equilibrium, and $C$ is the objective to minimize social welfare cost. We can write these and manipulate them into comparable forms as follows:
     $$NE({f}) = \sum_e\int_0^{{f}_e}c_e^\beta(t)dt = 
         \sum_e\int_0^{{f}_e} c_e(t) + \beta tc'e(t)dt\text{ (by definition of $c^\beta_e$)}$$
     $$C(f) = \sum_ef_ec_e(f_e) = \sum_e\int_0^{f_e} (tc_e(t))' dt 
@@ -51,8 +51,28 @@ if $c_e$ is nondecreasing and convex for all $e$,
 
 \subsubsection{Uniformly Distributed Spite}
 Chen and Kempe then address the problem of spite: how (uniformly) spiteful can users be before the PoA becomes infinite?
+It turns out that this depends on the type of cost function! Our analysis begins by reasoning about the PoA of a given class ${L}$ of cost functions: 
+$$\rho(G,R,{L},\psi)$$ 
 
-\XXX{TODO something about anarchy value and given class of cost functions} 
+It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst possible PoA of any function $c\in L$ applied to a two-link, two-node network (such as in Figure~\ref{pigou}) with 
+demand rate $r$ and cost functions $c_1(x) = c(x)$ on link 1, and constant cost function $c(x) = c^\beta{r}$ on the bottom:
+\begin{theorem}
+For any input network $G$, demand rates $r$, and a uniform distribution $\psi$ with $\beta \in (-1, 1]$,then 
+$$\rho(G,R,{L},\psi) \le \max_{c\in{L}} \max_{x,r\ge 0} \frac{rc(r)}{xc(x) + (r-x)(c^\beta(r))}$$
+\end{theorem}
+\begin{proof-sketch}
+    We give a brief overview of the proof technique here, which proceeds by considering social welfare cost of the flow $f^*$ optimizing $C$. By unfolding the RHS part of the above goal to get a bound for $xc_e(x)$, we can then apply this bound to each edge with $x = f^*_e$ and $r = \hat{f}_e$, where $\hat{f}$ is the optimizing flow at Nash Equilibrium. With some mathematical manipulation, we can derive a comparison of $C(f^*)$ to $NE(\hat{f})$ satisfying the above bound.
+\end{proof-sketch}
+
+Since we know how to bound $\rho(G,R,{L},\psi)$ by the (uniform) value of $\beta$, we can now determine at which values of $\beta$ this lower bound is infinite: how spiteful do users have to be to cause each other infinitely more suffering? The following result shows that if the cost functions are in $L_d =$ polynomials of degree $\le d$, the PoA is bounded when $\beta$ is at least $\frac{-1}{d}$ (and is infinite when $\beta < \frac{-1}d$).
+\begin{theorem}
+For any input network $G$, demand rates $r$, $c_e \in L_d$,
+and uniform distribution $\psi$ with $\beta \in (\frac{-1}{d}, 1]$,
+    $$\rho(G,R,c,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/p}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
+\end{theorem}
+\begin{proof-sketch}
+
+\end{proof-sketch}
 
 \subsubsection{Arbitrarily Distributed Altruism}
 Chen and Kempe go on to extend their analysis to when users have an arbitrary distribution $\psi$ of altruism (with no spiteful users) in \emph{parallel link networks}. We briefly mention their results here, but direct the reader to the paper for a more detailed explanation. 
