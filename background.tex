@@ -51,7 +51,8 @@ A \emph{feasible} solution given such an input is an assignment of path flows su
 $$\forall 1 \le i \le k,~\sum_{p\in P_i} f_p = r_i$$
 %
 An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the \textbf{total weighted cost} $C(f)$, where
-$$C(f) = \sum_i\sum_{p\in P_i}c_p(f)f_p = \sum_{e\in E} c_e(f_e)\cdot f_e$$
+$$C(f) = \sum_i\sum_{p\in P_i}c_p(f)f_p = \sum_{e\in E} f_ec_e(f_e)$$
+
 Intuitively, we are calculating the cost of each path of a given flow assignment, weighing 
 each path's cost proportional to the amount of flow through the path. More concretely,
 if we were to let flow represent the routes chosen by (infinitely many) users, $C(f)$ calculates the average cost over all users. Thus, when minimizing $C(f)$, some users may incur 
@@ -82,16 +83,16 @@ One example of an uncoordinated model is the \emph{selfish routing} model, in wh
 
 The selfish routing model corresponds to flows at a \emph{Wardrop, or Nash equilibrium}~\cite{wardrop,haurie}.
 The set of flows in a Nash equilibrium are defined such that for all $i$ source-destination pairs, all the paths from $s_i \to t_i$ have the minimum-possible cost. In other words, the (nonzero) 
-flow paths at Nash equilibrium have equal path costs: 
+flow paths at Nash equilibrium have equal path costs, and no user decreases her cost by choosing a different path:
 $$\forall 0\le i \le k,~\forall p_1, p_2\in P_i~s.t.~f_{p_1} > 0~\text{and} f_{p_2} > 0,~ c_{p_1}(f) = c_{p_2}(f)$$
+Note that this corresponds exactly to the (polynomial-time) solutions to the following (convex) program:
+$$\min_f\Big(\sum_e \int_0^{f_e} c_e(t)dt\Big) \text{ subject to feasibility constraints for $f$}$$
+whereas the flow optimizing the social welfare or total cost corresponds exactly to the (polynomial-time) solutions to the following (convex) program: 
+$$\min_f\Big(f_ec_e(f_e)\Big) \text{ subject to feasibility constraints for $f$}$$
 
 If we revisit our running example in Figure~\ref{fig:Pigou}, we note that the flow at Nash equilibrium corresponds to a flow that sends the entire unit of traffic through the bottom edge (the 0 flow through the top path has a cost of 1, and the unit flow through the bottom path will have cost 1).
 Intuitively, each user routing from $s$ to $t$ will selfishly choose to take the bottom route because she will reason that the bottom route can have cost no worse than the top route. However, by doing so, the bottom route becomes more congested and leads to a total average cost $C(f) = 1$.
 Thus, in Figure~\ref{fig:Pigou}, the price of anarchy $\rho$ is $\frac{1}{3/4} = \frac{4}{3}$.
-
-
-\XXX{TODO should put more results about flows at Nash equilibrium? Not sure if important... the altruism paper has a good short description about how to compute Nash equilibria in polynomial time to 
-find the selfish routing solution}
 
 We next describe and present the main results regarding the PoA in this (decentralized) selfish routing model, which will act as a basis to which we will compare traffic routing results in more recently formulated models.
 

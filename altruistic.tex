@@ -18,9 +18,11 @@ If $\beta$ is negative, a user is spiteful: we know that adding a little more fl
 Conversely, if $\beta$ is positive, a user is altruistic: increasing flow increases the social welfare cost on $p$ and also the user's perceived cost of taking $p$.
 We assume that $\beta$ ranges from -1 (extremely spiteful) to 1 (extremely altruistic), where $\beta=0$ corresponds to selfishness.
 
-All analysis of the model assumes a particular distribution $\psi$ of $\beta$ for all users. We next present Chen and Kempe's core results when $\psi$ is uniform (all users have the same $\beta$ value) in arbitrary networks, and when $\psi$ is non-uniform in parallel-link networks.
+All analysis of the model assumes a particular distribution $\psi$ of $\beta$ for all users. 
+Futhermore, we can compare this model to the selfish model using the PoA as a measure of inefficiency
+because the atruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$: given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$, and we can apply the result of Theorem 1 of Mas-Collel~\cite{mascollel}.
 
-\XXX{TODO: Prove that each instance has nash equilibrium?}
+We next present Chen and Kempe's core results about the PoA of arbitrary networks when $\psi$ is uniform (all users have the same $\beta$ value), and briefly mention their results of non-uniform $\psi$ in parallel-link networks.
 
 \subsubsection{Uniformly Distributed Altruism}
 We first consider the case where $\psi$ is uniformly distributed, such that $\beta$ and therefore $c^\beta_p$ is the same for each user. We additionally assume that users tend to be altruistic, i.e., $\beta > 0$.
@@ -36,6 +38,7 @@ if $c_e$ is nondecreasing and semi-convex for all $e$,
 This proof is short. Will add... just follows from definition.
 \end{proof-sketch}
 
+\subsubsection{Uniformly Distributed Spite}
 Chen and Kempe then address the problem of spite: how (uniformly) spiteful can users be before the PoA becomes infinite?
 \begin{itemize}
 \item\XXX{Maybe something about anarchy value and given class of cost functions? Could just mention (don't really need to give proof) since Tardos paper assumes same restrictions on cost function.}
