@@ -21,7 +21,7 @@ We assume that $\beta$ ranges from -1 (extremely spiteful) to 1 (extremely altru
 All analysis of the model assumes a particular distribution $\psi$ of $\beta$ for all users. 
 Futhermore, we can compare this model to the selfish model using the PoA as a measure of inefficiency
 because the atruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$: given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$, and we can apply the result of Theorem 1 of Mas-Collel~\cite{mascollel}. Nash equilibrium is achieved at the flow solutions to the program
-$$\sum_e\int_0^{f_e}c_e^\beta(t)dt$$
+$$\min_f\sum_e\int_0^{f_e}c_e^\beta(t)dt \text{ subject to feasibility constraints}$$
 
 We next present Chen and Kempe's core results about the PoA of arbitrary networks when $\psi$ is uniform (all users have the same $\beta$ value), and briefly mention their results of non-uniform $\psi$ in parallel-link networks.
 
@@ -30,41 +30,40 @@ We first consider the case where $\psi$ is uniformly distributed, such that $\be
 \begin{theorem}
 For any input network $G$, demand rates $r$, and 
 a uniform distribution $\psi$ with $\beta \in (0, 1]$,
-if $c_e$ is nondecreasing and semi-convex for all $e$,
+if $c_e$ is nondecreasing and convex for all $e$,
     then the price of anarchy is bounded by 
     $$\rho(G,r,c,\psi) \le \frac{1}{\beta}$$
 \end{theorem}
 
 \begin{proof-sketch}
-
-
-This proof is short. Will add... just follows from definition.
+    Consider the two (convex) objectives $NE(f)$ and $C(f)$ where $NE$ is the objective of a flow at Nash equilibrium, and $C$ represents the social welfare cost:
+    $$NE({f}) = \sum_e\int_0^{{f}_e}c_e^\beta(t)dt = 
+        \sum_e\int_0^{{f}_e} c_e(t) + \beta tc'e(t)dt\text{ (by definition of $c^\beta_e$)}$$
+    $$C(f) = \sum_ef_ec_e(f_e) = \sum_e\int_0^{f_e} (tc_e(t))' dt 
+        = \sum_e\int_0^{f_e} c_e(t) + tc'e(t)dt$$ 
+    It is clear that for any feasible flow $f$, 
+    $NE(f) \le C(f) \le \frac{NE(f)}{\beta} \text{ because $\beta\in(0,1]$}$.
+    We now let $\hat{f}$ be the flow at Nash Equilibrium and $f^*$ be the flow at optimum social welfare. Because these are the optimal flows for their respective objectives, we know that 
+    $C(\hat{f}) \le \frac{NE(\hat{f})}{\beta} \le \frac{NE(f^*)}{\beta} \le \frac{C(f^*)}{\beta}$,
+    proving that 
+    $\rho(G,R,c,\psi) \le \frac{1}{\beta}$
 \end{proof-sketch}
 
 \subsubsection{Uniformly Distributed Spite}
 Chen and Kempe then address the problem of spite: how (uniformly) spiteful can users be before the PoA becomes infinite?
-\begin{itemize}
-\item\XXX{Maybe something about anarchy value and given class of cost functions? Could just mention (don't really need to give proof) since Tardos paper assumes same restrictions on cost function.}
-\item\XXX{Not sure if we need this?}
-\item\XXX{Could also just do the case for linear cost functions? Say it expands for any class}
-\end{itemize}
+
+\XXX{TODO something about anarchy value and given class of cost functions} 
 
 \subsubsection{Arbitrarily Distributed Altruism}
-We now consider the more realistic scenario: when users have an arbitrary distribution $\psi$ of altruism.
-Chen and Kempe analyze bounds on the PoA in \emph{parallel link networks}, which have 
-only one demand source-sink pair $(s,t)$ and (parallel) edges only between $s$ and $t$.
+Chen and Kempe go on to extend their analysis to when users have an arbitrary distribution $\psi$ of altruism (with no spiteful users) in \emph{parallel link networks}. We briefly mention their results here, but direct the reader to the paper for a more detailed explanation. 
+%, which have only one demand source-sink pair $(s,t)$ and (parallel) edges only between $s$ and $t$.
 %Stackleberg routing shown to have unlimited PoA in single-commodity networks
-
+Their main result mirrors that of the PoA with uniform altruism:
 \begin{theorem}
 Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $c_e$,
    $$\rho(G,r,c,\psi) \le \frac{1}{\bar{\beta}}$$
 \end{theorem}
-
-\begin{proof-sketch}
-\XXX{TODO a bit complicated...}
-\end{proof-sketch}
-
-This theorem leads to the following corrollary. Note that the theorem applies for a distribution in which a rate of $\bar{\beta}$ of users are completely altruistic and 1-$\bar{\beta}$ users are completely selfish. Chen and Kempe observe that this is equivalent to $\bar{\beta}$ of the population being under centralized (coordinated) control:
+One interesting observation is that this theorem leads to the following corrollary: because the theorem applies for a distribution in which a rate of $\bar{\beta}$ of users are completely altruistic and 1-$\bar{\beta}$ users are completely selfish, this is equivalent to $\bar{\beta}$ of the population being under centralized (coordinated) control:
 \begin{corollary}
 Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $c_e$,
 if $\bar{\beta}$ fraction of traffic is controlled by a central authority, then
@@ -72,7 +71,7 @@ if $\bar{\beta}$ fraction of traffic is controlled by a central authority, then
 \end{corollary}
 This is exactly the result proven by Roughgarden in 2004~\cite{roughgarden04}, and provides an interesting connection between models that include altruism and models of centralized/coordinated traffic control.
 
-\XXX{Address spite (not possible to include negative support)}
+\XXX{Maybe address spite (not possible to include negative support)}
 %Almost all of the latency is incurred by a small fraction of spiteful users who together
 %congest a link with very steep increase. At the same time, all altruistic users use links with very small constant latency.
 %Then, the PoA is much larger than 1, while the bounds of both theorems would require it to be close to 1

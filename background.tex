@@ -86,9 +86,9 @@ The set of flows in a Nash equilibrium are defined such that for all $i$ source-
 flow paths at Nash equilibrium have equal path costs, and no user decreases her cost by choosing a different path:
 $$\forall 0\le i \le k,~\forall p_1, p_2\in P_i~s.t.~f_{p_1} > 0~\text{and} f_{p_2} > 0,~ c_{p_1}(f) = c_{p_2}(f)$$
 Note that this corresponds exactly to the (polynomial-time) solutions to the following (convex) program:
-$$\min_f\Big(\sum_e \int_0^{f_e} c_e(t)dt\Big) \text{ subject to feasibility constraints for $f$}$$
+$$\min_f\Big(\sum_e \int_0^{f_e} c_e(t)dt\Big) \text{ subject to feasibility constraints}$$
 whereas the flow optimizing the social welfare or total cost corresponds exactly to the (polynomial-time) solutions to the following (convex) program: 
-$$\min_f\Big(f_ec_e(f_e)\Big) \text{ subject to feasibility constraints for $f$}$$
+$$\min_f\Big(\sum_e f_ec_e(f_e)\Big) \text{ subject to feasibility constraints}$$
 
 If we revisit our running example in Figure~\ref{fig:Pigou}, we note that the flow at Nash equilibrium corresponds to a flow that sends the entire unit of traffic through the bottom edge (the 0 flow through the top path has a cost of 1, and the unit flow through the bottom path will have cost 1).
 Intuitively, each user routing from $s$ to $t$ will selfishly choose to take the bottom route because she will reason that the bottom route can have cost no worse than the top route. However, by doing so, the bottom route becomes more congested and leads to a total average cost $C(f) = 1$.
