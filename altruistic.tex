@@ -55,7 +55,7 @@ It turns out that this depends on the type of cost function! Our analysis begins
 $$\rho(G,R,{L},\psi)$$ 
 
 It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst possible PoA of any function $c\in L$ applied to a two-link, two-node network (such as in Figure~\ref{pigou}) with 
-demand rate $r$ and cost functions $c_1(x) = c(x)$ on link 1, and constant cost function $c(x) = c^\beta{r}$ on the bottom:
+demand rate $r$ and cost function $c_1(x) = c(x)$ and constant cost function $c_2(x) = c^\beta{r}$.
 \begin{theorem}
 For any input network $G$, demand rates $r$, and a uniform distribution $\psi$ with $\beta \in (-1, 1]$,then 
 $$\rho(G,R,{L},\psi) \le \max_{c\in{L}} \max_{x,r\ge 0} \frac{rc(r)}{xc(x) + (r-x)(c^\beta(r))}$$
@@ -68,14 +68,25 @@ Since we know how to bound $\rho(G,R,{L},\psi)$ by the (uniform) value of $\beta
 \begin{theorem}
 For any input network $G$, demand rates $r$, $c_e \in L_d$,
 and uniform distribution $\psi$ with $\beta \in (\frac{-1}{d}, 1]$,
-    $$\rho(G,R,c,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/p}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
+    $$\rho(G,R,c,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
 \end{theorem}
 \begin{proof-sketch}
+From Theorem 4, we know that 
+$\rho(G,R,{L},\psi) \le \max_{c\in{L_d}} \max_{x,r\ge 0} \frac{rc(r)}{xc(x) + (r-x)(c^\beta(r))}$, where the RHS corresponds to the worst-case PoA for any cost function $c \in L_d$ in a two-node, two-
+link network with cost functions $c_1(x) = c(x)$ and $c_2(x) = c^\beta{r}$ on the bottom. 
+Thus, we only need to consider how bad the PoA in this two-node network can get for any $c\in L_d$!
 
+WLOG, we can consider cost functions $c(x) = ax^i$ for some $i \le d$. 
+If we route $r\Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ flow across the first link with cost $c_1(x)$ and the rest on the second link with cost $c_2(x)$, 
+    then we get (after several manipulation steps) that 
+$$\max_{c\in{L_d}} \max_{x,r\ge 0} \frac{rc(r)}{xc(x) + (r-x)(c^\beta(r))} = \Big(\Big(\frac{1+\beta i}{1+i}\Big)^{1/i}\Big(\frac{1+\beta i}{1+i} + 1 + \beta i\Big)+ 1 + \beta i\Big)^{-1}$$
+    \XXX{TODO need to put in step moving from 2-link to NE / OPT = PoA in 2-link network}
+    This is increasing in $i$, giving us the worst-case bound when $i=d$:
+$$\Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
 \end{proof-sketch}
 
 \subsubsection{Arbitrarily Distributed Altruism}
-Chen and Kempe go on to extend their analysis to when users have an arbitrary distribution $\psi$ of altruism (with no spiteful users) in \emph{parallel link networks}. We briefly mention their results here, but direct the reader to the paper for a more detailed explanation. 
+Chen and Kempe go on to extend their analysis to when users have an arbitrary distribution $\psi$ of altruism (with no spiteful users) in \emph{parallel link networks}. We briefly mention their results here, but direct the reader to the paper for a more detailed proof and explanation. 
 %, which have only one demand source-sink pair $(s,t)$ and (parallel) edges only between $s$ and $t$.
 %Stackleberg routing shown to have unlimited PoA in single-commodity networks
 Their main result mirrors that of the PoA with uniform altruism:
@@ -90,8 +101,6 @@ if $\bar{\beta}$ fraction of traffic is controlled by a central authority, then
    $$\rho(G,r,c,\psi) \le \frac{1}{\bar{\beta}}$$
 \end{corollary}
 This is exactly the result proven by Roughgarden in 2004~\cite{roughgarden04}, and provides an interesting connection between models that include altruism and models of centralized/coordinated traffic control.
-
-\XXX{Maybe address spite (not possible to include negative support)}
 %Almost all of the latency is incurred by a small fraction of spiteful users who together
 %congest a link with very steep increase. At the same time, all altruistic users use links with very small constant latency.
 %Then, the PoA is much larger than 1, while the bounds of both theorems would require it to be close to 1
