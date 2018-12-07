@@ -20,7 +20,7 @@ We assume that $\beta$ ranges from -1 (extremely spiteful) to 1 (extremely altru
 
 All analysis of the model assumes a particular distribution $\psi$ of $\beta$ for all users. 
 Futhermore, we can compare this model to the selfish model using the PoA as a measure of inefficiency
-because the atruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$: given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$, and we can apply the result of Theorem 1 of Mas-Collel~\cite{mascollel}. Nash equilibrium is achieved at the flow solutions to the program
+because the atruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$: given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$, and we can apply the result of Theorem 1 of Mas-Collel~\cite{mascolell}. Nash equilibrium is achieved at the flow solutions to the program
 $$\min_f\sum_e\int_0^{f_e}c_e^\beta(t)dt \text{ subject to feasibility constraints}$$
 
 We next present Chen and Kempe's core results about the PoA of arbitrary networks when $\psi$ is uniform (all users have the same $\beta$ value), and briefly mention their results of non-uniform $\psi$ in parallel-link networks.
@@ -54,7 +54,7 @@ Chen and Kempe then address the problem of spite: how (uniformly) spiteful can u
 It turns out that this depends on the type of cost function! Our analysis begins by reasoning about the PoA of a given class ${L}$ of cost functions: 
 $$\rho(G,R,{L},\psi)$$ 
 
-It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst possible PoA of any function $c\in L$ applied to a two-link, two-node network (such as in Figure~\ref{pigou}) with 
+It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst possible PoA of any function $c\in L$ applied to a two-link, two-node network (such as in Figure~\ref{fig:pigou}) with 
 demand rate $r$ and cost function $c_1(x) = c(x)$ and constant cost function $c_2(x) = c^\beta{r}$.
 \begin{theorem}
 For any input network $G$, demand rates $r$, and a uniform distribution $\psi$ with $\beta \in (-1, 1]$,then 
