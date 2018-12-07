@@ -1,28 +1,26 @@
 \subsection{Altruism and Spite}
 The first alternative model we consider is that proposed by Chen and Kempe in 2008~\cite{chen}, which assumes that users are ``not entirely selfish.''
 Chen and Kempe note that social experiments from both economic and psychology have shown humans do not behave rationally in a selfish manner; instead, our behavior is better modeled as either altruistic or malicious (spiteful).
-Their model proposes a simple way to capture how people make decisions based upon how much cost (latency) a particular decision will cost other users; if someone is spiteful, she will want to increase their cost, and if she are altruistic, she will want to decrease their cost.
+Their model proposes a simple way to capture how people make decisions based upon how much latency a particular decision will cost other users; if someone is spiteful, she will want to increase others' latencies, and if she are altruistic, she will want to decrease their latencies.
 
 \subsubsection{Formalization}
-The formal Chen and Kempe model introduces a per-user \emph{altruism} coefficient $\beta$ and a new cost function
+The formal Chen and Kempe model introduces a per-user \emph{altruism} coefficient $\beta$ and a new individual user cost function
 $c^\beta_p$ for all paths $p$: 
-$$c^\beta_p(f) = \sum_{e \in p} c_e(f_e) + \beta\sum_{e\in P} f_ec'_e(f_e)$$
-where $c_e(\cdot)$ is the cost function from the selfish routing setting, and $c'_e(\cdot)$ is the derivative with respect to $f_e$.
+$$c^\beta_p(f) = \sum_{e \in p} l_e(f_e) + \beta\sum_{e\in P} f_el'_e(f_e)$$
+where $l_e(\cdot)$ is the latency function from the selfish routing setting, and $l'_e(\cdot)$ is the derivative with respect to $f_e$.
 
-Note that the first term is exactly the cost used in the selfish routing model (and thus is equivalent to an altruism coefficient of $\beta = 0$).
-The second term corresponds to the derivative of the social welfare cost on $p$ and is weighed by $\beta$; we use the derivative, rather than the value, of the social welfare cost on $p$ because each user only controls an infinitesimally small amount of the flow. Thus, if we were to use the value, 
-a single user's choice would have no effect on the social welfare cost! 
+Note that the first term is exactly the user cost used in the selfish routing model (and thus the two user costs are equivalent when $\beta = 0$).
+The second term corresponds to the derivative of the social welfare latency cost on $p$ and is weighed by $\beta$; we use the derivative, rather than the value, of the social welfare cost on $p$ because each user only controls an infinitesimally small amount of the flow. Thus, if we were to use the value, a single user's choice would have no effect on the social welfare cost! 
 Instead, a user can account for how she will affect the social welfare cost via the rate at which her  choice of path affects other users.
 
-If $\beta$ is negative, a user is spiteful: we know that adding a little more flow to $p$ will increase the social welfare cost of taking $p$ (the derivative $c'_e$ is positive), and since we negate this value, this lowers the user's perceived cost of taking $p$.
+If $\beta$ is negative, a user is spiteful: we know that adding a little more flow to $p$ will increase the social welfare cost of taking $p$ (the derivative $l'_e$ is positive), and since we negate this value, this lowers the user's perceived cost of taking $p$.
 Conversely, if $\beta$ is positive, a user is altruistic: increasing flow increases the social welfare cost on $p$ and also the user's perceived cost of taking $p$.
 We assume that $\beta$ ranges from -1 (extremely spiteful) to 1 (extremely altruistic), where $\beta=0$ corresponds to selfishness.
 
 All analysis of the model assumes a particular distribution $\psi$ of $\beta$ for all users. 
 Futhermore, we can compare this model to the selfish model using the PoA as a measure of inefficiency
 because the atruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$: given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$, and we can apply the result of Theorem 1 of Mas-Colell~\cite{mascolell}. Nash equilibrium is achieved at the flow solutions to the program
-$$\min_f\sum_e\int_0^{f_e}c_e^\beta(t)dt \text{ subject to feasibility constraints}$$
-
+$$NE_\beta = \min_f\sum_e\int_0^{f_e}c_e^\beta(t)dt \text{ subject to feasibility constraints}$$
 We next present Chen and Kempe's core results about the PoA of arbitrary networks when $\psi$ is uniform (all users have the same $\beta$ value), and briefly mention their results of non-uniform $\psi$ in parallel-link networks.
 
 \subsubsection{Uniformly Distributed Altruism}
@@ -30,57 +28,57 @@ We first consider the case where $\psi$ is uniformly distributed, such that $\be
 \begin{theorem}
 For any input network $G$, demand rates $r$, and 
 a uniform distribution $\psi$ with $\beta \in (0, 1]$,
-if $c_e$ is nondecreasing and convex for all $e$,
+if $l_e$ is nondecreasing and convex for all $e$,
     then the price of anarchy is bounded by 
-    $$\rho(G,r,c,\psi) \le \frac{1}{\beta}$$
+    $$\rho(G,r,l,\psi) \le \frac{1}{\beta}$$
 \end{theorem}
 
 \begin{proof-sketch}
-    Consider the two (convex) objectives $NE(f)$ and $C(f)$ where $NE$ is the objective of a flow at Nash equilibrium, and $C$ is the objective to minimize social welfare cost. We can write these and manipulate them into comparable forms as follows:
-    $$NE({f}) = \sum_e\int_0^{{f}_e}c_e^\beta(t)dt = 
-        \sum_e\int_0^{{f}_e} c_e(t) + \beta tc'e(t)dt\text{ (by definition of $c^\beta_e$)}$$
-    $$C(f) = \sum_ef_ec_e(f_e) = \sum_e\int_0^{f_e} (tc_e(t))' dt 
-        = \sum_e\int_0^{f_e} c_e(t) + tc'e(t)dt$$ 
+    Consider the two (convex) functions that we minimize for each of the two objectives $NE_\beta$ and $SW$. For simplicity, let $B(f)$ be the function minimized in $NE_\beta$; the second is our social welfare cost $C(f)$.
+    We can write these and manipulate them into comparable forms as follows:
+    $$B(f) = \sum_e\int_0^{{f}_e}c_e^\beta(t)dt = 
+        \sum_e\int_0^{{f}_e} l_e(t) + \beta tl'e(t)dt\text{ (by definition of $c^\beta_e$)}$$
+    $$C(f) = \sum_ef_el_e(f_e) = \sum_e\int_0^{f_e} (tl_e(t))' dt 
+        = \sum_e\int_0^{f_e} l_e(t) + tl'e(t)dt$$ 
     It is clear that for any feasible flow $f$, 
-    $NE(f) \le C(f) \le \frac{NE(f)}{\beta} \text{ because $\beta\in(0,1]$}$.
+    $B(f) \le C(f) \le \frac{B(f)}{\beta} \text{ because $\beta\in(0,1]$}$.
     We now let $\hat{f}$ be the flow at Nash Equilibrium and $f^*$ be the flow at optimum social welfare. Because these are the optimal flows for their respective objectives, we know that 
-    $C(\hat{f}) \le \frac{NE(\hat{f})}{\beta} \le \frac{NE(f^*)}{\beta} \le \frac{C(f^*)}{\beta}$,
+    $C(\hat{f}) \le \frac{B(\hat{f})}{\beta} \le \frac{B(f^*)}{\beta} \le \frac{C(f^*)}{\beta}$,
     proving that 
-    $\rho(G,R,c,\psi) \le \frac{1}{\beta}$
+    $\rho(G,R,l,\psi) \le \frac{1}{\beta}$
 \end{proof-sketch}
 
 \subsubsection{Uniformly Distributed Spite}
 Chen and Kempe then address the problem of spite: how (uniformly) spiteful can users be before the PoA becomes infinite?
-It turns out that this depends on the type of cost function! Our analysis begins by reasoning about the PoA of a given class ${L}$ of cost functions: 
+It turns out that this depends on the type of latency function! Our analysis begins by reasoning about the PoA of a given class ${L}$ of latency functions: 
 $$\rho(G,R,{L},\psi)$$ 
 
-It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst possible PoA of any function $c\in L$ applied to a two-link, two-node network (such as in Figure~\ref{fig:pigou}) with 
-demand rate $r$ and cost function $c_1(x) = c(x)$ and constant cost function $c_2(x) = c^\beta{r}$.
+It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst PoA achieved in a two-link, two-node network (such as in Figure~\ref{fig:pigou}) with demand rate $r$ and latency function $l_1(x) = l(x)$ and constant latency function $l_2(x) = c^\beta{r}$, for any choice of $l \in L$.
 \begin{theorem}
 For any input network $G$, demand rates $r$, and a uniform distribution $\psi$ with $\beta \in (-1, 1]$,then 
-$$\rho(G,R,{L},\psi) \le \max_{c\in{L}} \max_{x,r\ge 0} \frac{rc(r)}{xc(x) + (r-x)(c^\beta(r))}$$
+$$\rho(G,R,{L},\psi) \le \max_{l\in{L}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$$
 \end{theorem}
 \begin{proof-sketch}
-    We give a brief overview of the proof technique here, which proceeds by considering social welfare cost of the flow $f^*$ optimizing $C$. By unfolding the RHS part of the above goal to get a bound for $xc_e(x)$, we can then apply this bound to each edge with $x = f^*_e$ and $r = \hat{f}_e$, where $\hat{f}$ is the optimizing flow at Nash Equilibrium. With some mathematical manipulation, we can derive a comparison of $C(f^*)$ to $NE(\hat{f})$ satisfying the above bound.
+    We give a brief overview of the proof technique here, which proceeds by considering social welfare cost of the flow $f^*$ optimizing $C$. By unfolding the RHS part of the above goal to get a bound for $xl_e(x)$, we can then apply this bound to each edge with $x = f^*_e$ and $r = \hat{f}_e$, where $\hat{f}$ is the optimizing flow at Nash Equilibrium. With some mathematical manipulation, we can derive a comparison of $C(f^*)$ to $B(\hat{f})$ satisfying the above bound.
 \end{proof-sketch}
 
 Since we know how to bound $\rho(G,R,{L},\psi)$ by the (uniform) value of $\beta$, we can now determine at which values of $\beta$ this lower bound is infinite: how spiteful do users have to be to cause each other infinitely more suffering? The following result shows that if the cost functions are in $L_d =$ polynomials of degree $\le d$, the PoA is bounded when $\beta$ is at least $\frac{-1}{d}$ (and is infinite when $\beta < \frac{-1}d$).
 \begin{theorem}
-For any input network $G$, demand rates $r$, $c_e \in L_d$,
+For any input network $G$, demand rates $r$, $l_e \in L_d$,
 and uniform distribution $\psi$ with $\beta \in (\frac{-1}{d}, 1]$,
-    $$\rho(G,R,c,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
+    $$\rho(G,R,l,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
 \end{theorem}
 \begin{proof-sketch}
 From Theorem 4, we know that 
-$\rho(G,R,{L},\psi) \le \max_{c\in{L_d}} \max_{x,r\ge 0} \frac{rc(r)}{xc(x) + (r-x)(c^\beta(r))}$, where the RHS corresponds to the worst-case PoA for any cost function $c \in L_d$ in a two-node, two-
-link network with cost functions $c_1(x) = c(x)$ and $c_2(x) = c^\beta{r}$ on the bottom. 
-Thus, we only need to consider how bad the PoA in this two-node network can get for any $c\in L_d$!
+$\rho(G,R,{L},\psi) \le \max_{l\in{L_d}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$, where the RHS corresponds to the worst-case PoA for any cost function $l \in L_d$ in a two-node, two-
+link network with cost functions $l_1(x) = l(x)$ and $l_2(x) = c^\beta{r}$.
+Thus, we only need to consider how bad the PoA in this two-node network can get for any $l\in L_d$!
 
 WLOG, we can consider cost functions $c(x) = ax^i$ for some $i \le d$. 
 With this simplification,
-If we route $r\Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ flow across the first link with cost $c_1(x)$ and the rest on the second link with cost $c_2(x)$, 
+If we route $r\Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ flow across the first link with cost $l_1(x)$ and the rest on the second link with cost $l_2(x)$, 
     then we get (after several manipulation steps) that 
-$$\max_{c\in{L_d}} \max_{x,r\ge 0} \frac{rc(r)}{xc(x) + (r-x)(c^\beta(r))} = \Big(\Big(\frac{1+\beta i}{1+i}\Big)^{1/i}\Big(\frac{1+\beta i}{1+i} + 1 + \beta i\Big)+ 1 + \beta i\Big)^{-1}$$
+$$\max_{l\in{L_d}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))} = \Big(\Big(\frac{1+\beta i}{1+i}\Big)^{1/i}\Big(\frac{1+\beta i}{1+i} + 1 + \beta i\Big)+ 1 + \beta i\Big)^{-1}$$
     \XXX{TODO need to put in step moving from 2-link to NE / OPT = PoA in 2-link network}
     This is increasing in $i$, giving us the worst-case bound when $i=d$:
 $$\Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
@@ -92,14 +90,14 @@ Chen and Kempe go on to extend their analysis to when users have an arbitrary di
 %Stackleberg routing shown to have unlimited PoA in single-commodity networks
 Their main result mirrors that of the PoA with uniform altruism:
 \begin{theorem}
-Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $c_e$,
-   $\rho(G,r,c,\psi) \le \frac{1}{\bar{\beta}}$
+Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $l_e$,
+   $\rho(G,r,l,\psi) \le \frac{1}{\bar{\beta}}$
 \end{theorem}
 One interesting observation is that this theorem leads to the following corrollary: because the theorem applies for a distribution in which a rate of $\bar{\beta}$ of users are completely altruistic and 1-$\bar{\beta}$ users are completely selfish, this is equivalent to $\bar{\beta}$ of the population being under centralized (coordinated) control:
 \begin{corollary}
-Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $c_e$,
+Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $l_e$,
 if $\bar{\beta}$ fraction of traffic is controlled by a central authority, then
-   $\rho(G,r,c,\psi) \le \frac{1}{\bar{\beta}}$
+   $\rho(G,r,l,\psi) \le \frac{1}{\bar{\beta}}$
 \end{corollary}
 This is exactly the result proven by Roughgarden in 2004~\cite{roughgarden04}, and provides an interesting connection between models that include altruism and models of centralized/coordinated traffic control.
 %Almost all of the latency is incurred by a small fraction of spiteful users who together
