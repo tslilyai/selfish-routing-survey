@@ -26,10 +26,9 @@ We next present Chen and Kempe's core results about the PoA of arbitrary network
 \subsubsection{Uniformly Distributed Altruism}
 We first consider the case where $\psi$ is uniformly distributed, such that $\beta$ and therefore $c^\beta_p$ is the same for each user. We additionally assume that users tend to be altruistic, i.e., $\beta > 0$.
 \begin{theorem}
-For any input network $G$, demand rates $r$, and 
+For any $G$, demand rates $r$, and 
 a uniform distribution $\psi$ with $\beta \in (0, 1]$,
-if $l_e$ is nondecreasing and convex for all $e$,
-    then the price of anarchy is bounded by 
+if $l_e$ is nondecreasing and convex for all $e$, then the price of anarchy is bounded by 
     $$\rho(G,r,l,\psi) \le \frac{1}{\beta}$$
 \end{theorem}
 
@@ -53,9 +52,9 @@ Chen and Kempe then address the problem of spite: how (uniformly) spiteful can u
 It turns out that this depends on the type of latency function! Our analysis begins by reasoning about the PoA of a given class ${L}$ of latency functions: 
 $$\rho(G,R,{L},\psi)$$ 
 
-It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst PoA achieved in a two-link, two-node network (such as in Figure~\ref{fig:pigou}) with demand rate $r$ and latency function $l_1(x) = l(x)$ and constant latency function $l_2(x) = c^\beta{r}$, for any choice of $l \in L$.
+It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst PoA achieved in a two-link, two-node network (such as in Figure~\ref{fig:Pigou}) with demand rate $r$ and latency function $l_1(x) = l(x)$ and constant latency function $l_2(x) = c^\beta{r}$, for any choice of $l \in L$.
 \begin{theorem}
-For any input network $G$, demand rates $r$, and a uniform distribution $\psi$ with $\beta \in (-1, 1]$,then 
+For any $G$, demand rates $r$ and uniform distribution $\psi$ of $\beta \in (-1, 1]$,
 $$\rho(G,R,{L},\psi) \le \max_{l\in{L}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$$
 \end{theorem}
 \begin{proof-sketch}
@@ -64,22 +63,28 @@ $$\rho(G,R,{L},\psi) \le \max_{l\in{L}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-
 
 Since we know how to bound $\rho(G,R,{L},\psi)$ by the (uniform) value of $\beta$, we can now determine at which values of $\beta$ this lower bound is infinite: how spiteful do users have to be to cause each other infinitely more suffering? The following result shows that if the cost functions are in $L_d =$ polynomials of degree $\le d$, the PoA is bounded when $\beta$ is at least $\frac{-1}{d}$ (and is infinite when $\beta < \frac{-1}d$).
 \begin{theorem}
-For any input network $G$, demand rates $r$, $l_e \in L_d$,
+For any $G$, demand rates $r$, $l_e \in L_d$,
 and uniform distribution $\psi$ with $\beta \in (\frac{-1}{d}, 1]$,
     $$\rho(G,R,l,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
 \end{theorem}
 \begin{proof-sketch}
 From Theorem 4, we know that 
-$\rho(G,R,{L},\psi) \le \max_{l\in{L_d}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$, where the RHS corresponds to the worst-case PoA for any cost function $l \in L_d$ in a two-node, two-
-link network with cost functions $l_1(x) = l(x)$ and $l_2(x) = c^\beta{r}$.
-Thus, we only need to consider how bad the PoA in this two-node network can get for any $l\in L_d$!
+$\rho(G,R,{L},\psi)$% \le \max_{l\in{L_d}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$, where the RHS corresponds to 
+ is bounded above by the worst-case PoA for any cost function $l \in L_d$ in a two-node, two-link network with cost functions $l_1(x) = l(x)$ and $l_2(x) = c^\beta{r}$.
+Thus, we only need to consider how bad the PoA in this two-node network can get for any $l\in L_d$.
 
-WLOG, we can consider cost functions $c(x) = ax^i$ for some $i \le d$. 
-With this simplification,
+Let us first consider the price of anarchy to route $r\lambda$ units of flow through the 2-node network for some choice of $\lambda$.
+The solution at Nash Equilibrium will route some $r\lambda$ units of flow from the source node to the destination 
+will put $r\lambda$ flow on the first link with $l_1 = l(x)$, and the rest on the second link with $l_2 = c^\beta(x)$.
+The solution optimizing social welfare will put all flow on the first link with latency function $l_1 = l(x)$.
+This gives us a PoA of
+    $$\Big(\frac{\lambda l(r\lambda)}{l(r)} + \Big(1-\lambda\Big)\Big(1+\frac{\beta rl'(r)}{l(r)}\Big)\Big)^{-1}$$
+    
+    WLOG, we can consider latency functions $l(x) = ax^i$ for some $i \le d$. Choose $\lambda = \Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ so that $\frac{l(r\lambda)}{l(r)} = \frac{1+\beta i}{1+i}$ and $\frac{l'(r)}{l(r)} = \frac{i}{r}$.
+
 If we route $r\Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ flow across the first link with cost $l_1(x)$ and the rest on the second link with cost $l_2(x)$, 
-    then we get (after several manipulation steps) that 
+then we get (after several manipulation steps) that 
 $$\max_{l\in{L_d}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))} = \Big(\Big(\frac{1+\beta i}{1+i}\Big)^{1/i}\Big(\frac{1+\beta i}{1+i} + 1 + \beta i\Big)+ 1 + \beta i\Big)^{-1}$$
-    \XXX{TODO need to put in step moving from 2-link to NE / OPT = PoA in 2-link network}
     This is increasing in $i$, giving us the worst-case bound when $i=d$:
 $$\Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
 \end{proof-sketch}
