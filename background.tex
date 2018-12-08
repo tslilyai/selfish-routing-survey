@@ -88,7 +88,7 @@ $$SW = \min_f\Big(\sum_e f_e\ell_e(f_e)\Big) \text{ subject to feasibility const
 \subsection{The Selfish Routing Model}
 One example of an uncoordinated model is the \emph{selfish routing} model, in which all entities in the network are selfish and choose a route minimizing their individual latency without caring (or knowing) about the effects on other users~\cite{tardos}.
 The selfish routing model corresponds to flows at a Nash equilibrium where each user optimizes her individual cost function
-$c^s(f) = l(f)$.
+$c^s(f) = \ell(f)$.
 Thus, the program optimized at Nash equilibruim is
 $$NE^{s} = \min_f\Big(\sum_e \int_0^{f_e} \ell_e(t)dt\Big) \text{ subject to feasibility constraints}$$
 
@@ -142,10 +142,10 @@ We next describe and present the main results regarding the price of anarchy in 
     %% Do we need the actual proof of the fact that $f/2$ is optimal for the half rate case - we could also just reference Lemmas 4.1 and 4.3?
 
     This leaves the remaining $r/2$ that needs to be routed optimally to route $f^*$ fully. To reason about this, let's look at a small $\delta r_i$ increase in flow from $s_i$ to $t_i$ that already carries $x$ units 
-    of flow. For a convex latency function, we expect the increase in latency to be at least $\delta r_il'(x)$ where $l'$ if the minimum marginal increase in $C$. If we consider starting at the 
+    of flow. For a convex latency function, we expect the increase in latency to be at least $\delta r_i\ell'(x)$ where $\ell'$ if the minimum marginal increase in $C$. If we consider starting at the 
     optimal flow $f/2$ for the $r/2$ demand and increasing the flow on each path by a small $\delta r_i$, the subsequent increase in 
-    latency across be all paths can be summed as  $\displaystyle \sum_{i = 1}^kl'(f/2)\delta r_i$. But, for linear edge latency functions, the marginal increase in latency on every edge at $f/2$ is exactly
-    the latency of that edge at $f$. Thus, $\ell_e'(f/2) = \ell_e(f)$. We now know that when we set $\delta = 1$ and increase the rate by $r_i/2$ on every $s_i$, the overall increase in latency is at least $\displaystyle \frac{1}{2}\sum_{i= 1}^kl(f)r_i = \frac{1}{2}C(f)$. The last part is by definition of $C(f)$. 
+    latency across be all paths can be summed as  $\displaystyle \sum_{i = 1}^k\ell'(f/2)\delta r_i$. But, for linear edge latency functions, the marginal increase in latency on every edge at $f/2$ is exactly
+    the latency of that edge at $f$. Thus, $\ell_e'(f/2) = \ell_e(f)$. We now know that when we set $\delta = 1$ and increase the rate by $r_i/2$ on every $s_i$, the overall increase in latency is at least $\displaystyle \frac{1}{2}\sum_{i= 1}^k\ell(f)r_i = \frac{1}{2}C(f)$. The last part is by definition of $C(f)$. 
     
     We have shown that routing the first $r/2$ demand optimally costs at least $C(f)/4$ and the next $r/2$ when augmented, costs at least another $C(f)/2$. In total, the optimal costs at least $\frac{3}{4}C(f)$. In other words,
     the flow at Nash equilibrium has cost utmost $\frac{4}{3}C(f^*)$ where $f^*$ is the flow achieving optimal latency.
