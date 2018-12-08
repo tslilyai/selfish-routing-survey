@@ -1,4 +1,5 @@
 \section{Background}
+\label{sec:background}
 This section presents a brief history of traffic routing problem and the selfish routing model, defining the terminology and context in which 
 we describe later results.
 
@@ -18,10 +19,10 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
 \draw (50.2,-17.9) node {$t$};
 \draw [black] (19.94,-15.615) arc (135.3471:44.6529:19.905);
 \fill [black] (48.26,-15.62) -- (48.05,-14.69) -- (47.34,-15.4);
-\draw (34.1,-9.2) node [above] {$l(x)\mbox{ }=\mbox{ }1$};
+\draw (34.1,-9.2) node [above] {$\ell(x)\mbox{ }=\mbox{ }1$};
 \draw [black] (48.072,-20.011) arc (-49.23907:-130.76093:21.4);
 \fill [black] (48.07,-20.01) -- (47.14,-20.15) -- (47.79,-20.91);
-\draw (34.1,-25.7) node [below] {$l(x)\mbox{ }=\mbox{ }x$};
+\draw (34.1,-25.7) node [below] {$\ell(x)\mbox{ }=\mbox{ }x$};
 \end{tikzpicture}
 \end{center}
     \caption{Pigou's example traffic routing problem, with a demand of $r_{(s,t)} = 1$}
@@ -29,14 +30,14 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
 \end{figure}
 
 \medskip\noindent
-\textbf{The input} $(G,r,l)$ to a traffic routing problem consists of:
+\textbf{The input} $(G,r,\ell)$ to a traffic routing problem consists of:
 \begin{itemize}
     \item A network $G = (V, E)$ of $|V|$ destinations (e.g., locations or servers) and $|E|$ links 
      \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
     \item A {rate} $r_i$ of traffic for each $(s_i,t_i)\in S$ representing the demanded amount of traffic from $s_i$ to $t_i$
-    \item A {latency} function $l$ that assigns a per-edge function $l_e$ to each edge $e$ describing how adding traffic (i.e., congestion) to $e$ affects the time taken to travel across $e$. We can also think of $l$ as assigning per-path latencies: for any path $p$ in the graph
-        $$l_p(f) = \sum_{e\in P}l_e(f_e)$$ 
-        We assume that $l$ is continuous, nonnegative, and nondecreasing.
+    \item A {latency} function $\ell$ that assigns a per-edge function $\ell_e$ to each edge $e$ describing how adding traffic (i.e., congestion) to $e$ affects the time taken to travel across $e$. We can also think of $\ell$ as assigning per-path latencies: for any path $p$ in the graph
+        $$\ell_p(f) = \sum_{e\in P}\ell_e(f_e)$$ 
+        We assume that $\ell$ is continuous, nonnegative, and nondecreasing.
 \end{itemize}
 In Figure~\ref{fig:Pigou}, we see a single source-destination input network with an example (linear) cost function with $r_{(s,t)} = 1$.
 
@@ -51,13 +52,13 @@ A \emph{feasible} solution given such an input is an assignment of path flows su
 $$\forall 1 \le i \le k,~\sum_{p\in P_i} f_p = r_i$$
 %
 An \emph{optimal} (feasible) solution given such an input is the feasible flow assignment $f$ that minimizes the \textbf{social welfare latency cost} $C(f)$, where
-$$C(f) = \sum_i\sum_{p\in P_i}l_p(f)f_p = \sum_{e\in E} f_el_e(f_e)$$
+$$C(f) = \sum_i\sum_{p\in P_i}\ell_p(f)f_p = \sum_{e\in E} f_e\ell_e(f_e)$$
 
 Intuitively, we are calculating the latency of each path of a given flow assignment, weighing 
 each path's latency proportional to the amount of flow through the path. More concretely,
 if we were to let flow represent the routes chosen by (infinitely many) users, $C(f)$ calculates the average latency over all users. Thus, when minimizing $C(f)$, some users may incur 
 more latency so that other users can go faster: the optimal flow is the \emph{socially optimal} solution.
-Note that there exists an optimal flow $f^*$ minimizing $C(f)$ because we assume $l$ is continuous and the set of feasible flows is compact.
+Note that there exists an optimal flow $f^*$ minimizing $C(f)$ because we assume $\ell$ is continuous and the set of feasible flows is compact.
 
 In our running example (Figure~\ref{fig:Pigou}), a feasible flow is any flow that sends one unit from $s$ to $t$ (divided in any fashion between the top and bottom edges).
 The optimal flow is the flow that sends half the traffic through the lower edge and half through the upper edge: the users on the lower edge only experience a latency of $1/2$, while the users on the upper edge experience a latency of $1$, making the social welfare cost cost $3/4$.
@@ -74,7 +75,7 @@ inefficiencies.
 \medskip
 \textbf{The Price of Anarchy} (PoA) allows us to measure the inefficiencies of a decentralized model, and was first introduced by Koutsoupias and Papadimitriou in 1999~\cite{poa}. 
 We treat the decentralized model as a game in which each individual optimizes for her own \textbf{individual cost function $c$}, allowing us to compute the achieved flow at the resulting Nash equilibrium (proven to exist if the cost functions are continuous)~\cite{wardrop,haurie,beckmann1956studies}.
-The price of anarchy $\rho(G,r,l)$ is defined as the ratio between the optimally minimal social welfare latency cost, and the social welfare latency cost at the flow achieved at Nash equilibrium.
+The price of anarchy $\rho(G,r,\ell)$ is defined as the ratio between the optimally minimal social welfare latency cost, and the social welfare latency cost at the flow achieved at Nash equilibrium.
 (This is similar to how we measured the distance from optimal of an approximation algorithm in a limited computational power model, and of online algorithms in an incomplete information model.)
 
 The set of flows at Nash equilibrium are defined such that for all $i$ source-destination pairs, all the paths from $s_i \to t_i$ have the minimum-possible cost with respect to an individual's cost function $c$. In other words, the (nonzero) flow paths at Nash equilibrium have equal path costs, and no user decreases her cost by choosing a different path:
@@ -82,14 +83,14 @@ $$\forall 0\le i \le k,~\forall p_1, p_2\in P_i~s.t.~f_{p_1} > 0~\text{and} f_{p
 Note that this corresponds exactly to the solutions to the following (convex) program solvable in polynomial time:
 $$NE = \min_f\Big(\sum_e \int_0^{f_e} c_e(t)dt\Big) \text{ subject to feasibility constraints}$$
 whereas the flow optimizing the social welfare latency cost corresponds exactly to the (polynomial-time) solutions to the following (convex) program: 
-$$SW = \min_f\Big(\sum_e f_el_e(f_e)\Big) \text{ subject to feasibility constraints}$$
+$$SW = \min_f\Big(\sum_e f_e\ell_e(f_e)\Big) \text{ subject to feasibility constraints}$$
 
 \subsection{The Selfish Routing Model}
 One example of an uncoordinated model is the \emph{selfish routing} model, in which all entities in the network are selfish and choose a route minimizing their individual latency without caring (or knowing) about the effects on other users~\cite{tardos}.
 The selfish routing model corresponds to flows at a Nash equilibrium where each user optimizes her individual cost function
 $c^s(f) = l(f)$.
 Thus, the program optimized at Nash equilibruim is
-$$NE^{s} = \min_f\Big(\sum_e \int_0^{f_e} l_e(t)dt\Big) \text{ subject to feasibility constraints}$$
+$$NE^{s} = \min_f\Big(\sum_e \int_0^{f_e} \ell_e(t)dt\Big) \text{ subject to feasibility constraints}$$
 
 If we revisit our running example in Figure~\ref{fig:Pigou}, we note that the flow at Nash equilibrium corresponds to a flow that sends the entire unit of traffic through the bottom edge (the 0 flow through the top path has latency 1, and the unit flow through the bottom path will have latency 1).
 Intuitively, each user routing from $s$ to $t$ will selfishly choose to take the bottom route because she will reason that the bottom route can have latency no worse than the top route. However, by doing so, the bottom route becomes more congested and leads to a total average latency $C(f) = 1$.
@@ -99,7 +100,7 @@ We next describe and present the main results regarding the price of anarchy in 
 
 \subsection{Main Results}
 \begin{theorem}
-    If $f$ is a flow at Nash equlibrium for a given input set $(G, r, l)$ and $f^*$ is a feasible flow for $(G, 2r, l)$, then $C(f) \leq C(f^*)$
+    If $f$ is a flow at Nash equlibrium for a given input set $(G, r, \ell)$ and $f^*$ is a feasible flow for $(G, 2r, \ell)$, then $C(f) \leq C(f^*)$
 \end{theorem}
 
 \begin{proof-sketch}
@@ -127,7 +128,7 @@ We next describe and present the main results regarding the price of anarchy in 
 \end{proof-sketch}
 
 \begin{theorem}
-    If the edge latency functions are linear, i.e., $l_e = a_ef_e + b_e$ for every edge $e \in E$, then $\rho(G, R,l) \leq 4/3$.
+    If the edge latency functions are linear, i.e., $\ell_e = a_ef_e + b_e$ for every edge $e \in E$, then $\rho(G, R,\ell) \leq 4/3$.
 \end{theorem}
 
 \begin{proof-sketch}
@@ -144,8 +145,7 @@ We next describe and present the main results regarding the price of anarchy in 
     of flow. For a convex latency function, we expect the increase in latency to be at least $\delta r_il'(x)$ where $l'$ if the minimum marginal increase in $C$. If we consider starting at the 
     optimal flow $f/2$ for the $r/2$ demand and increasing the flow on each path by a small $\delta r_i$, the subsequent increase in 
     latency across be all paths can be summed as  $\displaystyle \sum_{i = 1}^kl'(f/2)\delta r_i$. But, for linear edge latency functions, the marginal increase in latency on every edge at $f/2$ is exactly
-    the latency of that edge at $f$. Thus, $l_e'(f/2) = l_e(f)$. We now know that setting $\delta = 1$ and increasing the rate by $r_i/2$ on every $s_i$, the overall increase in latency is  at least $\displaystyle \frac{1}{2}\sum_{i= 1}^kl(f)r_i
-    = \frac{1}{2}C(f)$. The last part is by definition of $C(f)$. 
+    the latency of that edge at $f$. Thus, $\ell_e'(f/2) = \ell_e(f)$. We now know that when we set $\delta = 1$ and increase the rate by $r_i/2$ on every $s_i$, the overall increase in latency is at least $\displaystyle \frac{1}{2}\sum_{i= 1}^kl(f)r_i = \frac{1}{2}C(f)$. The last part is by definition of $C(f)$. 
     
     We have shown that routing the first $r/2$ demand optimally costs at least $C(f)/4$ and the next $r/2$ when augmented, costs at least another $C(f)/2$. In total, the optimal costs at least $\frac{3}{4}C(f)$. In other words,
     the flow at Nash equilibrium has cost utmost $\frac{4}{3}C(f^*)$ where $f^*$ is the flow achieving optimal latency.

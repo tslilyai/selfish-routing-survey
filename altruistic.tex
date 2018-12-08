@@ -1,26 +1,26 @@
 \subsection{Altruism and Spite}
 The first alternative model we consider is that proposed by Chen and Kempe in 2008~\cite{chen}, which assumes that users are ``not entirely selfish.''
 Chen and Kempe note that social experiments from both economic and psychology have shown humans do not behave rationally in a selfish manner; instead, our behavior is better modeled as either altruistic or malicious (spiteful).
-Their model proposes a simple way to capture how people make decisions based upon how much latency a particular decision will cost other users; if someone is spiteful, she will want to increase others' latencies, and if she are altruistic, she will want to decrease their latencies.
+Their model proposes a simple way to capture how people make decisions based upon how much latency a particular decision will cost other users: if someone is spiteful, she will want to increase others' latencies, and if she are altruistic, she will want to decrease their latencies.
 
 \subsubsection{Formalization}
-The formal Chen and Kempe model introduces a per-user \emph{altruism} coefficient $\beta$ and a new individual user cost function
-$c^\beta_p$ for all paths $p$: 
+The formal Chen and Kempe model introduces a per-user \emph{altruism} coefficient $\beta$ and an individual user cost function
+of $c^\beta_p$ for all paths $p$:
 $$c^\beta_p(f) = \sum_{e \in p} l_e(f_e) + \beta\sum_{e\in P} f_el'_e(f_e)$$
 where $l_e(\cdot)$ is the latency function from the selfish routing setting, and $l'_e(\cdot)$ is the derivative with respect to $f_e$.
 
-Note that the first term is exactly the user cost used in the selfish routing model (and thus the two user costs are equivalent when $\beta = 0$).
-The second term corresponds to the derivative of the social welfare latency cost on $p$ and is weighed by $\beta$; we use the derivative, rather than the value, of the social welfare cost on $p$ because each user only controls an infinitesimally small amount of the flow. Thus, if we were to use the value, a single user's choice would have no effect on the social welfare cost! 
-Instead, a user can account for how she will affect the social welfare cost via the rate at which her  choice of path affects other users.
+Note that the first term is exactly the individual user cost from the selfish routing model (and thus the two models are equivalent when $\beta = 0$).
+The second term corresponds to the derivative of the social welfare latency cost on $p$ and is weighed by $\beta$; we use the derivative, rather than the value, of the social welfare cost on $p$ because each user only controls an infinitesimally small amount of the flow: if we were to use the value, a single user's choice would have no effect on the social welfare cost! 
+Instead, a user can account for how she will affect the social welfare cost via the rate at which her choice of path affects other users.
 
 If $\beta$ is negative, a user is spiteful: we know that adding a little more flow to $p$ will increase the social welfare cost of taking $p$ (the derivative $l'_e$ is positive), and since we negate this value, this lowers the user's perceived cost of taking $p$.
 Conversely, if $\beta$ is positive, a user is altruistic: increasing flow increases the social welfare cost on $p$ and also the user's perceived cost of taking $p$.
 We assume that $\beta$ ranges from -1 (extremely spiteful) to 1 (extremely altruistic), where $\beta=0$ corresponds to selfishness.
-
 All analysis of the model assumes a particular distribution $\psi$ of $\beta$ for all users. 
-Futhermore, we can compare this model to the selfish model using the PoA as a measure of inefficiency
-because the atruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$: given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$, and we can apply the result of Theorem 1 of Mas-Colell~\cite{mascolell}. Nash equilibrium is achieved at the flow solutions to the program
-$$NE_\beta = \min_f\sum_e\int_0^{f_e}c_e^\beta(t)dt \text{ subject to feasibility constraints}$$
+
+Note that we can compare this model to the selfish model using the price of anarchy as a measure of inefficiency
+because the altruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$: given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$, and we can apply the result of Theorem 1 of Mas-Colell~\cite{mascolell}. Nash equilibrium is achieved at the flow solutions to the program
+$$NE^\beta = \min_f\sum_e\int_0^{f_e}c_e^\beta(t)dt \text{ subject to feasibility constraints}$$
 We next present Chen and Kempe's core results about the PoA of arbitrary networks when $\psi$ is uniform (all users have the same $\beta$ value), and briefly mention their results of non-uniform $\psi$ in parallel-link networks.
 
 \subsubsection{Uniformly Distributed Altruism}
