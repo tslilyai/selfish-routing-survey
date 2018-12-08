@@ -44,47 +44,58 @@ if $l_e$ is nondecreasing and convex for all $e$, then the price of anarchy is b
     We now let $\hat{f}$ be the flow at Nash Equilibrium and $f^*$ be the flow at optimum social welfare. Because these are the optimal flows for their respective objectives, we know that 
     $C(\hat{f}) \le \frac{B(\hat{f})}{\beta} \le \frac{B(f^*)}{\beta} \le \frac{C(f^*)}{\beta}$,
     proving that 
-    $\rho(G,R,l,\psi) \le \frac{1}{\beta}$
+    $\rho(G,r,l,\psi) \le \frac{1}{\beta}$
 \end{proof-sketch}
 
 \subsubsection{Uniformly Distributed Spite}
 Chen and Kempe then address the problem of spite: how (uniformly) spiteful can users be before the PoA becomes infinite?
 It turns out that this depends on the type of latency function! Our analysis begins by reasoning about the PoA of a given class ${L}$ of latency functions: 
-$$\rho(G,R,{L},\psi)$$ 
+$$\rho(G,r,{L},\psi)$$ 
 
-It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst PoA achieved in a two-link, two-node network (such as in Figure~\ref{fig:Pigou}) with demand rate $r$ and latency function $l_1(x) = l(x)$ and constant latency function $l_2(x) = c^\beta{r}$, for any choice of $l \in L$.
+It turns out that the PoA of a class of functions $L$ is lower-bounded by the worst PoA achieved in a two-link, two-node network (such as in Figure~\ref{fig:Pigou}) with demand rate $r$ and latency function $l_1(x) = l(x)$ and constant latency function $l_2(x) = c^\beta{r}$, for any choice of $l \in L$. We refer to this specific problem as $T_\beta$ given the user cost function $c^\beta$, and the price of anarchy of this problem as $\rho(T_\beta)$.
 \begin{theorem}
 For any $G$, demand rates $r$ and uniform distribution $\psi$ of $\beta \in (-1, 1]$,
-$$\rho(G,R,{L},\psi) \le \max_{l\in{L}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$$
-\end{theorem}
+    $$\rho(G,r,{L},\psi) \le \rho(T_\beta)$$
+    In other words, the price of anarchy of a class of functions $L$ routing $r$ flow in $G$ is 
+    bounded by the price of anarchy routing $r$ flow through the network $T_\beta$.
+    \end{theorem}
 \begin{proof-sketch}
-    We give a brief overview of the proof technique here, which proceeds by considering social welfare cost of the flow $f^*$ optimizing $C$. By unfolding the RHS part of the above goal to get a bound for $xl_e(x)$, we can then apply this bound to each edge with $x = f^*_e$ and $r = \hat{f}_e$, where $\hat{f}$ is the optimizing flow at Nash Equilibrium. With some mathematical manipulation, we can derive a comparison of $C(f^*)$ to $B(\hat{f})$ satisfying the above bound.
+    We give a brief overview of the proof technique here.
+    Note that $$\rho(T_\beta) = \max_{l\in{L}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$$
+    The proof proceeds by considering social welfare cost of the flow $f^*$ optimizing $C$. By unfolding the RHS part of the above goal to get a bound for $xl_e(x)$, we can then apply this bound to each edge with $x = f^*_e$ and $r = \hat{f}_e$, where $\hat{f}$ is the optimizing flow at Nash Equilibrium. With some mathematical manipulation, we can derive a comparison of $C(f^*)$ to $B(\hat{f})$ satisfying the above bound.
 \end{proof-sketch}
 
-Since we know how to bound $\rho(G,R,{L},\psi)$ by the (uniform) value of $\beta$, we can now determine at which values of $\beta$ this lower bound is infinite: how spiteful do users have to be to cause each other infinitely more suffering? The following result shows that if the cost functions are in $L_d =$ polynomials of degree $\le d$, the PoA is bounded when $\beta$ is at least $\frac{-1}{d}$ (and is infinite when $\beta < \frac{-1}d$).
+Since we know how to bound $\rho(G,r,{L},\psi)$ by the (uniform) value of $\beta$, we can now determine at which values of $\beta$ this lower bound is infinite: how spiteful do users have to be to cause each other infinitely more suffering? The following result shows that if the cost functions are in $L_d =$ polynomials of degree $\le d$, the PoA is bounded when $\beta$ is at least $\frac{-1}{d}$ (and is infinite when $\beta < \frac{-1}d$).
 \begin{theorem}
 For any $G$, demand rates $r$, $l_e \in L_d$,
 and uniform distribution $\psi$ with $\beta \in (\frac{-1}{d}, 1]$,
-    $$\rho(G,R,l,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
+    $$\rho(G,r,l,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
 \end{theorem}
 \begin{proof-sketch}
 From Theorem 4, we know that 
-$\rho(G,R,{L},\psi)$% \le \max_{l\in{L_d}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$, where the RHS corresponds to 
- is bounded above by the worst-case PoA for any cost function $l \in L_d$ in a two-node, two-link network with cost functions $l_1(x) = l(x)$ and $l_2(x) = c^\beta{r}$.
-Thus, we only need to consider how bad the PoA in this two-node network can get for any $l\in L_d$.
+$\rho(G,r,{L},\psi)$% \le \max_{l\in{L_d}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))}$, where the RHS corresponds to 
+ is bounded above by the worst-case PoA for any cost function $l \in L_d$ in $T_\beta$, a two-node, two-link network with cost functions $l_1(x) = l(x)$ and $l_2(x) = c^\beta(r)$.
+Thus, we only need to consider how bad $\rho(T_\beta)$ can get given any $l\in L_d$.
 
-Let us first consider the price of anarchy to route $r\lambda$ units of flow through the 2-node network for some choice of $\lambda$.
-The solution at Nash Equilibrium will route some $r\lambda$ units of flow from the source node to the destination 
-will put $r\lambda$ flow on the first link with $l_1 = l(x)$, and the rest on the second link with $l_2 = c^\beta(x)$.
-The solution optimizing social welfare will put all flow on the first link with latency function $l_1 = l(x)$.
-This gives us a PoA of
-    $$\Big(\frac{\lambda l(r\lambda)}{l(r)} + \Big(1-\lambda\Big)\Big(1+\frac{\beta rl'(r)}{l(r)}\Big)\Big)^{-1}$$
+The key observation is that $\exists\lambda \in [0,1]$ s.t. $c^1(r\lambda) = c^\beta(r)$, where $c^1$ is the cost function with uniform altruism value $\beta=1$. Our strategy is three-part: 
+\begin{enumerate}
+    \item We bound the price of anarchy of routing $r\lambda$ units of flow at Nash Equilibrium with user cost function $c^\beta$ in $T_\beta$
+   \item We use the bound from step 1 to get an upper bound on the price of anarchy routing $r\lambda$ units of flow in $T_\beta$ when the user cost function is $c^1$. since by Theorem 3, increasing $\beta$ to a maximum of 1 will only decrease the price of anarchy. 
+    \item Drawing on our key observation, the bound for $c^1$ routing $r\lambda$ units of flow can be applied to bound the price of anarchy routing $r$ units of flow when user costs are $c^\beta$.
+We only need to make an appropriate choice of $\lambda$ to make our observation valid.
+\end{enumerate}
+
+We start with step (1): A Nash Equilibrium flow routing $r\lambda$ units from the source to the destination will put $r\lambda$ flow on the first link with $l_1 = l(x)$, and the rest on the second link with $l_2 = c^\beta(x)$. The solution optimizing social welfare will put all flow on the first link with latency function $l_1 = l(x)$.
+This gives us a a bound on the price of anarchy when $r\lambda$ units of flow are sent through $T_\beta$ 
+    $$\rho(G,r\lambda,l,\psi) \le \rho(T_\beta) \le \Big(\frac{\lambda l(r\lambda)}{l(r)} + \Big(1-\lambda\Big)\Big(1+\frac{\beta rl'(r)}{l(r)}\Big)\Big)^{-1}$$
     
-    WLOG, we can consider latency functions $l(x) = ax^i$ for some $i \le d$. Choose $\lambda = \Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ so that $\frac{l(r\lambda)}{l(r)} = \frac{1+\beta i}{1+i}$ and $\frac{l'(r)}{l(r)} = \frac{i}{r}$.
+    This allows us to perform step (2): using Theorem 3, the above bound from step (1) also bounds the price of anarchy when the user cost function is $c^1$, i.e. $\psi$ is a uniform distribution when $\beta = 1$
+    $$\rho(G,\lambda r,l,\beta=1) \le \rho(G,r\lambda, l, \psi) \le \Big(\frac{\lambda l(r\lambda)}{l(r)} + \Big(1-\lambda\Big)\Big(1+\frac{\beta rl'(r)}{l(r)}\Big)\Big)^{-1}$$
 
-If we route $r\Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ flow across the first link with cost $l_1(x)$ and the rest on the second link with cost $l_2(x)$, 
-then we get (after several manipulation steps) that 
-$$\max_{l\in{L_d}} \max_{x,r\ge 0} \frac{rl(r)}{xl(x) + (r-x)(c^\beta(r))} = \Big(\Big(\frac{1+\beta i}{1+i}\Big)^{1/i}\Big(\frac{1+\beta i}{1+i} + 1 + \beta i\Big)+ 1 + \beta i\Big)^{-1}$$
+    We now can perform step (3). First, we need to make an appropriate choice of $\lambda$. Without loss of generality we can consider latency functions $l(x) = ax^i$ for some $i \le d$ to represent all functions $l \in L_d$. For these latency functions $l(x) = ax^i$, we know that 
+    $c^1(r\lambda) = c^\beta(r)$ when $\lambda = \Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$.
+    With this $\lambda$, we get that $\frac{l(r\lambda)}{l(r)} = \frac{1+\beta i}{1+i}$ and $\frac{l'(r)}{l(r)} = \frac{i}{r}$. We can plug these values into the bound to get:
+    $$\rho(G,r,l,\psi) = \rho(G,\lambda r, l,\beta=1) \le \Big(\Big(\frac{1+\beta i}{1+i}\Big)^{1/i}\Big(\frac{1+\beta i}{1+i} + 1 + \beta i\Big)+ 1 + \beta i\Big)^{-1}$$
     This is increasing in $i$, giving us the worst-case bound when $i=d$:
 $$\Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
 \end{proof-sketch}
