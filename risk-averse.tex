@@ -1,6 +1,6 @@
 \subsection{Risk-aversion}
 The second model we consider accounts for the tendency of users to pick routes with less variation in latency even if it comes at the cost of some added latency. This increase in latency can be quantified as the {\em{price of risk-aversion}},
-the worst-case ratio of the latency at a risk-averse Nash Equilibrium to that at a risk-neutral
+the worst-case ratio of the latency at a risk-averse Nash equilibrium to that at a risk-neutral
 Nash equilibrium or one where users are indifferent to variations in the latency itself.
 
 %% The key result that we will be focusing on here is one where we show that the latency bounds in this context
@@ -65,16 +65,18 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
 
 \subsubsection{Main Results}
 \begin{theorem}
-    If a flow $f$ is at a risk-averse Nash equlibrium and $f^*$ is any other flow, then $fC(f)\leq f^*C(f)$. 
+    If a flow $f$ is at a risk-averse Nash equilibrium and $f^*$ is any other flow, then $fC(f)\leq f^*C(f)$. 
     \label{variational}
 \end{theorem}
 
 \begin{proof}
-    By definition, any flow at Nash Equilibrium routes on paths with minimum cost or only sends flow on a given path if its cost is less than
-    the cost of sending the same flow on some other path. Thus, for a fixed demand and fixed path costs determined by $C(f)$, $f^*$ differs from $f$ in 
-    atleast moving some $\epsilon$ flow from one lower cost path to another higher cost one which increases the total overall cost. 
-    Consequently, let's say we have a flow $x$ that is a risk-averse Nash Equlibrium 
-    for the cost function $c_e = \ell_e(x_e) +\gamma \upsilon_e(x_e)$. If $z$ is a risk neutral Nash Equilibirium, it is still feasible for the risk-averse
+    By definition, any flow at Nash equilibrium routes on paths with minimum cost or only sends flow on a given path if its cost is less than
+    the cost of sending the same flow on some other path (with respect to the individual user costs). 
+    Thus, any other flow $f^*$ that routes some $\epsilon > 0$ flow differently from $f$ will increase the total cost of the flow over all individual users' costs.
+    %Thus, for a fixed demand and fixed path latencies determined by $C(f)$\XXX{Vibhaa, you mean the individual user cost here, right?}, 
+    %at least moving some $\epsilon$ flow from one lower cost path to another higher cost one which increases the total overall cost. 
+
+    Consequently, let's say we have a flow $x$ that is at the risk-averse Nash equilibrium for the individual cost function $c_e = \ell_e(x_e) +\gamma \upsilon_e(x_e)$. If $z$ is a risk-neutral Nash equilibirium, it is still feasible for the risk-averse
     mean-variance cost function, but is not the equilibrium in that scenario. By the above description and costs written as the sum across edges, we have
     $$\sum_{e \in E}x_e(\ell_e(x_e) + \gamma \upsilon(x_e)) \leq \sum_{e \in E} z_e(\ell_e(x_e) + \gamma \upsilon_e(x_e))$$
 \end{proof}
