@@ -76,8 +76,9 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
     %Thus, for a fixed demand and fixed path latencies determined by $C(f)$\XXX{Vibhaa, you mean the individual user cost here, right?}, 
     %at least moving some $\epsilon$ flow from one lower cost path to another higher cost one which increases the total overall cost. 
 
-    Consequently, let's say we have a flow $x$ that is at the risk-averse Nash equilibrium for the individual cost function $c_e = \ell_e(x_e) +\gamma \upsilon_e(x_e)$. If $z$ is a risk-neutral Nash equilibirium, it is still feasible for the risk-averse
-    mean-variance cost function, but is not the equilibrium in that scenario. By the above description and costs written as the sum across edges, we have
+    Consequently, let flow $x$ be at risk-averse Nash equilibrium for the individual cost function $c^\gamma_e = \ell_e(x_e) +\gamma \upsilon_e(x_e)$. Let $z$ be at risk-neutral Nash equilibirium (a feasible flow for the risk-averse mean-variance cost function). 
+    Clearly, $z$ is not at Nash equilibrium for $c^\gamma$ when $\gamma \neq 0$. 
+    By the above description and costs written as the sum across edges, we have
     $$\sum_{e \in E}x_e(\ell_e(x_e) + \gamma \upsilon(x_e)) \leq \sum_{e \in E} z_e(\ell_e(x_e) + \gamma \upsilon_e(x_e))$$
 \end{proof}
 
