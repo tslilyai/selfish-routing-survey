@@ -84,8 +84,7 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
 
 \begin{definition}
     A latency function $\ell(x)$ is $(\lambda, \mu)$-smooth if for all $x, y \geq 0$ $$ y\ell(x) \leq \lambda y\ell(y) + \mu x \ell(x)$$
-    
-    This is a particular instance of smoothness definitions for functions that allows us to show bounds on the price of risk-aversion for such restricted families of functions. 
+    This particular smoothness definition defines a class of function for which we can bound the price of risk-aversion.
 \end{definition}
 
 \begin{theorem}
@@ -94,25 +93,23 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
 \end{theorem}
 
 \begin{proof}
-    This proof involves separating the edges into two sets $A$ and $B$ where $A$ contains edges whose flow $x_e$ in the risk-averse Nash equilibrium is utmost the flow on the same edge
-    $z_e$ in the risk-neutral Nash equilibrium and $B$ contains the rest of the edges. $x$ continues to be a risk-averse Nash equilibrium while $z$ is a risk-neutral one. 
+    This proof involves separating the edges into two sets $A$ and $B$. $A$ contains edges whose flow $x_e$ at risk-averse Nash equilibrium is at most the flow on the same edge $z_e$ at risk-neutral Nash equilibrium; $B$ contains the rest of the edges. 
+    As before, we let flow $x$ to be at risk-averse Nash equilibrium, and flow $z$ to be at risk-neutral Nash equilibrium. 
     
-    Let's consider the edges in $A$. We know that by definition, $\sum_{e \in A}\ell_e(x_e) \leq \sum_{e \in A}\ell_e(z_e)$. In turn this means 
-    $$\sum_{e \in A}(1 + \gamma\upkappa)z_e\ell_e(x_e) \leq \sum_{e \in A}(1 + \gamma \upkappa)z_e\ell_e(z_e)$$.
+    Let's consider the edges in $A$. We know that by definition, $\sum_{e \in A}\ell_e(x_e) \leq \sum_{e \in A}\ell_e(z_e)$, implying that 
+    $$\sum_{e \in A}(1 + \gamma\upkappa)z_e\ell_e(x_e) \leq \sum_{e \in A}(1 + \gamma \upkappa)z_e\ell_e(z_e)$$
 
-    Let's similarly consider the edges in $B$. By the definition of $(1, \mu)$-smoothness, we have $$\sum_{e \in B}z_e\ell_e(x_e) \leq \sum_{e \in B}z_e\ell_e(z_e) + \mu x_e\ell_e(x_e)$$.
+    Let's similarly consider the edges in $B$. By the definition of $(1, \mu)$-smoothness, we have $$\sum_{e \in B}z_e\ell_e(x_e) \leq \sum_{e \in B}z_e\ell_e(z_e) + \mu x_e\ell_e(x_e)$$
     
-    Together, the last two statements mean that (adding some terms two both of them to encompass all the edges in each type of term), 
+    Taken together, with the addition of some terms to encompass all the edges in each type of term, we can conclude that
     $$\sum_{e \in A}(1 + \gamma\upkappa)z_e\ell_e(x_e) +  \sum_{e \in B}z_e\ell_e(x_e) \leq \sum_{e \in E}z_e\ell_e(z_e) + 
     \sum_{e \in E} \mu x_e\ell_e(x_e) + \sum_{e \in E}(1 + \gamma \upkappa)z_e\ell_e(z_e) = (1 + \gamma \upkappa)C(z) + \mu C(x) $$
 
-    Now, if we are able to show that the total social cost $C(x)$ of the risk-averse Nash equilibrium flow is somehow utmost the expression above, we have established our proof
-    by rearranging the terms, because the price of risk-aversion in this case is given by $C(x)/C(z)$. 
-
-    To establish this, let's take the expression from the Proof of Theorem \ref{variational} and use $C(x) = \sum_{e \in E} x_e\ell_e(x_e)$ as well as separate edges by sets $A$ and $B$, we have 
+    Now, if we are able to show that the total social welfare cost $C(x)$ of the risk-averse Nash equilibrium flow is at most the above expression, we have proven our desired result: we can rearrange the terms to get the price of risk-aversion $C(x)/C(z)$. 
+    
+    If we take the expression from the proof of Theorem \ref{variational}, use $C(x) = \sum_{e \in E} x_e\ell_e(x_e)$, and consider edges in sets $A$ and $B$ separately, we get
     $$C(x) + \sum_{e \in A} x_e\gamma\upsilon_e(x_e) + \sum_{e \in B} x_e\gamma\upsilon_e(x_e) \leq \sum_{e \in A} z_e\gamma\upsilon_e(x_e) + \sum_{e \in B} z_e\gamma\upsilon_e(x_e) + \sum_{e \in E} z_e\ell_e(x_e)$$
-    By the definitions of $A$ and $B$, we can extract the sum of second and third terms from the left hand side and the second term on the right hand size, because the former is larger than the latter
-    and can't contribute to this inequality. If we separate the last term on the right into sets $A$ and $B$ and apply $\upsilon_e(x_e) \leq \upkappa \ell_e(x_e)$, we effectively are left with
+    By the definitions of $A$ and $B$, we can drop the sum of second and third terms on the LHS and the second term on the RHS because the former is larger than the latter and does not contribute to this inequality. If we separate the last term on the right into sets $A$ and $B$ and apply $\upsilon_e(x_e) \leq \upkappa \ell_e(x_e)$, we effectively are left with
     $$C(x) \leq \sum_{e \in A}(1 + \gamma\upkappa)z_e\ell_e(x_e) +  \sum_{e \in B}z_e\ell_e(x_e) \leq (1 + \gamma \upkappa)C(z) + \mu C(x) $$
     which proves exactly what we need. 
 \end{proof}
