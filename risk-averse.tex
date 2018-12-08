@@ -9,13 +9,13 @@ Nash equilibrium or one where users are indifferent to variations in the latency
 \subsubsection{Formalization} The formal model introduced in Lianeas et.al~\cite{risk-averse} defines 
 a risk-aversion coefficient $\gamma$ that quantifies the users' tendency to prefer paths with less variability. 
 A higher $\gamma$ means that one is more risk-averse. Lianeas et.al define a new individual user cost function, where 
-the cost on each edge includes both the deterministic $l_e(x_e)$ and a noise modeled by a random variable $\xi_e(x_e)$. The noise has expectation $0$ and variance $\upsilon_e(x_e)$ for $x_e$ flow. Furthermore, we assume that it is independent across edges, allowing us to sum the noise over all edges in a path. To simplify the analysis, the model also defines $\upkappa$ as the bound on the variance-to-mean latency ratio:
-$\upsilon_e(x_e) \leq \upkappa l_e(x_e)$.
+the cost on each edge includes both the deterministic $\ell_e(x_e)$ and a noise modeled by a random variable $\xi_e(x_e)$. The noise has expectation $0$ and variance $\upsilon_e(x_e)$ for $x_e$ flow. Furthermore, we assume that it is independent across edges, allowing us to sum the noise over all edges in a path. To simplify the analysis, the model also defines $\upkappa$ as the bound on the variance-to-mean latency ratio:
+$\upsilon_e(x_e) \leq \upkappa \ell_e(x_e)$.
 %Now,
 %the expected latency and variance ($\upsilon_p$) on a path can be summed across all the edges. Consequently, our problem
 %instance is $(G,r,l,\upsilon,\gamma)$ and we focus on $r = 1$ to simplify our analysis.
 Thus, the individual cost function for each user is of the form
-$$c^\gamma_p(f) = \sum_{e \in p}l_e(f_e) + \gamma \sum_{e \in p}\upsilon_e(f_e)$$
+$$c^\gamma_p(f) = \sum_{e \in p}\ell_e(f_e) + \gamma \sum_{e \in p}\upsilon_e(f_e)$$
 and the resulting Nash equilibrium is achieved at the flow solutions to the program
 $$NE^\gamma= \min_f\sum_e\int_0^{f_e}c_e^\gamma(t)dt \text{ subject to feasibility constraints}$$
 
@@ -49,14 +49,14 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
 %%    \item Players try to optimize for this mean-variance objective which takes both the above aspects into account which is collectively called path-cost
 %%\end{itemize}
 %%
-%%\item Social Cost of a flow - sum of the expected latencies of all players $C(f) = \displaystyle \sum_{p \in P} f_pl_p(f) = 
-%%\sum_{e \in E}f_el_e(f_e)$. This reoves the dependency on per user risk-aversion coefficients and rather takes a look at the system as a whole.
+%%\item Social Cost of a flow - sum of the expected latencies of all players $C(f) = \displaystyle \sum_{p \in P} f_p\ell_p(f) = 
+%%\sum_{e \in E}f_e\ell_e(f_e)$. This reoves the dependency on per user risk-aversion coefficients and rather takes a look at the system as a whole.
 %%
 %%\item Define PRA 
 %%\begin{itemize} 
 %%    \item $\upkappa$ definition -  variance to mean ratio and maximum bound on it
 %%    \item Maximum cost across some set of Nash equlibria flows $x$ for the given problem instance that belongs 
-%%	to a certain class of instances and $\upsilon(x) \leq \upkappa l(x)$
+%%	to a certain class of instances and $\upsilon(x) \leq \upkappa \ell(x)$
 %%    \item note about results depending on the graph topology
 %%\end{itemize}
 %%\end{itemize}
@@ -74,19 +74,19 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
     the cost of sending the same flow on some other path. Thus, for a fixed demand and fixed path costs determined by $C(f)$, $f^*$ differs from $f$ in 
     atleast moving some $\epsilon$ flow from one lower cost path to another higher cost one which increases the total overall cost. 
     Consequently, let's say we have a flow $x$ that is a risk-averse Nash Equlibrium 
-    for the cost function $c_e = l_e(x_e) +\gamma \upsilon_e(x_e)$. If $z$ is a risk neutral Nash Equilibirium, it is still feasible for the risk-averse
+    for the cost function $c_e = \ell_e(x_e) +\gamma \upsilon_e(x_e)$. If $z$ is a risk neutral Nash Equilibirium, it is still feasible for the risk-averse
     mean-variance cost function, but is not the equilibrium in that scenario. By the above description and costs written as the sum across edges, we have
-    $$\sum_{e \in E}x_e(l_e(x_e) + \gamma \upsilon(x_e)) \leq \sum_{e \in E} z_e(l_e(x_e) + \gamma \upsilon_e(x_e))$$
+    $$\sum_{e \in E}x_e(\ell_e(x_e) + \gamma \upsilon(x_e)) \leq \sum_{e \in E} z_e(\ell_e(x_e) + \gamma \upsilon_e(x_e))$$
 \end{proof}
 
 \begin{definition}
-    A latency function $l(x)$ is $(\lambda, \mu)$-smooth if for all $x, y \geq 0$ $$ yl(x) \leq \lambda yl(y) + \mu x l(x)$$
+    A latency function $\ell(x)$ is $(\lambda, \mu)$-smooth if for all $x, y \geq 0$ $$ y\ell(x) \leq \lambda y\ell(y) + \mu x \ell(x)$$
     
     This is a particular instance of smoothness definitions for functions that allows us to show bounds on the price of risk-aversion for such restricted families of functions. 
 \end{definition}
 
 \begin{theorem}
-    The set of instances with latency functions ${l_e}_{e \in E}$ that are $(1,\mu)$-smooth around any risk-averse Nash equilibrium $x_e$ for all $e \in E$ have price of risk-aversion
+    The set of instances with latency functions ${\ell_e}_{e \in E}$ that are $(1,\mu)$-smooth around any risk-averse Nash equilibrium $x_e$ for all $e \in E$ have price of risk-aversion
     $\leq \displaystyle \frac{(1 + \gamma \upkappa)}{(1 - \mu)}$
 \end{theorem}
 
@@ -94,23 +94,23 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
     This proof involves separating the edges into two sets $A$ and $B$ where $A$ contains edges whose flow $x_e$ in the risk-averse Nash equilibrium is utmost the flow on the same edge
     $z_e$ in the risk-neutral Nash equilibrium and $B$ contains the rest of the edges. $x$ continues to be a risk-averse Nash equilibrium while $z$ is a risk-neutral one. 
     
-    Let's consider the edges in $A$. We know that by definition, $\sum_{e \in A}l_e(x_e) \leq \sum_{e \in A}l_e(z_e)$. In turn this means 
-    $$\sum_{e \in A}(1 + \gamma\upkappa)z_el_e(x_e) \leq \sum_{e \in A}(1 + \gamma \upkappa)z_el_e(z_e)$$.
+    Let's consider the edges in $A$. We know that by definition, $\sum_{e \in A}\ell_e(x_e) \leq \sum_{e \in A}\ell_e(z_e)$. In turn this means 
+    $$\sum_{e \in A}(1 + \gamma\upkappa)z_e\ell_e(x_e) \leq \sum_{e \in A}(1 + \gamma \upkappa)z_e\ell_e(z_e)$$.
 
-    Let's similarly consider the edges in $B$. By the definition of $(1, \mu)$-smoothness, we have $$\sum_{e \in B}z_el_e(x_e) \leq \sum_{e \in B}z_el_e(z_e) + \mu x_el_e(x_e)$$.
+    Let's similarly consider the edges in $B$. By the definition of $(1, \mu)$-smoothness, we have $$\sum_{e \in B}z_e\ell_e(x_e) \leq \sum_{e \in B}z_e\ell_e(z_e) + \mu x_e\ell_e(x_e)$$.
     
     Together, the last two statements mean that (adding some terms two both of them to encompass all the edges in each type of term), 
-    $$\sum_{e \in A}(1 + \gamma\upkappa)z_el_e(x_e) +  \sum_{e \in B}z_el_e(x_e) \leq \sum_{e \in E}z_el_e(z_e) + 
-    \sum_{e \in E} \mu x_el_e(x_e) + \sum_{e \in E}(1 + \gamma \upkappa)z_el_e(z_e) = (1 + \gamma \upkappa)C(z) + \mu C(x) $$
+    $$\sum_{e \in A}(1 + \gamma\upkappa)z_e\ell_e(x_e) +  \sum_{e \in B}z_e\ell_e(x_e) \leq \sum_{e \in E}z_e\ell_e(z_e) + 
+    \sum_{e \in E} \mu x_e\ell_e(x_e) + \sum_{e \in E}(1 + \gamma \upkappa)z_e\ell_e(z_e) = (1 + \gamma \upkappa)C(z) + \mu C(x) $$
 
     Now, if we are able to show that the total social cost $C(x)$ of the risk-averse Nash equilibrium flow is somehow utmost the expression above, we have established our proof
     by rearranging the terms, because the price of risk-aversion in this case is given by $C(x)/C(z)$. 
 
-    To establish this, let's take the expression from the Proof of Theorem \ref{variational} and use $C(x) = \sum_{e \in E} x_el_e(x_e)$ as well as separate edges by sets $A$ and $B$, we have 
-    $$C(x) + \sum_{e \in A} x_e\gamma\upsilon_e(x_e) + \sum_{e \in B} x_e\gamma\upsilon_e(x_e) \leq \sum_{e \in A} z_e\gamma\upsilon_e(x_e) + \sum_{e \in B} z_e\gamma\upsilon_e(x_e) + \sum_{e \in E} z_el_e(x_e)$$
+    To establish this, let's take the expression from the Proof of Theorem \ref{variational} and use $C(x) = \sum_{e \in E} x_e\ell_e(x_e)$ as well as separate edges by sets $A$ and $B$, we have 
+    $$C(x) + \sum_{e \in A} x_e\gamma\upsilon_e(x_e) + \sum_{e \in B} x_e\gamma\upsilon_e(x_e) \leq \sum_{e \in A} z_e\gamma\upsilon_e(x_e) + \sum_{e \in B} z_e\gamma\upsilon_e(x_e) + \sum_{e \in E} z_e\ell_e(x_e)$$
     By the definitions of $A$ and $B$, we can extract the sum of second and third terms from the left hand side and the second term on the right hand size, because the former is larger than the latter
-    and can't contribute to this inequality. If we separate the last term on the right into sets $A$ and $B$ and apply $\upsilon_e(x_e) \leq \upkappa l_e(x_e)$, we effectively are left with
-    $$C(x) \leq \sum_{e \in A}(1 + \gamma\upkappa)z_el_e(x_e) +  \sum_{e \in B}z_el_e(x_e) \leq (1 + \gamma \upkappa)C(z) + \mu C(x) $$
+    and can't contribute to this inequality. If we separate the last term on the right into sets $A$ and $B$ and apply $\upsilon_e(x_e) \leq \upkappa \ell_e(x_e)$, we effectively are left with
+    $$C(x) \leq \sum_{e \in A}(1 + \gamma\upkappa)z_e\ell_e(x_e) +  \sum_{e \in B}z_e\ell_e(x_e) \leq (1 + \gamma \upkappa)C(z) + \mu C(x) $$
     which proves exactly what we need. 
 \end{proof}
 
