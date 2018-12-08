@@ -1,39 +1,41 @@
-\subsection{risk-aversion}
-The second model we consider accounts for the
-tendency of users to pick routes with less variation in latency even if it comes at the cost of some added
-latency on the paths chosen. This increase in latency can be quantified as the {\em{price of risk-aversion}}
-which is the worst-case ratio of the latency or cost at a risk-averse Nash Equilibrium to that at a risk-neutral
+\subsection{Risk-aversion}
+The second model we consider accounts for the tendency of users to pick routes with less variation in latency even if it comes at the cost of some added latency. This increase in latency can be quantified as the {\em{price of risk-aversion}},
+the worst-case ratio of the latency at a risk-averse Nash Equilibrium to that at a risk-neutral
 Nash equilibrium or one where users are indifferent to variations in the latency itself.
 
-%% The key result that we will be focussing on here is one where we show that the latency bounds in this context
+%% The key result that we will be focusing on here is one where we show that the latency bounds in this context
 %% is effectively the price of anarchy times the price of risk-aversion which intuitiveluy makes sense.
 
-\subsubsection{Formalization} The {\textbf{formal model}} introduced in Lianeas et.al \cite{risk-averse} defines 
+\subsubsection{Formalization} The formal model introduced in Lianeas et.al~\cite{risk-averse} defines 
 a risk-aversion coefficient $\gamma$ that quantifies the users' tendency to prefer paths with less variability. 
-A higher $\gamma$ means that one is more risk averse. The individual user's costs on each edge $c^\gamma_e(x_e)$ now have a deterministic part or $l_e(x_e)$ and a noise modelled by a random variable $\xi_e(x_e)$. The latter is assumed to be independent across edges 
-and has expectation $0$ and variance $\upsilon_e(x_e)$ for $x_e$ flow allowing us to sum them up over a path. To simplify 
-the analysis, the model also defines $\upkappa$ to bound the variance-to-mean latency ratio. In other words, 
+A higher $\gamma$ means that one is more risk-averse. Lianeas et.al define a new individual user cost function, where 
+the cost on each edge includes both the deterministic $l_e(x_e)$ and a noise modeled by a random variable $\xi_e(x_e)$. The noise has expectation $0$ and variance $\upsilon_e(x_e)$ for $x_e$ flow. Furthermore, we assume that it is independent across edges, allowing us to sum the noise over all edges in a path. To simplify the analysis, the model also defines $\upkappa$ as the bound on the variance-to-mean latency ratio:
 $\upsilon_e(x_e) \leq \upkappa l_e(x_e)$.
 %Now,
 %the expected latency and variance ($\upsilon_p$) on a path can be summed across all the edges. Consequently, our problem
 %instance is $(G,r,l,\upsilon,\gamma)$ and we focus on $r = 1$ to simplify our analysis.
 Thus, the individual cost function for each user is of the form
 $$c^\gamma_p(f) = \sum_{e \in p}l_e(f_e) + \gamma \sum_{e \in p}\upsilon_e(f_e)$$
-Nash equilibrium is achieved at the flow solutions to the program
-$$NE_\gamma= \min_f\sum_e\int_0^{f_e}c_e^\gamma(t)dt \text{ subject to feasibility constraints}$$
-$c^\gamma_p(f)$ is assumed to be non-decreasing. Intuitively, the mean is identical to the original selfish routing individual user cost
-formulation, while the second term accounts for variance. Minimizing this implies that we want to minimize the variance depending on the
-value of the risk coefficient itself.
+and the resulting Nash equilibrium is achieved at the flow solutions to the program
+$$NE^\gamma= \min_f\sum_e\int_0^{f_e}c_e^\gamma(t)dt \text{ subject to feasibility constraints}$$
+
+$c^\gamma_p$ is assumed to be non-decreasing with increasing inputs. Intuitively, the mean value of $c^\gamma_p(f)$ is identical to the cost given the selfish model's individual user cost formulation, while the second term accounts for variance. Minimizing this implies that we want to minimize the variance depending on the value of the risk coefficient itself.
 
 If we let $C(x)$ be the the maximum cost across some set $x$ of flows at the Nash equilibrium for a given problem instance 
 (restricted to some family of inputs and a fixed $\upkappa$), the {\textbf{price of risk-aversion}} is now defined as the
 ratio $C(x)/C(z)$. Here $C(z)$ is the cost associated with some risk-neutral Nash equilibrium $z$. 
-In the following section, we look at bounding this price of risk-aversion. Note that this can be viewed as contributing a 
-multiplicative factor to the price of anarchy in the overall change to the latency or cost of the system. We first prove a 
-more basic result from an older paper on this topic \cite{risk-averse-background} and then proceed to the main result on the price
+In the following section, we look at bounding this price of risk-aversion. 
+Bounds on the price of risk-aversion are equivalent to bounding 
+a multiplicative factor of the price of anarchy: the price of risk-aversion tells us how many times worse 
+the price of anarchy can become.
+\XXX{Vibhaa, is this correct? I wanted to put it in more idiot-friendly words :P}
+%Note that this can be viewed as contributing a 
+%multiplicative factor to the price of anarchy in the overall change to the latency or cost of the system. 
+We first prove a 
+more basic result from an older paper on this topic~\cite{risk-averse-background} and then proceed to the main result on the price
 of risk-aversion for 
-a special family of latency functions that are $(\lambda, \mu)$ smooth. Note that additional results can be proved for special classes
-of graph topologies which can be found in the original paper \cite{risk-averse}.
+a special family of latency functions that are $(\lambda, \mu)$ smooth. Lianeas et.al also prove additional results for special classes
+of graph topologies, which we leave for future reading~\cite{risk-averse}.
 
 
 %%\begin{itemize}
@@ -63,7 +65,7 @@ of graph topologies which can be found in the original paper \cite{risk-averse}.
 
 \subsubsection{Main Results}
 \begin{theorem}
-    If a flow $f$ is at a risk averse Nash equlibrium and $f^*$ is any other flow, then $fC(f)\leq f^*C(f)$. 
+    If a flow $f$ is at a risk-averse Nash equlibrium and $f^*$ is any other flow, then $fC(f)\leq f^*C(f)$. 
     \label{variational}
 \end{theorem}
 
@@ -71,8 +73,8 @@ of graph topologies which can be found in the original paper \cite{risk-averse}.
     By definition, any flow at Nash Equilibrium routes on paths with minimum cost or only sends flow on a given path if its cost is less than
     the cost of sending the same flow on some other path. Thus, for a fixed demand and fixed path costs determined by $C(f)$, $f^*$ differs from $f$ in 
     atleast moving some $\epsilon$ flow from one lower cost path to another higher cost one which increases the total overall cost. 
-    Consequently, let's say we have a flow $x$ that is a risk averse Nash Equlibrium 
-    for the cost function $c_e = l_e(x_e) +\gamma \upsilon_e(x_e)$. If $z$ is a risk neutral Nash Equilibirium, it is still feasible for the risk averse
+    Consequently, let's say we have a flow $x$ that is a risk-averse Nash Equlibrium 
+    for the cost function $c_e = l_e(x_e) +\gamma \upsilon_e(x_e)$. If $z$ is a risk neutral Nash Equilibirium, it is still feasible for the risk-averse
     mean-variance cost function, but is not the equilibrium in that scenario. By the above description and costs written as the sum across edges, we have
     $$\sum_{e \in E}x_e(l_e(x_e) + \gamma \upsilon(x_e)) \leq \sum_{e \in E} z_e(l_e(x_e) + \gamma \upsilon_e(x_e))$$
 \end{proof}
@@ -101,7 +103,7 @@ of graph topologies which can be found in the original paper \cite{risk-averse}.
     $$\sum_{e \in A}(1 + \gamma\upkappa)z_el_e(x_e) +  \sum_{e \in B}z_el_e(x_e) \leq \sum_{e \in E}z_el_e(z_e) + 
     \sum_{e \in E} \mu x_el_e(x_e) + \sum_{e \in E}(1 + \gamma \upkappa)z_el_e(z_e) = (1 + \gamma \upkappa)C(z) + \mu C(x) $$
 
-    Now, if we are able to show that the total social cost $C(x)$ of the risk averse Nash equilibrium flow is somehow utmost the expression above, we have established our proof
+    Now, if we are able to show that the total social cost $C(x)$ of the risk-averse Nash equilibrium flow is somehow utmost the expression above, we have established our proof
     by rearranging the terms, because the price of risk-aversion in this case is given by $C(x)/C(z)$. 
 
     To establish this, let's take the expression from the Proof of Theorem \ref{variational} and use $C(x) = \sum_{e \in E} x_el_e(x_e)$ as well as separate edges by sets $A$ and $B$, we have 
@@ -112,9 +114,9 @@ of graph topologies which can be found in the original paper \cite{risk-averse}.
     which proves exactly what we need. 
 \end{proof}
 
-\subsubsection{Similarities and Extensions} Note that this result is similar to that of the price of anarchy originally derived by Roughgarden and Tardos \cite{tardos}. If we assume no variation in prices or in other words, 
-set $\upkappa = 0$ and consider linear latency functions which by definition are $(1, 1/4)$-smooth \cite{tardos-notes}, we get that the price of risk-aversion is $\leq \displaystyle \frac{1}{1 - \mu} = 4/3$.
+\subsubsection{Similarities and Extensions} Note that this result is similar to that of the price of anarchy originally derived by Roughgarden and Tardos~\cite{tardos}. If we assume no variation in prices or in other words, 
+set $\upkappa = 0$ and consider linear latency functions which by definition are $(1, 1/4)$-smooth~\cite{tardos-notes}, we get that the price of risk-aversion is $\leq \displaystyle \frac{1}{1 - \mu} = 4/3$.
 
 Further, this price of risk-aversion can be lower bounded for a specific case of a recursive Braess graph \XXX{have we mentioned this before} and the gap between the upper and
 lower bounds can be more neatly quantified. It can also be exactly computed for a series-parallel recursive graph to be $1 + \gamma \upkappa$. The details of these proofs can be found
-in \cite{risk-averse}.
+in~\cite{risk-averse}.
