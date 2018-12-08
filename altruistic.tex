@@ -79,13 +79,13 @@ Thus, we only need to consider how bad $\rho(T_\beta)$ can get given any $l\in L
 
 The key observation is that $\exists\lambda \in [0,1]$ s.t. $c^1(r\lambda) = c^\beta(r)$, where $c^1$ is the cost function with uniform altruism value $\beta=1$. Our strategy is three-part: 
 \begin{enumerate}
-    \item We bound the price of anarchy of routing $r\lambda$ units of flow at Nash Equilibrium with user cost function $c^\beta$ in $T_\beta$
-   \item We use the bound from step 1 to get an upper bound on the price of anarchy routing $r\lambda$ units of flow in $T_\beta$ when the user cost function is $c^1$. since by Theorem 3, increasing $\beta$ to a maximum of 1 will only decrease the price of anarchy. 
+    \item We bound the price of anarchy of routing $r\lambda$ units of flow at Nash Equilibrium in $T_\beta$ when the user cost function is $c^\beta$.
+   \item We use the bound from step 1 to get an upper bound on the price of anarchy routing $r\lambda$ units of flow in $T_\beta$ when the user cost function is $c^1$. We use Theorem 3 to argue that increasing $\beta$ to a maximum of 1 will only decrease the price of anarchy,. 
     \item Drawing on our key observation, the bound for $c^1$ routing $r\lambda$ units of flow can be applied to bound the price of anarchy routing $r$ units of flow when user costs are $c^\beta$.
 We only need to make an appropriate choice of $\lambda$ to make our observation valid.
 \end{enumerate}
 
-We start with step (1): A Nash Equilibrium flow routing $r\lambda$ units from the source to the destination will put $r\lambda$ flow on the first link with $l_1 = l(x)$, and the rest on the second link with $l_2 = c^\beta(x)$. The solution optimizing social welfare will put all flow on the first link with latency function $l_1 = l(x)$.
+We start with step (1): A Nash Equilibrium flow in $T_\beta$ routing $r\lambda$ units from the source to the destination will put $r\lambda$ flow on the first link with $l_1 = l(x)$, and the rest on the second link with $l_2 = c^\beta(x)$. The solution optimizing social welfare will put all flow on the first link with latency function $l_1 = l(x)$.
 This gives us a a bound on the price of anarchy when $r\lambda$ units of flow are sent through $T_\beta$ 
     $$\rho(G,r\lambda,l,\psi) \le \rho(T_\beta) \le \Big(\frac{\lambda l(r\lambda)}{l(r)} + \Big(1-\lambda\Big)\Big(1+\frac{\beta rl'(r)}{l(r)}\Big)\Big)^{-1}$$
     
