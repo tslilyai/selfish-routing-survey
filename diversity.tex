@@ -10,8 +10,7 @@ However, there is some ambiguity in measuring the optimality of any outcome of t
 
 We have the same routing network with multiple source-destination pairs and continue with all our previous notations, except that we have included two criteria the players consider in the objective function.
 
-Each agent wants to minimize their own cost $c^\omega$, which is a sum of two terms associated with two criteria. Let $\ell_P$ denote the cost of the first criterion (e.g., the latency) over some path $P=(s_i, t_i)$, and $\sigma_P$ be the cost of the second criterion, referred to as the {\it deviation function}. Then given a routing $f$ of the network, the cost of that path is given by $c^\omega_p = \ell_P+\omega\cdot \sigma_P=\sum_{e\in P} \ell_e(f_e)+ \sum_{e\in P}\sigma_e(f_e)$\XXX{LYT:
-are you missing the diversity parameter here?}, where $\omega$ is the {\it diversity parameter}.
+Each agent wants to minimize their own cost $c^\omega$, which is a sum of two terms associated with two criteria. Let $\ell_P$ denote the cost of the first criterion (e.g., the latency) over some path $P=(s_i, t_i)$, and $\sigma_P$ be the cost of the second criterion, referred to as the {\it deviation function}. Then given a routing $f$ of the network, the cost of that path is given by $c^\omega_p = \ell_P+\omega\cdot \sigma_P=\sum_{e\in P} \ell_e(f_e)+ \omega\sum_{e\in P}\sigma_e(f_e$), where $\omega$ is the {\it diversity parameter}.
 
 Note that the latency function has all the properties as we assumed in previous sections, while the deviation function $\sigma_e(x)$ is assumed to be continuous by not necessarily non-decreasing. However, the function $\ell_e+\omega\cdot \sigma_e$ must be non-decreasing. These assumptions are consistent with our previous risk-averse model in Section 3.2, because if $\sigma_e$ models the variance, then $\sigma_e$ could be decreasing in the flow.
 
