@@ -19,7 +19,9 @@ We assume that $\beta$ ranges from -1 (extremely spiteful) to 1 (extremely altru
 All analysis of the model assumes a particular distribution $\psi$ of $\beta$ for all users. 
 
 Note that we can compare this model to the selfish model using the price of anarchy as a measure of inefficiency
-because the altruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$: given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$, and we can apply the result of Theorem 1 of Mas-Colell~\cite{mascolell} \XXX{Vibhaa: can we mention what this theorem is in words, because no one will want to look it up}. Nash equilibrium is achieved at the flow solutions to the program
+because the altruistic model still achieves Nash equilibrium for any $\psi$ and cost function $c^\beta_p$. (Given any $\psi$, $c^\beta_p$ are continuous in the choice of path $p$ and in the distribution of other users' strategies $f$: Mas-Colell~\cite{mascolell} showed that any game of infinitely many players with cost functions continuous in the actions of the players and distribution of actions by other players has a Nash equilibrium.)
+
+Nash equilibrium is achieved at the flow solutions to the program
 $$NE^\beta = \min_f\sum_e\int_0^{f_e}c_e^\beta(t)dt \text{ subject to feasibility constraints}$$
 We next present Chen and Kempe's core results about the price of anarchy of arbitrary networks when $\psi$ is uniform (all users have the same $\beta$ value), and briefly mention their results of non-uniform $\psi$ in parallel-link networks.
 
@@ -65,42 +67,39 @@ For any $G$, demand rates $r$ and uniform distribution $\psi$ of $\beta \in (-1,
     \end{theorem}
 \begin{proof-sketch}
     We give a brief overview of the proof technique here.
-    Note that by definition, $$\rho(T_\beta) = \max_{l\in{L}} \max_{x,r\ge 0} \frac{r\ell(r)}{x\ell(x) + (r-x)(c^\beta(r))}$$
-    \XXX{Vibhaa: What does this expression intuitively mean? Why is routing everything on the numerator? Is that the social cost? A little confused}
-    The proof proceeds by considering social welfare cost of the flow $f^*$ optimizing $C$. By unfolding the definition of $\rho(T_\beta$) to get a bound for $x\ell_e(x)$ for arbitrary $x$ and $r$, we can then apply this bound to each edge with $x = f^*_e$ and $r = \hat{f}_e$, where $\hat{f}$ is the optimizing flow at Nash equilibrium. With some mathematical manipulation, we can derive a comparison of $C(f^*)$ to $B(\hat{f})$ satisfying the above bound.
-    \XXX{Vibhaa: What exactly are we doing in ``unfolding the definition of $\rho(T_\beta)$. Are we bounding the social welfare cost in terms of $\rho(T_\beta)$. If so what does $xl_e(x)$ represent in that context
-    and why do we use $x = f_e^*$ and r = $\hat{f_e}$. Should I be thinking of this as routing the optimal as a whole and routing the nash equlibrium on one path and the rest on soemthing else?}
+    Note that by definition, 
+    the flow in $T_\beta$ at Nash equilibrium will route all demand $r$ on the edge with latency function $\ell_1(x) = c(x)$, whereas the socially optimal flow will route some flow $x$ on the edge with latency function $\ell_2 = c^\beta(r)$. This gives us the worst case for $\rho(T_\beta)$ given any $\ell \in L$ as
+    $$\rho(T_\beta) = \max_{l\in{L}} \max_{x,r\ge 0} \frac{r\ell(r)}{x\ell(x) + (r-x)(c^\beta(r))}$$
+    The proof proceeds by considering social welfare cost of the flow $f^*$ optimizing $C$. By unfolding the definition of $\rho(T_\beta$) to get a bound for $x\ell_e(x)$ for arbitrary $x$ and $r$, we can then apply this bound to each edge with $x = f^*_e$ and $r = \hat{f}_e$, where $\hat{f}$ is the optimizing flow at Nash equilibrium. 
+    $$\forall x,r\ge 0,~ x\ell_e(x) \ge \frac{r\ell_e(r)}{\rho(T_\beta)}  + (x-r)\ell^\beta_e(r)
+    \implies  f^*_e\ell_e(f^*_e) \ge \frac{\hat{f}_e\ell_e(\hat{f}_e)}{\rho(T_\beta)}  + (f^*_e-\hat{f}_e)\ell^\beta_e(\hat{f}_e)$$
+    With some mathematical manipulation, we can derive a comparison of $C(f^*)$ to $B(\hat{f})$ satisfying the above bound:
+    \begin{align*}
+        C(f^*) = \sum_e f^*_e\ell_e(f^*_e) &\ge \sum_e \frac{\hat{f}_e\ell_e(\hat{f}_e)}{\rho(T_\beta)} + (f^*_e-\hat{f}_e)\ell^\beta_e(\hat{f}_e)\\
+        &\ge \frac{C(\hat{f})}{\rho(T_\beta)} + \sum_e (f^*_e-\hat{f}_e)\ell^\beta_e(\hat{f}_e)
+    \end{align*}
+    Note that $\sum_e (f^*_e) \ell^\beta_e(\hat{f}_e) \ge \sum_e \hat{f}_e\ell^\beta_e(\hat{f}_e)$ by definition of $\hat{f}$ being a flow at Nash equilibrium.
+    Thus, we get that 
+        $$C(f^*) \ge \frac{C(\hat{f})}{\rho(T_\beta)}\implies \rho(T_\beta) \ge \frac{C(\hat{f})}{C(f^*)}$$
 \end{proof-sketch}
 
 Since we know how to bound $\rho(G,r,{L},\psi)$ by the (uniform) value of $\beta$, we can now determine at which values of $\beta$ this lower bound is infinite: how spiteful do users have to be to cause each other infinitely more suffering? The following result shows that if the latency functions are in the class $L_d =$ polynomials of degree $\le d$, the price of anarchy is bounded when $\beta$ is at least $\frac{-1}{d}$ (and is infinite when $\beta < \frac{-1}d$).
 \begin{theorem}
-    For any $G$, demand rates $r$, $\ell \in L_d$, \XXX{Vibhaa: define $L_d$ up here for completeness}
-and uniform distribution $\psi$ with $\beta \in (\frac{-1}{d}, 1]$,
+    Let $L_d$ be the class of latency functions that are polynomials of degree $\le d$.
+    For any $G$, demand rates $r$, $\ell \in L_d$, and uniform distribution $\psi$ with $\beta \in (\frac{-1}{d}, 1]$,
     $$\rho(G,r,\ell,\psi) \le \Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \beta d\Big)+ 1 + \beta d\Big)^{-1}$$
 \end{theorem}
 \begin{proof-sketch}
 From Theorem 4, we know that 
 $\rho(G,r,{L},\psi)$% \le \max_{l\in{L_d}} \max_{x,r\ge 0} \frac{r\ell(r)}{x\ell(x) + (r-x)(c^\beta(r))}$, where the RHS corresponds to 
-is bounded above by the worst-case $\rho$ for any cost function $\ell \in L_d$ in $T_\beta$,\XXX{Vibhaa: should jsut mention $\rho(T_\beta)$ here in my opinion},  a two-node, two-link network with cost functions $\ell_1(x) = \ell(x)$ and $\ell_2(x) = c^\beta(r)$.
-Thus, we only need to consider how bad $\rho(T_\beta)$ can get given any $l\in L_d$.
+    is bounded above by $\rho(T_\beta)$. Thus, we only need to consider how bad $\rho(T_\beta)$ can get given any $l\in L_d$.
 
-The key observation is that $\exists\lambda \in [0,1]$ s.t. $c^1(r\lambda) = c^\beta(r)$ \XXX{Vibhaa: why is this? What's the intuition}, where $c^1$ is the cost function with uniform altruism value $\beta=1$. Our strategy is three-part: 
-\begin{enumerate}
-    \item We bound the price of anarchy of routing $r\lambda$ units of flow at Nash equilibrium in $T_\beta$ when the user cost function is $c^\beta$.
-   \item We use the bound from step 1 to get an upper bound on the price of anarchy routing $r\lambda$ units of flow in $T_\beta$ when the user cost function is $c^1$. For this, we use Theorem 3 to argue that increasing $\beta$ to a maximum of 1 will only decrease the price of anarchy,. 
-    \item Drawing on our key observation, the bound for $c^1$ routing $r\lambda$ units of flow can be applied to bound the price of anarchy routing $r$ units of flow when user costs are $c^\beta$.
-We only need to make an appropriate choice of $\lambda$ to make our observation valid.
-\end{enumerate}
+    The key observation is that $\exists\lambda \in [0,1]$ s.t. $c^1(r\lambda) = c^\beta(r)$, where $c^1$ is the cost function with uniform altruism value $\beta=1$. This will allow us to reason about the amount of flow $r\lambda$ that the optimum solution will place on the link with latency function $l_1(x) = \ell(x)$, and precisely compute the price of anarchy in terms of $\beta$.
 
-We start with step (1): A Nash equilibrium flow in $T_\beta$ routing $r\lambda$ units from the source to the destination will put $r\lambda$ flow on the first link with $\ell_1 = \ell(x)$, and the rest \XXX{Vibhaa: isn't the rest just $0$ if you put all $r\lambda$ on the first. I guess I'm confused about what the total is, what's $x$ in the context of the previous theorem and might help to reference it/relate directly to it} on the second link with $\ell_2 = c^\beta(x)$. The solution optimizing social welfare will put all flow on the first link with latency function $\ell_1 = \ell(x)$.
-This gives us a a bound on the price of anarchy when $r\lambda$ units of flow are sent through $T_\beta$:
+    Observe that a Nash equilibrium flow in $T_\beta$ routing $r$ units from the source to the destination will put all flow on the link with cost function $l_1(x) = \ell(x)$. By definition of $\lambda$, the solution optimizing social welfare will put $r\lambda$ flow on the first link with latency function $\ell_1(x) = \ell(x)$, and $r(1-\lambda)$ on the second link with latency function $\ell_2(x) = c^\beta(r)$. This gives us a a bound on the price of anarchy:
     $$\rho(G,r\lambda,\ell,\psi) \le \rho(T_\beta) \le \Big(\frac{\lambda \ell(r\lambda)}{\ell(r)} + \Big(1-\lambda\Big)\Big(1+\frac{\beta r\ell'(r)}{\ell(r)}\Big)\Big)^{-1}$$
-    
-    This allows us to perform step (2): using Theorem 3, the above bound from step (1) also bounds the price of anarchy when the user cost function is $c^1$, i.e. $\psi$ is a uniform distribution when $\beta = 1$:
-    $$\rho(G,\lambda r,\ell,\beta=1) \le \rho(G,r\lambda, \ell, \psi) \le \Big(\frac{\lambda \ell(r\lambda)}{\ell(r)} + \Big(1-\lambda\Big)\Big(1+\frac{\beta r\ell'(r)}{\ell(r)}\Big)\Big)^{-1}$$
 
-    We now can perform step (3). First, we need to make an appropriate choice of $\lambda$. Without loss of generality we can consider latency functions \XXX{Vibhaa: think this definition should come much earlier} $\ell(x) = ax^i$ for some $i \le d$ to represent all functions $\ell \in L_d$. For these latency functions $\ell(x) = ax^i$, we know that 
-    $c^1(r\lambda) = c^\beta(r)$ when $\lambda = \Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$ \XXX{Vibhaa: cite or show something as to how this result came about}.
+    To satisfy our observation, we need to make an appropriate choice of $\lambda$. To simplify our calculation of $\lambda$, we can, without loss of generality, consider latency functions $\ell(x) = ax^i$ for some $i \le d$ to represent all functions $\ell \in L_d$. We can then solve $c^1(r\lambda) = c^\beta(r)$ for $\lambda$ to get $\lambda = \Big(\frac{1+\beta i}{1+i}\Big)^{\frac{1}{i}}$.
     With this $\lambda$, we get that $\frac{\ell(r\lambda)}{\ell(r)} = \frac{1+\beta i}{1+i}$ and $\frac{\ell'(r)}{\ell(r)} = \frac{i}{r}$. We can plug these values into the bound to get:
     $$\rho(G,r,\ell,\psi) = \rho(G,\lambda r, \ell,\beta=1) \le \Big(\Big(\frac{1+\beta i}{1+i}\Big)^{1/i}\Big(\frac{1+\beta i}{1+i} + 1 + \beta i\Big)+ 1 + \beta i\Big)^{-1}$$
     This is increasing in $i$, giving us the worst-case bound when $i=d$:
@@ -108,22 +107,21 @@ $$\Big(\Big(\frac{1+\beta d}{1+d}\Big)^{1/d}\Big(\frac{1+\beta d}{1+d} + 1 + \be
 \end{proof-sketch}
 
 \subsubsection{Arbitrarily Distributed Altruism}
-Chen and Kempe go on to extend their analysis to when users have an arbitrary distribution $\psi$ of altruism (with no spiteful users) in \emph{parallel link networks}. 
+Chen and Kempe go on to extend their analysis to when users have an arbitrary distribution $\psi$ of altruism (with no spiteful users) in \emph{parallel link networks}, networks with only two nodes (a source and destination) and parallel edges running between the nodes. 
 We briefly mention their results here, but direct the reader to the paper for a more detailed proof.
-\XXX{Vibhaa: think we have to define parallel link networks and non-negative support}
 %, which have only one demand source-sink pair $(s,t)$ and (parallel) edges only between $s$ and $t$.
 %Stackleberg routing shown to have unlimited PoA in single-commodity networks
 Their main result mirrors that of uniform altruism:
 \begin{theorem}
-Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $\ell_e$,
+    Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support (no spiteful users), and convex and non-decreasing cost functions $\ell_e$,
    $\rho(G,r,\ell,\psi) \le \frac{1}{\bar{\beta}}$
 \end{theorem}
-One interesting observation is that this theorem leads to the following corrollary: because the theorem applies for a distribution in which a rate of $\bar{\beta}$ of users are completely altruistic and 1-$\bar{\beta}$ users are completely selfish, this is equivalent to $\bar{\beta}$ of the population being under centralized (coordinated) control. \XXX{Vibhaa: can you expand more on this? Should I be thinking of only having the altruistic part of the population and apply theorem 3? Not quite sure I follow the intuition/connection to centralized models which could help clarify the below corollary too}
-\begin{corollary}
-Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $\ell_e$,
-if $\bar{\beta}$ fraction of traffic is controlled by a central authority, then
-   $\rho(G,r,\ell,\psi) \le \frac{1}{\bar{\beta}}$
-\end{corollary}
-This is exactly the result proven by Roughgarden in 2004~\cite{roughgarden04} \XXX{Vibhaa: What is this paper about and why did they have to prove this result/what's the connection}, and provides an interesting connection between models that include altruism and models of centralized/coordinated traffic control.
-
-Finally, Chen and Kempe comment on the restriction to $\beta \ge 0$: if even a small fraction of users are spiteful, they can, in some networks instances, lead to an price of anarchy much greater than 1 regardless of the value of $\bar{\beta}$.
+%One interesting observation is that this theorem leads to the following corollary. Note that the theorem applies for any distribution, and in particular, a distribution in which a rate of $\bar{\beta}$ of users are completely altruistic and 1-$\bar{\beta}$ users are completely selfish. this is equivalent to $\bar{\beta}$ of the population being under centralized (coordinated) control. \XXX{Vibhaa: can you expand more on this? Should I be thinking of only having the altruistic part of the population and apply theorem 3? Not quite sure I follow the intuition/connection to centralized models which could help clarify the below corollary too}
+%\begin{corollary}
+%Given any parallel link network $G$, demand rates $r$, altruism density function $\psi$ with average altruism $\bar{\beta}$ and non-negative support, and convex and non-decreasing cost functions $\ell_e$,
+%if $\bar{\beta}$ fraction of traffic is controlled by a central authority, then
+   %$\rho(G,r,\ell,\psi) \le \frac{1}{\bar{\beta}}$
+%\end{corollary}
+%This is exactly the result proven by Roughgarden in 2004~\cite{roughgarden04} \XXX{Vibhaa: What is this paper about and why did they have to prove this result/what's the connection}, and provides an interesting connection between models that include altruism and models of centralized/coordinated traffic control.
+%
+Finally, Chen and Kempe comment on the restriction to $\beta \ge 0$: if even a small fraction of users are spiteful, these users can, in some networks instances, lead to an price of anarchy much greater than 1 regardless of the value of $\bar{\beta}$.
