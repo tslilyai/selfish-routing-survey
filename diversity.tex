@@ -1,25 +1,25 @@
 \subsection{Diverse Interests}\label{sec:diversity}
 
-The third class of alternative models we consider is a generalization of the altruistic model and the risk-averse model that we have discussed in previous sections. This class is characterized by the diverse selfish behavior of its heterogeneous agents. Each agent pursues their own different selfish goal, resulting in a routing solution of the whole network. 
+The third alternative model we consider is a generalization of the altruistic model and the risk-averse model that we have discussed in previous sections. This class is characterized by the diverse selfish behavior of its heterogeneous agents, in which agents pursue potentially different selfish goals (modeled by different individual user costs per agent).%, resulting in a routing solution of the whole network. 
 
-Diverse selfish routing models are useful because they help us understand how we can leverage policies and natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. For example, tolls can help increase the social welfare. Beckmann et. al. showed that tolls can help implement the social optimum as an equilibrium, when agents all have the same goal that is a linear combination of time and money \cite{beckmann1956studies}.
+Diverse selfish routing models are useful because they help us understand how we can leverage policies and natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. For example, Beckmann et.al~\cite{beckmann1956studies} showed that tolls can help implement the social optimum at equilibrium when all agents have the same goal that is a linear combination of time and money.
 
-However, there is some ambiguity in measuring the optimality of any outcome of the whole network with diverse selfish behavior, because by definition, the objective function is different from the single criterion in the case of selfish routing with agent homogeneity. There are thus multiple reasonable ways to characterize the social welfare of a diverse routing network. We will discuss the model adopted by Cole, Lianeas and Nikolova and their newly published results in 2018 \cite{ijcai2018-24}.
+However, there is some ambiguity in measuring the optimality of any outcome of the whole network with diverse selfish behavior, because by definition, the objective function (what we regard as the social welfare cost) is different than in the single criterion in the case of selfish routing with agent homogeneity, where social welfare cost is equivalent to latency. Instead, there are multiple reasonable ways to characterize the social welfare of a diverse routing network. We will discuss the model adopted by Cole, Lianeas and Nikolova and their newly published results in 2018 \cite{ijcai2018-24}.
 
 \subsubsection{Model}
 
-We have the same routing network with multiple source-destination pairs and continue with all our previous notations, except that we have included two criteria the players consider in the objective function.
+We begin with same routing network with multiple source-destination pairs, using all our previous notations. However, there are now two criteria that the players consider in their inidividual user cost function.
 
 Each agent wants to minimize their own cost $c^\omega$, which is a sum of two terms associated with two criteria. Let $\ell_P$ denote the cost of the first criterion (e.g., the latency) over some path $P=(s_i, t_i)$, and $\sigma_P$ be the cost of the second criterion, referred to as the {\it deviation function}. Then, given a routing $f$ of the network, the cost of that path is given by $c^\omega_p = \ell_P+\omega\cdot \sigma_P=\sum_{e\in P} \ell_e(f_e)+ \omega\sum_{e\in P}\sigma_e(f_e$), where $\omega$ is the {\it diversity parameter}.
 
-Note that the latency function has all the properties as we assumed in previous sections, while the deviation function $\sigma_e(x)$ is assumed to be continuous but not necessarily non-decreasing. However, the function $\ell_e+\omega\cdot \sigma_e$ must be non-decreasing. These assumptions are consistent with our previous risk-averse model in Section 3.2, because if $\sigma_e$ models the variance, then $\sigma_e$ could be decreasing in the flow.
+Note that the first criterion function (e.g., the latency function) has all the properties as we assumed in previous sections, while the deviation function $\sigma_e(x)$ is assumed to be continuous but not necessarily non-decreasing. However, the function $\ell_e+\omega\cdot \sigma_e$ must be non-decreasing. These assumptions are consistent with our previous risk-averse model in Section 3.2, because if $\sigma_e$ models the variance, then $\sigma_e$ could be decreasing in the flow.
 
 Cole et. al. measures the effect of diversity on the resulting flow of a homogeneous agent population of the same size. The homogeneous agent population has the single diversity parameter $\bar{r}=\int rf(r)d r$. 
 
 For a discrete distribution of $n$ discrete values $r_1^k, \dots, r_n^k$, the demand $d_k$ is a vector $d_k=(d_1^k, \dots, d_n^k)$ where each $d_i^k$ denotes the total demand of commodity $k$ with diversity parameter $r_i^k$. $d^k$ denotes commodity $k$'s total demand $d^k=\sum_{i=1}^n d_i^k$. For a heterogeneous equilibrium flow vector $g$, the {\it heterogeneous total cost} of commodity $k$ is denoted by $C^{k,ht}(g)=\sum_{j=1,\dots, n} d_j^k c^{k, r_j^k}(g)$, where $c^{k, r_j^k}(g)$ denotes the common cost at equilibrium $g$ for players of diversity parameter $r_j^k$ in commodity $k$. The heterogeneous total cost of $g$ is then $C^{ht}(g)=\sum_{k\in K} C^{k,ht}(g)$. 
 \XXX{Vibhaa: It might be helpful to give some intuition on how to think of these $r_i^k$ and $d_i^k$, like its not clear to me if the $n$ are the different agents in the graph and if so why would there be a different diversity parameter for every agent for every commodity. Even if that is the case, why does the demand vector have different components corresponding to the $n$ different diversity parameters? I'm pretty sure I'm misreading this, but I'm not sure how to interpret these variables is the high level}
 
-For the corresponding homogeneous equilibrium flow $f$, i.e. the instance with diversity parameter $\bar{r}^k$, where $\bar{r}^k$ denotes the average diversity parameter for commodity $k$, players of commodity $k$ share the same cost $c^{\bar{r}^k}(f)$. Then, the homogeneous total cost of commodity $k$ under $f$ is $C^{k,hm}(f)=d_kc^{\bar{r}^k}(f)$, and the homogeneous total cost of $f$ is $C^{hm}(f)=\sum_{k\in K} C^{k,hm}(f)$. 
+For the corresponding homogeneous equilibrium flow $f$, i.e. the instance with diversity parameter $\bar{r}^k$, where $\bar{r}^k$ denotes the average diversity parameter for commodity $k$, players of commodity $k$ share the same cost $c^{\bar{r}^k}(f)$. In this case, the homogeneous total cost of commodity $k$ under $f$ is $C^{k,hm}(f)=d_kc^{\bar{r}^k}(f)$, and the homogeneous total cost of $f$ is $C^{hm}(f)=\sum_{k\in K} C^{k,hm}(f)$. 
 
 
 \subsubsection{Results}
@@ -31,7 +31,7 @@ A {\it multi-commodity network} is consistent with all our previous models. We a
 A directed $s-t$ network $G$ is {\it series-parallel} if it consists of a single edge $(s, t)$, or it is formed by the series or parallel composition of two series-parallel networks with terminals $(s_1, t_1)$ and $(s_2, t_2)$, respectively.
 \end{definition}
 
-The theorem below essentially states that for single-commodity networks, diversity is always helpful in a single-commodity series parallel network.
+The theorem below states that for single-commodity networks, diversity is always helpful in a single-commodity series parallel network.
 
 \begin{theorem}
 For any $s-t$ series-parallel network $G$ with a single commodity, we have $C^{ht}(g)\le C^{hm}(f)$.
@@ -54,7 +54,7 @@ For any $s-t$ non-series-parallel network $G$ with a single commodity, there exi
 %The key reason is that for a series-parallel network, if two flows $|f|\ge |g|$, then there must be a parallel part $P_1$ of the network where $f$ sends more flow than $g$ on. This must be true because we can trivially think of the whole network as $P_1$. Since in a series-parallel network, we can decompose $P_1$ into some
 \end{proof-sketch}
 
-This theorem essentially states that for single-commodity networks, diversity is always helpful only in a series-parallel network. Together with Theorem \ref{diverse1}, we know that the series-parallel structure is a sufficient and necessary condition for diversity to always be helpful.
+This theorem shows that diversity is always helpful in for single-commodity networks if the network is series-parallel. Together with Theorem \ref{diverse1}, we know that the series-parallel structure is a sufficient and necessary condition for diversity to always be helpful.
 
 Now we discuss our main results for multiple commodity network. We use {\it average-respecting demand} to refer to the property that for any commodity $i,j: \bar{r}^i=\bar{r}^j$. 
 
@@ -88,4 +88,4 @@ For any $k$-commodity network, if diversity helps for every instance on $G$ with
     The proof is by contradiction. First, by our Theorem \ref{diversethm2} for single-commodity network, each subnetwork $G_i$ in our multi-commodity network must be a series-parallel network, otherwise we can use the same counterexample as for Theorem \ref{diversethm2}. Then since we can prove \XXX{Vibhaa: how can we prove this?} that any two commodities $i$ and $j$, any block of $G_i$ and any block of $G_j$ either have the same terminals and direction or their terminals has no intersection, we know that $G$ is block-matching. The detailed proof assumes the conditions does not hold and constructs demand and edge functions where diversity hurts to contradict the assumption. See \cite{ijcai2018-24}.
 \end{proof-sketch}
 
-This theorem essentially states that for multi-commodity networks, diversity is always helpful only on any block-matching network with average-respecting demand. Together with Theorem \ref{diverse2}, we know that the block-matching structure is a sufficient and necessary condition for diversity to always be helpful in a multi-commodity network.
+This theorem shows that diversity is always helpful in multi-commodity networks if the network is block-matching with average-respecting demand. Together with Theorem \ref{diverse2}, we know that the block-matching structure is a sufficient and necessary condition for diversity to always be helpful in a multi-commodity network.
