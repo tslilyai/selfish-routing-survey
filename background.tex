@@ -7,7 +7,8 @@ we describe later results.
 Traffic routing problems naturally arise in communication or transportation networks, where users are trying to minimize the latency that they or their data experiences.
 However, links in the network often become \emph{congested} if too many users decide to route their data 
 or cars through that link. Consequently, in these networks, the path each user chooses can affect the travel times of other
-users. Here, we describe Roughgarden and Tardos' formalization of the problem of minimizing latency as multicommodity flow networks~\cite{tardos,roughgarden}, and use Pigou's example network in Figure~\ref{fig:Pigou} as a running example. We will later use this to reason about how much latency increases from optimum when users make selfish routing decisions.
+users. Here, we describe Roughgarden and Tardos' formalization of the problem of minimizing latency as multicommodity flow networks~\cite{tardos,roughgarden}, and use Pigou's example network in Figure~\ref{fig:Pigou} as a running example. We will later use this to reason about how much latency increases from optimum when users make selfish routing decisions. We will also briefly reference Braess's graph (Figure~\ref{fig:braess}) in which the outer edges are
+the optimal routing paths. These are used even by selfish users as long as the middle edge isn't introduced, but once the middle edge is introduced, everyone uses it increasing the overall latency as well as per-user latency.
 
 \begin{figure}[ht!]
 \begin{center}
@@ -27,6 +28,13 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
 \end{center}
     \caption{Pigou's example traffic routing problem, with a demand of $r_{(s,t)} = 1$}
 \label{fig:Pigou}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[height=4cm]{braess.png}
+    \caption{Braess's graph for the traffic routing problem where the addition of the center edge inadvertently increases the overall latency.}
+    \label{fig:braess}
 \end{figure}
 
 \medskip\noindent
