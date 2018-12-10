@@ -2,15 +2,20 @@
 
 \begin{table}[h]
 \begin{center}
- \begin{tabular}{|c | c | c|} 
+    \begin{tabular}{|p{2cm}| p{7cm} | p{8cm}|} 
  \hline
- Name & Objective & Results \\
+        \begin{center}Name\end{center} & \begin{center}Objective\end{center} & \begin{center} Results\end{center} \\
  \hline\hline
-     Social Welfare & $SW = \min_f\Big(\sum_e f_e\ell_e(f_e)\Big)$ & $\rho = 1$ (optimal by definition) \\
+        Social Welfare & $SW = \min_f\Big(\sum_e f_e\ell_e(f_e)\Big)$ & $\rho(G,r,\ell) = 1$ (optimal by definition) \\
  \hline
-     Selfish & $NE^s = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t)dt\Big)$ & TODO\\
+     Selfish & $NE^s = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t)dt\Big)$ & 
+        $\bullet~\rho(G,r,\ell) \le \frac{C(f^*_2)}{C(f^*)}$, where $f^*_2$ is an flow optimizing $SW$ for input $\rho(G,2r,\ell)$, and $f^*$ is an flow optimizing $SW$ for input $\rho(G,r,\ell)$.\\ 
+        &  & $\bullet~\rho(G,r,\ell) \le 4/3$ when $\ell$ is linear\\
  \hline
-     Altruistic & $NE^\beta = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \beta tl'e(t)dt\Big)$ & TODO\\
+        Altruistic & $NE^\beta = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \beta tl'e(t)dt\Big)$ & 
+        $\bullet~\rho(G,r,\ell,\psi) \le \frac{1}{\beta}$ when $\psi$ is a uniform distribution of $\beta >0$\\
+        & & $\bullet~\rho(G,r,\ell,\psi) = \infty$ when $\psi$ is a uniform distribution of $\beta < \frac{-1}{d}$ and $\ell$ is a polynomial of degree $\le d$\\
+        & & $\bullet~\rho(G,r,\ell,\psi) \le \frac{1}{\bar{\beta}}$ when $G$ is parallel-link and $\psi$ is any distribution of $\beta \ge 0$ with average altruism $\bar{\beta}$\\
 \hline
      Risk-averse & $NE^\gamma = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \gamma\upsilon(t)dt\Big)$ & TODO\\
 \hline
