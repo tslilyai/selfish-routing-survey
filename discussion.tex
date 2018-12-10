@@ -26,17 +26,18 @@
     \caption{Comparing the optimization functions and price of anarchy results for the behavior models discussed in the paper}
     \label{tab:comparison}
 \end{table}
-
-\subsection{Extensions}
-
-The models we covered are quite limited and coarse-grained compared to the complexity of human behavior. The most general of the models, the diversity model, only explored the realm of having at most two criteria in total in the objective functions of the whole diverse network.
+\subsection{Comparing the Alternative Models}
+In Table~\ref{tab:comparison}, we show the different models (including the Social Welfare model, corresponding to complete centralized control), the objective functions minimized 
+by the resulting flow of traffic in each model, and the bounds on the price of anarchy achieved in each model. This synthesis of all models into a general framework with consistent notation allows us to easily observe how the results about the price of anarchy become more complex and nuanced as the complexity of the model increases.
+\XXX{TODO something more about how improves upon selfish?}
 
 \subsection{Applications}
+The models we covered are quite limited and coarse-grained compared to the complexity of human behavior. The most general of the models, the diversity model, only explored the realm of having at most two criteria in total in the objective functions of the whole diverse network.
 Although the knowledge we have of the affect of human nature on the optimality of a network is still quite limited, we can nevertheless leverage this knowledge to improve our decision making. Here, we discuss three major ways to do so.
 
 \subsubsection{Policy Design}
-As we discussed in the diverse model section, diverse selfish routing models help us understand how we can leverage policies and the natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. 
-We mentioned the example of tolls helping to implement the social optimum at equilibrium when all agents have the same goal, where the goal is a linear combination of time and money~\cite{beckmann1956studies}. We can add many more factors that agents will consider, as well as analyse more complex relationships between these factors, if we can understand the effects of these factors on users' decisions in the network.
+As we discussed earlier, more complex routing models, such as the diverse-interests model, allow us to create more fine-grained policies that take advantage of diversity of users' goals in a network to improve the network's overall efficiency (e.g., adding tolls to the network).
+By considering alternative motivating factors and better understanding how these factors affect users' decisions, we can create more precise and complex models to determine whether policies will have adverse or beneficial effects.
 
 \subsubsection{Information Distribution}
 To enable diversity among acting agents, we must be able to provide a variety of information to the agents. For example, to utilize the time-money tradeoff, the agents must be informed of the estimated time of taking each route, and estimated expense of taking each route. 
