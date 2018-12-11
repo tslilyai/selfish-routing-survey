@@ -21,13 +21,14 @@
     $\bullet~PRA(G,r,\ell,v,\gamma) \leq \frac{1 + \gamma\upkappa}{1 - \mu}$ where PRA is the price of risk-aversion and $\ell$ is a $(1,\mu)$-smooth function\\
     & & $\bullet~PRA(G,r,\ell,v,\gamma) = 1 + \gamma\upkappa $ for a series-parallel recursive graph\\
 \hline
-     Diverse Interests & $NE^\omega = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \omega\cdot \sigma_e dt\Big)$, where $\ell$ and $\sigma$ are the costs of two general criterion & $C^{ht}(g)> C^{hm}(f)$ always true iff series-parallel for single-commodity network; $C^{ht}(g)> C^{hm}(f)$ always true iff block-matching for multi-commodity network with average-respecting demand.\\
+     Diverse Interests & $NE^\omega = \min_f\Big(\sum_i \big(\sum_e\int_0^{f_e} \ell_e(t) + \omega_i\cdot \sigma_e dt\big)\Big)$, where $\sigma$ is the second criterion called deviation function, and $w_i$ the diversity parameter for each agent $i$ & $C^{ht}(g)> C^{hm}(f)$ always true iff series-parallel for single-commodity network; $C^{ht}(g)> C^{hm}(f)$ always true iff block-matching for multi-commodity network with average-respecting demand.\\
 \hline
 \end{tabular}
 \end{center}
     \caption{Comparing the optimization functions and price of anarchy results for the behavior models discussed in the paper}
     \label{tab:comparison}
 \end{table}
+\XXX{Xiaoyue: I think the definition of the objective in the table is somewhat ambiguous. Do we mean the objective for each agent? Do we mean the nash/wardrop equilibrium here? Then for diverse interests, it should be modified so that there is a different diversity parameter for each agent.}
 
 \subsection{Comparing the Alternative Models}
 In Table~\ref{tab:comparison}, we show the different models (including the Social Welfare model, corresponding to complete centralized control), the objective functions minimized 
