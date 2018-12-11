@@ -9,7 +9,7 @@ of $c^\beta_p$ for all paths $p$:
 $$c^\beta_p(f) = \sum_{e \in p} \ell_e(f_e) + \beta\sum_{e\in P} f_e\ell'_e(f_e)$$
 where $\ell_e(\cdot)$ is the latency function from the selfish routing setting, and $\ell'_e(\cdot)$ is the derivative with respect to $f_e$.
 
-Note that the first term is exactly the individual user cost from the selfish routing model (and thus the two models are equivalent when $\beta = 0$).
+Note that the first term is exactly the individual user cost from the selfish routing model (and thus the two models are equivalent when $\beta = 0$). \XXX{xiaoyue: I'm confused because I thought the cost should have the amount of flow in it too}
 The second term corresponds to the derivative of the social welfare latency cost on $p$ and is weighed by $\beta$; we use the derivative, rather than the value, of the social welfare cost on $p$ because each user only controls an infinitesimally small amount of the flow: if we were to use the value, a single user's choice would have no effect on the social welfare cost! 
 Instead, a user can account for how she will affect the social welfare cost via the rate at which her choice of path affects other users.
 
