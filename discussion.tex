@@ -4,24 +4,24 @@
 \begin{center}
     \begin{tabular}{|p{2cm}| p{6cm} | p{7cm}|} 
  \hline
-        \begin{center}Name\end{center} & \begin{center}Objective\end{center} & \begin{center} Results\end{center} \\
+        \begin{center}Name\end{center} & \begin{center}Per-user Objective\end{center} & \begin{center} Results\end{center} \\
  \hline\hline
-        Social Welfare & $SW = \min_f\Big(\sum_e f_e\ell_e(f_e)\Big)$ & $\rho(G,r,\ell) = 1$ (optimal by definition) \\
+        Social Welfare & $min_f\Big\(\sum_e f_e\ell_e(f_e)\Big)$ & $\rho(G,r,\ell) = 1$ (optimal by definition) \\
  \hline
-     Selfish & $NE^s = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t)dt\Big)$ & 
+     Selfish & $\sum_e\int_0^{f_e} \ell_e(t)dt$ & 
         $\bullet~\rho(G,r,\ell) \le \frac{C(f^*_2)}{C(f^*)}$, where $f^*_2$ is an flow optimizing $SW$ for input $\rho(G,2r,\ell)$, and $f^*$ is an flow optimizing $SW$ for input $\rho(G,r,\ell)$.\\ 
         &  & $\bullet~\rho(G,r,\ell) \le 4/3$ when $\ell$ is linear\\
  \hline
-        Altruistic & $NE^\beta = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \beta tl'e(t)dt\Big)$ & 
+        Altruistic & $\sum_e\int_0^{f_e} \ell_e(t) + \beta tl'e(t)dt$ & 
         $\bullet~\rho(G,r,\ell,\psi) \le \frac{1}{\beta}$ when $\psi$ is a uniform distribution of $\beta >0$\\
         & & $\bullet~\rho(G,r,\ell,\psi) = \infty$ when $\psi$ is a uniform distribution of $\beta < \frac{-1}{d}$ and $\ell$ is a polynomial of degree $\le d$\\
         & & $\bullet~\rho(G,r,\ell,\psi) \le \frac{1}{\bar{\beta}}$ when $G$ is parallel-link and $\psi$ is any distribution of $\beta \ge 0$ with mean altruism $\bar{\beta}$\\
 \hline
-     Risk-averse & $NE^\gamma = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \gamma\upsilon(t)dt\Big)$ & 
+     Risk-averse & $\sum_e\int_0^{f_e} \ell_e(t) + \gamma\upsilon(t)dt$ & 
     $\bullet~PRA(G,r,\ell,v,\gamma) \leq \frac{1 + \gamma\upkappa}{1 - \mu}$ where PRA is the price of risk-aversion and $\ell$ is a $(1,\mu)$-smooth function\\
     & & $\bullet~PRA(G,r,\ell,v,\gamma) = 1 + \gamma\upkappa $ for a series-parallel recursive graph\\
 \hline
-     Diverse Interests & $NE^\omega = \min_f\Big(\sum_i \big(\sum_e\int_0^{f_e} \ell_e(t) + \omega_i\cdot \sigma_e dt\big)\Big)$, where $\sigma$ is the second criterion called deviation function, and $w_i$ the diversity parameter for each agent $i$ & $C^{ht}(g)> C^{hm}(f)$ always true iff series-parallel for single-commodity network; $C^{ht}(g)> C^{hm}(f)$ always true iff block-matching for multi-commodity network with average-respecting demand.\\
+     Diverse Interests & $\sum_i \big(\sum_e\int_0^{f_e} \ell_e(t) + \omega_i\cdot \sigma_e dt\big)$, where $\sigma$ is the second criterion called deviation function, and $w_i$ the diversity parameter for each agent $i$ & $C^{ht}(g)> C^{hm}(f)$ always true iff series-parallel for single-commodity network; $C^{ht}(g)> C^{hm}(f)$ always true iff block-matching for multi-commodity network with average-respecting demand.\\
 \hline
 \end{tabular}
 \end{center}
