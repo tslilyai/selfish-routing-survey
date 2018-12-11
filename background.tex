@@ -113,7 +113,7 @@ inefficiencies.
 \medskip
 \textbf{The Price of Anarchy} (PoA) allows us to measure the inefficiencies of a decentralized model, and was first introduced by Koutsoupias and Papadimitriou in 1999~\cite{poa}. 
 We treat the decentralized model as a game in which each individual optimizes for her own \textbf{individual cost function $c$}, allowing us to compute the achieved flow at the resulting Nash equilibrium (proven to exist if the cost functions are continuous)~\cite{wardrop,haurie,beckmann1956studies}.
-The price of anarchy $\rho(G,r,\ell)$ is defined as the ratio between the social welfare latency cost at the flow $f$ achieved at Nash equilibrium, and the optimally minimal social welfare latency cost $C(f^*)$, $\rho(G,r,\ell) =\frac{C(f)}{C(f^*)}$.
+The price of anarchy $\rho(G,r,\ell)$ is defined as the ratio between the social welfare latency cost at the flow $f$ achieved at Nash equilibrium, and the optimally minimal social welfare latency cost $C(f^*)$, i.e., $\rho(G,r,\ell) =\frac{C(f)}{C(f^*)}$.
 (This is similar to how we measured the distance from optimal of an approximation algorithm in a limited computational power model, and of online algorithms in an incomplete information model.)
 
 The set of flows at Nash equilibrium are defined such that for all $i$ source-destination pairs, all the paths from $s_i \to t_i$ have the minimum-possible cost with respect to an individual's cost function $c$. In other words, the (nonzero) flow paths at Nash equilibrium have equal path costs, and no user could decrease her cost by choosing a different path:
