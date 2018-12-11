@@ -5,7 +5,7 @@ we describe later results.
 
 \subsection{The Traffic Routing Problem}
 Traffic routing problems naturally arise in communication or transportation networks, where users are trying to minimize the latency that they or their data experiences. Users make these decisions only with their own traffic in mind.
-But, links in the network often become \emph{congested} if too many users decide to route their data 
+However, links in the network often become \emph{congested} if too many users decide to route their data 
 or cars through that link. Consequently, in these networks, the path each user chooses can affect the travel times of other
 users. Here, we describe Roughgarden and Tardos' formalization of the problem of minimizing latency in terms of multicommodity flow networks~\cite{tardos,roughgarden}, and use Pigou's example network in Figure~\ref{fig:Pigou} as a running example. In this graph, one path has a constant latency while the other path's latency increases with the number of users using it. We will later use this to reason about how much latency increases from optimum when users make selfish routing decisions. We will also briefly reference Braess's graph (Figure~\ref{fig:braess}) in which the outer edges have similar latency functions to the Pigou network while the middle edge has a latency of $0$.
 
@@ -128,7 +128,7 @@ One example of an uncoordinated model is the \emph{selfish routing} model, in wh
 The selfish routing model corresponds to flows at a Nash equilibrium where each user optimizes her individual cost function
 $c^s(f) = \ell(f)$.
 Thus, the program optimized at Nash equilibruim is
-$$NE^{s} = \min_f\Big(\sum_e \int_0^{f_e} \ell_e(t)dt\Big) \text{ subject to feasibility constraints}$$
+$$NE = \min_f\Big(\sum_e \int_0^{f_e} \ell_e(t)dt\Big) \text{ subject to feasibility constraints}$$
 
 If we revisit our running example in Figure~\ref{fig:Pigou}, we note that the flow at Nash equilibrium corresponds to a flow that sends the entire unit of traffic through the bottom edge (the 0 flow through the top path has latency 1, and the unit flow through the bottom path will have latency 1).
 Intuitively, each user routing from $s$ to $t$ will selfishly choose to take the bottom route because she will reason that the bottom route can have latency no worse than the top route. However, when all the users apply this same strategy, the bottom route becomes more congested and leads to a total average latency $C(f) = 1$.
@@ -186,7 +186,7 @@ We next describe and present the main results regarding the price of anarchy in 
     This leaves the remaining $r/2$ that needs to be routed optimally to route $f^*$ fully. To reason about this, let's look at a small $\delta r_i$ increase in flow from $s_i$ to $t_i$ that already carries $x$ units 
     of flow. For a convex latency function, we expect the increase in latency to be at least $\delta r_i\ell'(x)$ where $\ell'$ if the minimum marginal increase in $C$. If we consider starting at the 
     optimal flow $f/2$ for the $r/2$ demand and increasing the flow on each path by a small $\delta r_i$, the subsequent increase in 
-    latency across be all paths can be summed as  $\displaystyle \sum_{i = 1}^k\ell'(f/2)\delta r_i$. But, for linear edge latency functions, the marginal increase in latency on every edge at $f/2$ is exactly
+    latency across be all paths can be summed as  $\displaystyle \sum_{i = 1}^k\ell'(f/2)\delta r_i$. In particular, for linear edge latency functions, the marginal increase in latency on every edge at $f/2$ is exactly
     the latency of that edge at $f$. Thus, $\ell_e'(f/2) = \ell_e(f)$. We now know that when we set $\delta = 1$ and increase the rate by $r_i/2$ on every $s_i$, the overall increase in latency is at least $\displaystyle \frac{1}{2}\sum_{i= 1}^k\ell(f)r_i = \frac{1}{2}C(f)$. The last part is by definition of $C(f)$. 
     
     We have shown that routing the first $r/2$ demand optimally costs at least $C(f)/4$ and the next $r/2$ when augmented, costs at least another $C(f)/2$. In total, the cost $C(f^*)$ associated with the optimal is at least $\frac{3}{4}C(f)$. In other words,
