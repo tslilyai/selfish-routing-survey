@@ -68,12 +68,17 @@ Now we discuss our main results for multiple commodity network. We use {\it aver
 A multi-commodity network $G$ can be decomposed in subnetworks $G_i$'s that each contains all the vertices and edges of $G$ that belong to a simple $s_i-t_i$ path for commodity $i$. WLOG, we assume these $G_i$ are acyclic.
 
 \begin{definition}
-    A multi-commodity network $G$ is {\it block-matching} if for every $i$, $G_i$ is series-parallel, and for every $i, j$, $G_i$ and $G_j$ are block-matching, respectively. \XXX{Vibhaa: Can we use a picture or an example for this? series-parallel is fairly easy to visualize, but I'm not sure how to visualize this?}
+    A multi-commodity network $G$ is {\it block-matching} if for every $i$, $G_i$ is series-parallel, and for every $i, j$, $G_i$ and $G_j$ are block-matching, respectively. %\XXX{Vibhaa: Can we use a picture or an example for this? series-parallel is fairly easy to visualize, but I'm not sure how to visualize this?}
 \end{definition}
 
-\begin{center}
 
-\end{center}
+\begin{figure}{h}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{block.png}
+  \end{center}
+  \caption{A block-matching network of $2$ commodities: $G_1=s_1 AuBvCwDt_1$ and $G_2=s_2EwDt_1FuBvGt_w$}
+\end{figure}
+
 
 The next theorem states that for multi-commodity networks, diversity is always helpful on any block-matching network with average-respecting demand. 
 
@@ -84,9 +89,8 @@ For any $k$-commodity block-matching network with average-respecting demand, $C^
 
 \begin{proof-sketch}
 
-Let's consider the block representation of a subnetwork $G_i=s_i B_1 v_1\dots v_{b_i-1} B _{b_i}t_i$ for some commodity $i$. Because $G$ is block-matching, for any block $B_j$ connecting $v_{j-1}$ and $v_j$ , any other commodity $j$ either contains block $B_j$ as a block in its block representation or contains none of the edges of $B_j$. This implies that under any routing of the demand, either all of $j$'s demand goes through $B_j$ or none of it does. So the total traffic routed by $f$ and $g$ are the same from $v_{j-1}$ to $v_j$. So if restricted to the block, the cost of the heterogeneous equilibrium is less than or equal to that of the homogeneous equilibrium; then the theorem is a result of summing over every block of all commodities.
-
-\XXX{Vibhaa: What are the $v_j$'s here and how do they relate to the block or how do we want to think about them (maybe I'm just still struggling to visualize this? Consequently, how do we go from traffic routed is the same on $f$ and $g$ to cost of heterogenous equlibrium being less than or equal to homogenous in a block}
+Let's consider the block representation of a subnetwork $G_i=s_i B_1 v_1\dots v_{b_i-1} B _{b_i}t_i$ for some commodity $i$. Because $G$ is block-matching, for any block $B_j$ connecting $v_{j-1}$ and $v_j$ , any other commodity $j$ either contains block $B_j$ as a block in its block representation or contains none of the edges of $B_j$. This implies that under any routing of the demand, either all of $j$'s demand goes through $B_j$ or none of it does. So the total traffic routed by $f$ and $g$ are the same from $v_{j-1}$ to $v_j$. So if restricted to the block, the cost of the heterogeneous equilibrium is less than or equal to that of the homogeneous equilibrium by Theorem \ref{diverse1}; then the theorem is a result of summing over every block of all commodities.
+%\XXX{Vibhaa: What are the $v_j$'s here and how do they relate to the block or how do we want to think about them (maybe I'm just still struggling to visualize this? Consequently, how do we go from traffic routed is the same on $f$ and $g$ to cost of heterogenous equlibrium being less than or equal to homogenous in a block} Xiaoyue: v_j are vertices. By previous theorem \ref{diverse1}.
 \end{proof-sketch}
 
 
@@ -96,7 +100,8 @@ For any $k$-commodity network, if diversity helps for every instance on $G$ with
 \end{theorem}
 
 \begin{proof-sketch}
-    The proof is by contradiction. First, by our Theorem \ref{diversethm2} for single-commodity network, each subnetwork $G_i$ in our multi-commodity network must be a series-parallel network, otherwise we can use the same counterexample as for Theorem \ref{diversethm2}. Then since we can prove \XXX{Vibhaa: how can we prove this?} that any two commodities $i$ and $j$, any block of $G_i$ and any block of $G_j$ either have the same terminals and direction or their terminals has no intersection, we know that $G$ is block-matching. The detailed proof assumes the conditions does not hold and constructs demand and edge functions where diversity hurts to contradict the assumption. See \cite{ijcai2018-24}.
+    The proof is by contradiction. First, by our Theorem \ref{diversethm2} for single-commodity network, each subnetwork $G_i$ in our multi-commodity network must be a series-parallel network, otherwise we can use the same counterexample as for Theorem \ref{diversethm2}. Then since we can prove that any two commodities $i$ and $j$, any block of $G_i$ and any block of $G_j$ either have the same terminals and direction or their terminals has no intersection, we know that $G$ is block-matching. The detailed proof assumes the conditions does not hold, and then constructs demand and edge functions where diversity hurts to contradict the assumption. See \cite{ijcai2018-24}.
+  % \XXX{Vibhaa: how can we prove this?}Xiaoyue: I think giving the main idea of the proofs is more important than repeating the whole proof in the paper.
 \end{proof-sketch}
 
 This theorem shows that diversity is always helpful in multi-commodity networks if the network is block-matching with average-respecting demand. Together with Theorem \ref{diverse2}, we know that the block-matching structure is a sufficient and necessary condition for diversity to always be helpful in a multi-commodity network.
