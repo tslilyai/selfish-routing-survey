@@ -24,3 +24,5 @@
 *.bcf
 *.run.xml
 samples/ACM-Reference-Format.bst
+*.pdf
+*.gz
