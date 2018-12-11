@@ -2,52 +2,56 @@
 
 \begin{table}[h]
 \begin{center}
- \begin{tabular}{|c | c | c|} 
+    \begin{tabular}{|p{2cm}| p{6cm} | p{7cm}|} 
  \hline
- Name & Objective & Results \\
+        \begin{center}Name\end{center} & \begin{center}Objective\end{center} & \begin{center} Results\end{center} \\
  \hline\hline
-     Social Welfare & $SW = \min_f\Big(\sum_e f_e\ell_e(f_e)\Big)$ & PoA = 1 (optimal by definition) \\
+        Social Welfare & $SW = \min_f\Big(\sum_e f_e\ell_e(f_e)\Big)$ & $\rho(G,r,\ell) = 1$ (optimal by definition) \\
  \hline
-     Selfish & $NE^s = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t)dt\Big)$ & TODO\\
+     Selfish & $NE^s = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t)dt\Big)$ & 
+        $\bullet~\rho(G,r,\ell) \le \frac{C(f^*_2)}{C(f^*)}$, where $f^*_2$ is an flow optimizing $SW$ for input $\rho(G,2r,\ell)$, and $f^*$ is an flow optimizing $SW$ for input $\rho(G,r,\ell)$.\\ 
+        &  & $\bullet~\rho(G,r,\ell) \le 4/3$ when $\ell$ is linear\\
  \hline
-     Altruistic & $NE^\beta = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \beta tl'e(t)dt\Big)$ & TODO\\
+        Altruistic & $NE^\beta = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \beta tl'e(t)dt\Big)$ & 
+        $\bullet~\rho(G,r,\ell,\psi) \le \frac{1}{\beta}$ when $\psi$ is a uniform distribution of $\beta >0$\\
+        & & $\bullet~\rho(G,r,\ell,\psi) = \infty$ when $\psi$ is a uniform distribution of $\beta < \frac{-1}{d}$ and $\ell$ is a polynomial of degree $\le d$\\
+        & & $\bullet~\rho(G,r,\ell,\psi) \le \frac{1}{\bar{\beta}}$ when $G$ is parallel-link and $\psi$ is any distribution of $\beta \ge 0$ with mean altruism $\bar{\beta}$\\
 \hline
-     Risk-averse & $NE^\gamma = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \gamma\upsilon(t)dt\Big)$ & TODO\\
+     Risk-averse & $NE^\gamma = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \gamma\upsilon(t)dt\Big)$ & 
+    $\bullet~PRA(G,r,\ell,v,\gamma) \leq \frac{1 + \gamma\upkappa}{1 - \mu}$ where PRA is the price of risk-aversion and $\ell$ is a $(1,\mu)$-smooth function\\
+    & & $\bullet~PRA(G,r,\ell,v,\gamma) = 1 + \gamma\upkappa $ for a series-parallel recursive graph\\
+
+    
 \hline
-     Diverse Interests & $NE^\omega = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \omega\cdot \sigma_e dt\Big)$ & TODO\\
-     & where $\ell$ and $\sigma$ are the costs of two general criterion &\\
+     Diverse Interests & $NE^\omega = \min_f\Big(\sum_e\int_0^{f_e} \ell_e(t) + \omega\cdot \sigma_e dt\Big)$, where $\ell$ and $\sigma$ are the costs of two general criterion & TODO\\
 \hline
 \end{tabular}
 \end{center}
+    \caption{Comparing the optimization functions and price of anarchy results for the behavior models discussed in the paper}
+    \label{tab:comparison}
 \end{table}
-
-\subsection{Extensions}
-
-The models we covered are quite limited and coarse-grained compared to the complexity of the human brain and behavior. The diversity model only explored the realm of having at most two criteria in total in the objective functions of the whole diverse network.
-
+\subsection{Comparing the Alternative Models}
+In Table~\ref{tab:comparison}, we show the different models (including the Social Welfare model, corresponding to complete centralized control), the objective functions minimized 
+by the resulting flow of traffic in each model, and the bounds on the price of anarchy achieved in each model. This synthesis of all models into a general framework with consistent notation allows us to easily observe how the results about the price of anarchy become more complex and nuanced as the complexity of the model increases. Some of these scenarios help improve the price of anarchy, while certain others make it worse depending on the other factors in
+consideration and the edge latency functions. For instance, if there is a higher variance to a lower cost path, the price of anarchy can be much worse if more risk-averse participants are involved.
 
 \subsection{Applications}
-
-Although knowledge we have of the affect of human nature on the optimality of a network is still quite limited, we can nevertheless leverage the knowledge to improve our decision making. There are three major ways that these knowledge can contribute:
-
+The models we covered are quite limited and coarse-grained compared to the complexity of human behavior. The most general of the models, the diversity model, only explored the realm of having at most two criteria in total in the objective functions of the whole diverse network.
+Although the knowledge we have of the affect of human nature on the optimality of a network is still quite limited, we can nevertheless leverage this knowledge to improve our decision making. Here, we discuss three major ways to do so.
 
 \subsubsection{Policy Design}
-As we have discussed in the diverse model section that the diverse selfish routing models help us understand how we can leverage policies and natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. 
-
-We mentioned the example of tolls helping implement the social optimum at equilibrium when all agents have the same goal that is a linear combination of time and money Beckmann et.al~\cite{beckmann1956studies}. There are many more things that we can put onto the table for the agents to consider if we understand the affect of those tradeoffs well on our network.
-
+As we discussed earlier, more complex routing models, such as the diverse-interests model, allow us to create more fine-grained policies that take advantage of diversity in users' goals in a network to improve the network's overall efficiency (e.g., adding tolls to the network).
+By considering alternative motivating factors and better understanding how these factors affect users' decisions, we can create more precise and complex models to determine whether policies will have adverse or beneficial effects.
 
 \subsubsection{Information Distribution}
+To enable diversity among acting agents, we must be able to provide a variety of information to the agents. For example, to exploit the time-money tradeoff, the agents must be aware of the estimated latency of each route, and estimated cost of taking each route. 
 
-To enable diversity among acting agents, we must be able to provide a variety of information to the agents. E.g. to utilize the time-money tradeoff, the agents must be informed of the estimated time of taking each route, and estimated expense of taking each route. 
-
-The implications of information distribution goes much further beyond the time-money tradeoff, however. Imagine if we have a route A that is fast but heavy traffic on that route does a lot of damage to the environment, and another route B that is slower but has less impact on the environment. To make the environmental-concern even a criterion for any subset of the heterogeneous agents, they need to first be aware that route A does more damage to the environment. Being exposed to new information about the network is one of the most effective ways to allow the agents to possibly include multiple criteria in their objective functions. Thus, there is intrinsic value in providing more information on the network to the agents.
+The implications of information distribution go beyond the time-money tradeoff, however. Imagine if we have a route A that is fast but heavy traffic on that route damages the environment, and another route B that is slower but has less impact on the environment. To make the environmental concern even a criterion for any subset of the heterogeneous agents, they need be made aware that route A does more damage to the environment. Exposure to new information about the network is very effective in allowing agents to include multiple criteria in their objective functions. Thus, there is intrinsic value in providing more information on the network to the agents.
 
 \subsubsection{Network Design}
 
-As we have found that, under different assumptions of the agent behavior, we can design the network we have into different structures, in order to make sure that the affect of the previous two methods are positive. For example, as we have shown in the diversity model, we can design our network to make sure that no Braess graph can be embedded in our network, and our network is block-matching.
-
-These important applications also point at the directions for potential future research. 
+As we have showed, according to different assumptions of the agent behavior, the network can be partitioned into different structures, to ensure that the effects of the above two methods are positive. For example, as we have shown in the diversity model, we can design our network such that a Braess graph cannot be embedded in our network, and our network is block-matching.
+These important applications also point at directions for potential future research. 
 
 %Clearly the models we present are a miniscule subset of all potential models for human behavior; 
 %furthermore, they are coarse-grained and oversimplistic in comparison with the complexity of the human

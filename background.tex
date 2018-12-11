@@ -12,27 +12,28 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
 %These are used even by selfish users as long as the middle edge isn't introduced, but once the middle edge is introduced, everyone uses it increasing the overall latency as well as per-user latency.
 
 \begin{figure}[ht!]
-\begin{center}
-\begin{tikzpicture}[scale=0.1]
-\tikzstyle{every node}+=[inner sep=0pt]
-\draw [black] (18,-17.9) circle (3);
-\draw (18,-17.9) node {$s$};
-\draw [black] (50.2,-17.9) circle (3);
-\draw (50.2,-17.9) node {$t$};
-\draw [black] (19.94,-15.615) arc (135.3471:44.6529:19.905);
-\fill [black] (48.26,-15.62) -- (48.05,-14.69) -- (47.34,-15.4);
-\draw (34.1,-9.2) node [above] {$\ell(x)\mbox{ }=\mbox{ }1$};
-\draw [black] (48.072,-20.011) arc (-49.23907:-130.76093:21.4);
-\fill [black] (48.07,-20.01) -- (47.14,-20.15) -- (47.79,-20.91);
-\draw (34.1,-25.7) node [below] {$\ell(x)\mbox{ }=\mbox{ }x$};
-\end{tikzpicture}
-\end{center}
+    \centering
+\begin{minipage}{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=0.1]
+    \tikzstyle{every node}+=[inner sep=0pt]
+    \draw [black] (18,-17.9) circle (3);
+    \draw (18,-17.9) node {$s$};
+    \draw [black] (50.2,-17.9) circle (3);
+    \draw (50.2,-17.9) node {$t$};
+    \draw [black] (19.94,-15.615) arc (135.3471:44.6529:19.905);
+    \fill [black] (48.26,-15.62) -- (48.05,-14.69) -- (47.34,-15.4);
+    \draw (34.1,-9.2) node [above] {$\ell(x)\mbox{ }=\mbox{ }1$};
+    \draw [black] (48.072,-20.011) arc (-49.23907:-130.76093:21.4);
+    \fill [black] (48.07,-20.01) -- (47.14,-20.15) -- (47.79,-20.91);
+    \draw (34.1,-25.7) node [below] {$\ell(x)\mbox{ }=\mbox{ }x$};
+    \end{tikzpicture}
     \caption{Pigou's example traffic routing problem, with a demand of $r_{(s,t)} = 1$}
-\label{fig:Pigou}
-\end{figure}
-
-\begin{figure}[ht!]
-\begin{center}
+    \label{fig:Pigou}
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.45\textwidth}
+    \centering
 \begin{tikzpicture}[scale=0.15]
 \tikzstyle{every node}+=[inner sep=0pt]
 \draw [black] (26.7,-28.8) circle (3);
@@ -59,10 +60,11 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
 \fill [black] (55.67,-26.09) -- (55.41,-25.18) -- (54.74,-25.93);
 \draw (54.78,-21.74) node [above] {$\ell(x)\mbox{ }=\mbox{ }1$};
 \end{tikzpicture}
-\end{center}
 \caption{Braess's graph for the traffic routing problem where the addition of the center edge inadvertently increases the overall latency.}
 \label{fig:braess}
+\end{minipage}
 \end{figure}
+
 
 
 \medskip\noindent
@@ -71,8 +73,8 @@ users. Here, we describe Roughgarden and Tardos' formalization of the problem of
     \item A network $G = (V, E)$ of $|V|$ destinations (e.g., locations or servers) and $|E|$ links 
      \item A set of $k$ source-destination pairs $S=\{(s_1,t_1), \cdots (s_k,t_k)\}$ representing traffic demands
     \item A {rate} $r_i$ of traffic for each $(s_i,t_i)\in S$ representing the traffic demand from $s_i$ to $t_i$
-    \item A {latency} function $\ell$ that assigns a per-edge function $\ell_e$ to each edge $e$ describing how adding traffic (i.e., congestion) to $e$ affects the time taken to travel across $e$. We can also think of $\ell$ as assigning per-path latencies: for any path $p$ in the graph that carries flow $f$
-        $$\ell_p(f) = \sum_{e\in P}\ell_e(f_e)$$ 
+    \item A {latency} function $\ell$ that assigns a per-edge function $\ell_e$ to each edge $e$ describing how adding traffic (i.e., congestion) to $e$ affects the time taken to travel across $e$. We can also think of $\ell$ as assigning per-path latencies: for any path $p$ in the graph that carries flow $f$,
+        $\ell_p(f) = \sum_{e\in P}\ell_e(f_e)$.
         We assume that $\ell$ is continuous, nonnegative, and nondecreasing.
 \end{itemize}
 In Figure~\ref{fig:Pigou}, we see a single source-destination input network with an example (linear) cost function with $r_{(s,t)} = 1$.
@@ -138,7 +140,7 @@ We next describe and present the main results regarding the price of anarchy in 
 
 \subsection{Main Results}
 \begin{theorem}
-    If $f$ is a flow at Nash equilibrium for a given input set $(G, r, \ell)$ and $f^*$ is a feasible flow for $(G, 2r, \ell)$, then $C(f) \leq C(f^*)$
+    If $f$ is a flow at Nash equilibrium for a given input $(G, r, \ell)$ and $f^*$ is a feasible flow for $(G, 2r, \ell)$, then $C(f) \leq C(f^*)$
 \end{theorem}
 
 \begin{proof-sketch}
@@ -167,7 +169,7 @@ We next describe and present the main results regarding the price of anarchy in 
 \end{proof-sketch}
 
 \begin{theorem}
-    If the edge latency functions are linear, i.e., $\ell_e = a_ef_e + b_e$ for every edge $e \in E$, then $\rho(G, R,\ell) \leq 4/3$.
+    If the edge latency functions are linear, i.e., $\ell_e = a_ef_e + b_e$ for every edge $e \in E$, then $\rho(G, r,\ell) \leq 4/3$.
     \label{thm:linear}
 \end{theorem}
 
