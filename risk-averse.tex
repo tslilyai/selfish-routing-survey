@@ -16,8 +16,8 @@ $\upsilon_e(x_e) \leq \upkappa \ell_e(x_e)$.
 %instance is $(G,r,l,\upsilon,\gamma)$ and we focus on $r = 1$ to simplify our analysis.
 Thus, the individual cost function for each user on a given path $p$ is of the form
 $$c^\gamma_p(f) = \sum_{e \in p}\ell_e(f_e) + \gamma \sum_{e \in p}\upsilon_e(f_e)$$
-and the resulting Nash equilibrium is achieved at the flow solutions to the program
-$$NE^\gamma= \min_f\sum_e\int_0^{f_e}c_e^\gamma(t)dt \text{ subject to feasibility constraints}$$
+%and the resulting Nash equilibrium is achieved at the flow solutions to the program
+%$$NE^\gamma= \min_f\sum_e\int_0^{f_e}c_e^\gamma(t)dt \text{ subject to feasibility constraints}$$
 
 $c^\gamma_p$ is assumed to be non-decreasing with increasing inputs. Intuitively, the mean value of $c^\gamma_p(f)$ is identical to the cost given the selfish model's individual user cost formulation, while the second term accounts for variance. Minimizing this implies that we want to minimize the variance depending on the value of the risk coefficient itself.
 
@@ -72,8 +72,6 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
     By definition, any flow at Nash equilibrium routes on paths with minimum cost or only sends flow on a given path if its cost is less than
     the cost of sending the same flow on some other path (with respect to the individual user costs). 
     Thus, any other flow $f^*$ that routes some $\epsilon > 0$ flow differently from $\hat{f}$ will increase the total cost of the flow over all individual users' costs.
-    %Thus, for a fixed demand and fixed path latencies determined by $C(f)$\XXX{Vibhaa, you mean the individual user cost here, right?}, 
-    %at least moving some $\epsilon$ flow from one lower cost path to another higher cost one which increases the total overall cost. 
 
     Consequently, let flow $x$ be at risk-averse Nash equilibrium for the individual cost function $c^\gamma_e = \ell_e(x_e) +\gamma \upsilon_e(x_e)$. Let $z$ be at risk-neutral Nash equilibirium (a feasible flow for the risk-averse mean-variance cost function). 
     Clearly, $z$ is not at Nash equilibrium for $c^\gamma$ when $\gamma \neq 0$. 
