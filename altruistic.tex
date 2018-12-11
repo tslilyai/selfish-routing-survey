@@ -34,7 +34,9 @@ if $\ell_e$ is nondecreasing and convex for all $e$, then the price of anarchy i
 \end{theorem}
 
 \begin{proof-sketch}
-    Consider the two (convex) functions that we minimize for each of the two objectives $NE^\beta$ and $SW$. For simplicity, let $B(f)$ be the function minimized in $NE^\beta$; the second is simply our social welfare cost $C(f)$.
+    Consider the two (convex) functions that we minimize for each of the user objectives
+    for the altruistic model and the social welfare model (a cooperative model optimizing for the total overall latency).
+    For simplicity, let $B(f)$ be the function minimized in the altruistic model; the second function is simply our social welfare cost $C(f)$.
     We can write these and manipulate them into comparable forms as follows:
     $$B(f) = \sum_e\int_0^{{f}_e}\Big(c_e^\beta(t)\Big)dt = 
         \sum_e\int_0^{{f}_e} \Big(\ell_e(t) + \beta t\ell'e(t)\Big)dt\text{ (by definition of $c^\beta_e$)}$$
