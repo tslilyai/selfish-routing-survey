@@ -1,7 +1,7 @@
 \subsection{Risk-aversion}
 The second model we consider accounts for the tendency of users to pick routes with less variation in latency even if it comes at the cost of some added latency. This increase in latency can be quantified as the {\em{price of risk-aversion}},
 the worst-case ratio of the latency at a risk-averse Wardrop equilibrium to that at a risk-neutral
-Wardrop equilibrium or one where users are indifferent to variations in the latency itself. The latter is exactly the original problem forumated in Section. 2.3.
+Wardrop equilibrium or one where users are indifferent to variations in the latency itself. The latter is exactly the original problem formulated in Section. 2.3.
 
 %% The key result that we will be focusing on here is one where we show that the latency bounds in this context
 %% is effectively the price of anarchy times the price of risk-aversion which intuitiveluy makes sense.
@@ -61,7 +61,7 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
 %%\end{itemize}
 %%
 
-\paragraph{Equilibrium flows} All equilibrium flows that we discuss for the following models are with respect to the {\it Wardrop equilibrium}. A flow $f$ is at the Wardrop equilibrium of an instance if for every $k\in K$, for every path $P\in \mathcal{P}_k$ with postive flow, and any diversity parameter $\omega$ on it, the path cost $c_P^\omega(f)\le c_{P'}^r(f)$ for all paths $P'\in \mathcal{P}_k$. It is known that a Nash equilibrium in a network game with a finite number of players converges to a Wardrop equilibrium in a network game with a finite number of players converges to a Wardrop equilibrium when the number of players increases \cite{haurie}.
+\paragraph{Equilibrium flows} All equilibrium flows that we discuss for the following models are with respect to the {\it Wardrop equilibrium}. A flow $f$ is at the Wardrop equilibrium of an instance if for every $k\in K$, for every path $P\in \mathcal{P}_k$ with positive flow, and any diversity parameter $\omega$ on it, the path cost $c_P^\omega(f)\le c_{P'}^r(f)$ for all paths $P'\in \mathcal{P}_k$. It is known that a Nash equilibrium in a network game with a finite number of players converges to a Wardrop equilibrium in a network game with a finite number of players converges to a Wardrop equilibrium when the number of players increases \cite{haurie}.
 
 
 \subsubsection{Main Results}
@@ -75,7 +75,7 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
     the cost of sending the same flow on some other path (with respect to the individual user costs). 
     Thus, any other flow $f^*$ that routes some $\epsilon > 0$ flow differently from $\hat{f}$ will increase the total cost of the flow over all individual users' costs.
 
-    Consequently, let flow $x$ be at risk-averse Wardrop equilibrium for the individual cost function $c^\gamma_e = \ell_e(x_e) +\gamma \upsilon_e(x_e)$. Let $z$ be at risk-neutral Wardrop equilibirium (a feasible flow for the risk-averse mean-variance cost function). 
+    Consequently, let flow $x$ be at risk-averse Wardrop equilibrium for the individual cost function $c^\gamma_e = \ell_e(x_e) +\gamma \upsilon_e(x_e)$. Let $z$ be at risk-neutral Wardrop equilibrium (a feasible flow for the risk-averse mean-variance cost function). 
     Clearly, $z$ is not at Wardrop equilibrium for $c^\gamma$ when $\gamma \neq 0$. 
     By the above description and costs written as the sum across edges, we have
     $$\sum_{e \in E}x_e(\ell_e(x_e) + \gamma \upsilon(x_e)) \leq \sum_{e \in E} z_e(\ell_e(x_e) + \gamma \upsilon_e(x_e))$$
