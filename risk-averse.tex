@@ -12,14 +12,14 @@ A higher $\gamma$ means that one is more risk-averse. Lianeas et.al define a new
 the cost on each edge includes both the deterministic $\ell_e(x_e)$ and a noise modeled by a random variable $\xi_e(x_e)$. The noise has expectation $0$ and variance $\upsilon_e(x_e)$ for $x_e$ flow. Furthermore, we assume that it is independent across edges, allowing us to sum the variance and mean of the noise over all edges in a path. To simplify the analysis, the model also defines a bound $\upkappa$ on the variance-to-mean latency ratio:
 $\upsilon_e(x_e) \leq \upkappa \ell_e(x_e)$.
 %Now,
-%the expected latency and variance ($\upsilon_p$) on a path can be summed across all the edges. Consequently, our problem
+%the expected latency and variance ($\upsilon_P$) on a path can be summed across all the edges. Consequently, our problem
 %instance is $(G,r,l,\upsilon,\gamma)$ and we focus on $r = 1$ to simplify our analysis.
-Thus, the individual cost function for each user on a given path $p$ is of the form
-$$c^\gamma_p(f) = \sum_{e \in p}\ell_e(f_e) + \gamma \sum_{e \in p}\upsilon_e(f_e)$$
+Thus, the individual cost function for each user on a given path $P$ is of the form
+$$c^\gamma_P(f) = \sum_{e \in P}\ell_e(f_e) + \gamma \sum_{e \in P}\upsilon_e(f_e)$$
 %and the resulting Nash equilibrium is achieved at the flow solutions to the program
 %$$NE^\gamma= \min_f\sum_e\int_0^{f_e}c_e^\gamma(t)dt \text{ subject to feasibility constraints}$$
 
-$c^\gamma_p$ is assumed to be non-decreasing with increasing inputs. Intuitively, the mean value of $c^\gamma_p(f)$ is identical to the cost given the selfish model's individual user cost formulation, while the second term accounts for variance. Minimizing this implies that we want to minimize the variance depending on the value of the risk coefficient itself.
+$c^\gamma_P$ is assumed to be non-decreasing with increasing inputs. Intuitively, the mean value of $c^\gamma_P(f)$ is identical to the cost given the selfish model's individual user cost formulation, while the second term accounts for variance. Minimizing this implies that we want to minimize the variance at the expense of a larger mean depending on the value of the risk coefficient itself.
 
 If we let $C(x)$ be the the maximum cost across some set $x$ of flows at the Nash equilibrium for a given problem instance 
 (restricted to some family of inputs and a fixed $\upkappa$), the {\textbf{price of risk-aversion}} is now defined as the
@@ -48,7 +48,7 @@ of graph topologies, which we leave for future reading~\cite{risk-averse}.
 %%    \item Players try to optimize for this mean-variance objective which takes both the above aspects into account which is collectively called path-cost
 %%\end{itemize}
 %%
-%%\item Social Cost of a flow - sum of the expected latencies of all players $C(f) = \displaystyle \sum_{p \in P} f_p\ell_p(f) = 
+%%\item Social Cost of a flow - sum of the expected latencies of all players $C(f) = \displaystyle \sum_{p \in P} f_P\ell_P(f) = 
 %%\sum_{e \in E}f_e\ell_e(f_e)$. This reoves the dependency on per user risk-aversion coefficients and rather takes a look at the system as a whole.
 %%
 %%\item Define PRA 
