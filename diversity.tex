@@ -1,16 +1,16 @@
 \subsection{Diverse Interests}\label{sec:diversity}
 
-The third alternative model we consider is a generalization of the altruistic model and the risk-averse model that we have discussed in previous sections. This class is characterized by the diverse selfish behavior of its heterogeneous agents, in which agents pursue potentially different selfish goals (modeled by different individual user costs per agent).%, resulting in a routing solution of the whole network. 
+The third alternative model we consider is a generalization of the altruistic model and the risk-averse model that we have discussed in previous sections. This class is characterized by diversity in the selfish behavior of its heterogeneous agents, in which agents pursue potentially different selfish goals (modeled by different individual user costs per agent).%, resulting in a routing solution of the whole network. 
 
 Diverse selfish routing models are useful because they help us understand how we can leverage policies and natural diversity of goals in a network to increase the social welfare and efficiency of the network as a whole. For example, Beckmann et.al~\cite{beckmann1956studies} showed that tolls can help implement the social optimum at equilibrium when all agents have the same goal that is a linear combination of time and money.
 
-However, there is some ambiguity in measuring the optimality of any outcome of the whole network with diverse selfish behavior, because by definition, the objective function (what we regard as the social welfare cost) is different than in the single criterion in the case of selfish routing with agent homogeneity, where social welfare cost is equivalent to latency. Instead, there are multiple reasonable ways to characterize the social welfare of a diverse routing network. We will discuss the model adopted by Cole, Lianeas and Nikolova and their newly published results in 2018 \cite{ijcai2018-24}.
+However, there is some ambiguity in measuring the optimality of any outcome of the whole network with diverse selfish behavior. By definition, the objective function (what we regard as the social welfare cost) is different than from the single criterion in the case of selfish routing with agent homogeneity, where social welfare cost is equivalent to latency. Instead, there are multiple reasonable ways to characterize the social welfare of a diverse routing network. We will discuss the model adopted by Cole, Lianeas and Nikolova and their newly published results in 2018 \cite{ijcai2018-24}.
 
 \subsubsection{Model}
 
 We begin with same routing network with multiple source-destination pairs, using all our previous notations. However, there are now two criteria that the players consider in their individual user cost function.
 
-Each agent wants to minimize their own cost $c^\omega$, which is a sum of two terms associated with two criteria. Let $\ell_P$ denote the cost of the first criterion (e.g., the latency) over some path $P=(s_i, t_i)$, and $\sigma_P$ be the cost of the second criterion, referred to as the {\it deviation function}. Then, given a routing $f$ of the network, the cost of that path is given by $c^\omega_p = \ell_P+\omega\cdot \sigma_P=\sum_{e\in P} \ell_e(f_e)+ \omega\sum_{e\in P}\sigma_e(f_e$), where $\omega$ is the {\it diversity parameter}. Each agent might have a different diversity parameter differentiating the level that they value each of the two criteria respectively.
+Each agent wants to minimize their own cost $c^\omega$, which is a sum of two terms associated with two criteria. Let $\ell_P$ denote the cost of the first criterion (e.g., the latency) over some path $P=(s_i, t_i)$, and $\sigma_P$ be the cost of the second criterion, referred to as the {\it deviation function}. Then, given a routing $f$ of the network, the cost of that path is given by $c^\omega_p = \ell_P+\omega\cdot \sigma_P=\sum_{e\in P} \ell_e(f_e)+ \omega\sum_{e\in P}\sigma_e(f_e$), where $\omega$ is the {\it diversity parameter}. Each agent might have a different diversity parameter differentiating the degree to which they value the two criteria.
 
 Note that the first criterion function (e.g., the latency function) has all the properties as we assumed in previous sections, while the deviation function $\sigma_e(x)$ is assumed to be continuous but not necessarily non-decreasing. However, the function $\ell_e+\omega\cdot \sigma_e$ must be non-decreasing. These assumptions are consistent with our previous risk-averse model in Section 3.2, because if $\sigma_e$ models the variance, then $\sigma_e$ could be decreasing in the flow.
 
@@ -56,14 +56,14 @@ For any $s-t$ non-series-parallel network $G$ with a single commodity, there exi
 \end{theorem}
 
 \begin{proof-sketch}
-    If $G$ is not series-parallel then the Braess graph (Figure~\ref{fig:braess}) can be embedded in it \cite{Valdes:1979:RSP:800135.804393}, and there are edge functions such that heterogeneous equilibrium flow has a larger cost than homogeneous equilibrium flow on a Braess graph by setting the deviation function $\sigma$ to be $0$ on all edges other than the middle edge. Detailed example can be found in \cite{ijcai2018-24}.
+    If $G$ is not series-parallel then the Braess graph (Figure~\ref{fig:braess}) can be embedded in it \cite{Valdes:1979:RSP:800135.804393}. Further, there are edge functions such that heterogeneous equilibrium flow has a larger cost than homogeneous equilibrium flow on a Braess graph. The deviation function $\sigma$ in such edge functions is $0$ on all edges other than the middle edge. Detailed examples can be found in \cite{ijcai2018-24}.
 %The key reason is that for a series-parallel network, if two flows $|f|\ge |g|$, then there must be a parallel part $P_1$ of the network where $f$ sends more flow than $g$ on. This must be true because we can trivially think of the whole network as $P_1$. Since in a series-parallel network, we can decompose $P_1$ into some
 %\XXX{Vibhaa: How does embedding a Braess graph help with this proof, might help to give some intuition}
 \end{proof-sketch}
 
-This theorem shows that diversity is always helpful in for single-commodity networks if the network is series-parallel. Together with Theorem \ref{diverse1}, we know that the series-parallel structure is a sufficient and necessary condition for diversity to always be helpful.
+This theorem shows that diversity is always helpful in single-commodity networks if the network is series-parallel. Together with Theorem \ref{diverse1}, we know that the series-parallel structure is a necessary and sufficient condition for diversity to always be helpful.
 
-Now we discuss our main results for multiple commodity network. We use {\it average-respecting demand} to refer to the property that for any commodity $i,j: \bar{\omega}^i=\bar{\omega}^j$. 
+Now we discuss our main results for multiple commodity networks. We use {\it average-respecting demand} to refer to the property that for any commodity $i,j: \bar{\omega}^i=\bar{\omega}^j$. 
 
 A multi-commodity network $G$ can be decomposed in subnetworks $G_i$'s that each contains all the vertices and edges of $G$ that belong to a simple $s_i-t_i$ path for commodity $i$. WLOG, we assume these $G_i$ are acyclic.
 
