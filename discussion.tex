@@ -6,24 +6,25 @@
  \hline
         \begin{center}Name\end{center} & \begin{center}Per-user Objective\end{center} & \begin{center} Results\end{center} \\
  \hline\hline
-        Cooperative & $\min_f\Big(\sum_e f_e\ell_e(f_e)\Big)$ & $\rho(G,r,\ell) = 1$ (optimal by definition) \\
+        Cooperative & $\min_P \sum_e f_e\ell_e(f_e)$ & $\rho(G,r,\ell) = 1$ (optimal by definition) \\
+            &where $\ell$ is the latency function & \\
  \hline
-     Selfish & $\sum_e\int_0^{f_e} \ell_e(t)dt$ & 
+     Selfish & $\min_P \sum_{e\in P}\ell_e(f_e)$ & 
         $\bullet~\rho(G,r,\ell) \le \frac{C(f^*_2)}{C(f^*)}$, where $f^*_2$ is an flow optimizing $SW$ for input $\rho(G,2r,\ell)$, and $f^*$ is an flow optimizing $SW$ for input $\rho(G,r,\ell)$.\\ 
         &  & $\bullet~\rho(G,r,\ell) \le 4/3$ when $\ell$ is linear\\
  \hline
-        Altruistic & $\sum_e\int_0^{f_e} \ell_e(t) + \beta tl'e(t)dt$ & 
+        Altruistic & $\min_P \sum_{e\in P} \ell_e(f_e) + \beta\cdot\sum_{e\in P} \cdot f_e\ell'_e(f_e)$  & 
         $\bullet~\rho(G,r,\ell,\psi) \le \frac{1}{\beta}$ when $\psi$ is a uniform distribution of $\beta >0$\\
         & where $\beta$ is the altruism coefficient & $\bullet~\rho(G,r,\ell,\psi) = \infty$ when $\psi$ is a uniform distribution of $\beta < \frac{-1}{d}$ and $\ell$ is a polynomial of degree $\le d$\\
         & & $\bullet~\rho(G,r,\ell,\psi) \le \frac{1}{\bar{\beta}}$ when $G$ is parallel-link and $\psi$ is any distribution of $\beta \ge 0$ with mean altruism $\bar{\beta}$\\
 \hline
-    Risk-averse & $\sum_e\int_0^{f_e} \ell_e(t) + \gamma\upsilon(t)dt$ & 
+    Risk-averse & $\min_P \sum_{e\in P} \ell_e(f_e) + \gamma\cdot \sum_{e\in P}\upsilon_e(f_e) $ & 
     $\bullet~PRA(G,r,\ell,v,\gamma) \leq \frac{1 + \gamma\upkappa}{1 - \mu}$ where PRA is the price of risk-aversion and $\ell$ is a $(1,\mu)$-smooth function\\
-    & where $\gamma$ is the risk-aversion coefficient  & $\bullet~PRA(G,r,\ell,v,\gamma) = 1 + \gamma\upkappa $ for a series-parallel recursive graph\\
+    & where $\upsilon$ is the risk function, and $\gamma$ is the risk-aversion coefficient  & $\bullet~PRA(G,r,\ell,v,\gamma) = 1 + \gamma\upkappa $ for a series-parallel recursive graph\\
 \hline
-     Diverse Interests & $\sum_i \big(\sum_e\int_0^{f_e} \ell_e(t) + \omega_i\cdot \sigma_e dt\big)$ 
+     Diverse &$ \min_P \sum_{e\in P} \ell_e(f_e) + \omega_i\cdot \sum_{e\in P}\sigma_e(f_e) $ 
     & $\bullet~C^{ht}(g)> C^{hm}(f) \iff $ series-parallel for single-commodity network\\
-    & where $\sigma$ is the deviation function, and $\omega_i$ is agent $i$'s diversity parameter $i$ & $\bullet~C^{ht}(g)> C^{hm}(f) \iff $ block-matching for multi-commodity network with average-respecting demand\\
+    & where $\sigma$ is the deviation function, and $\omega_i$ is agent $i$'s diversity parameter & $\bullet~C^{ht}(g)> C^{hm}(f) \iff $ block-matching for multi-commodity network with average-respecting demand\\
 \hline
 \end{tabular}
 \end{center}
